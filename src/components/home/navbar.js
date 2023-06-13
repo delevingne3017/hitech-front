@@ -15,6 +15,7 @@ const CustomizedBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
 }));
 
+
 function Navbar() {
   return (
     <>
