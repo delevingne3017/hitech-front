@@ -1,7 +1,7 @@
 "use client";
 import { Box, Button } from "@mui/material";
 import { useRouter } from "next/navigation";
-
+// import "./globals.css"
 export default function Home() {
   const router = useRouter();
   const productId = 1;
