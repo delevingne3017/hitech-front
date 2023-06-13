@@ -1,7 +1,9 @@
 "use client";
-import { Box, Typography } from "@mui/material";
-import "./globals.css";
+import { Box, ThemeProvider, Typography } from "@mui/material";
+
 import { Inter } from "next/font/google";
+import Navbar from "@/components/home/navbar";
+import theme from "@/theme";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,14 +17,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Box sx={{ width: "100%", backgroundColor: "#FE5A03", height: "2rem" }}>
-          <Typography>Navbar</Typography>
-        </Box>
-        {children}
-        <Box sx={{ width: "100%", backgroundColor: "#FE5A03" }}>
-          <Typography>footer</Typography>
-        </Box>
+      <body style={{ margin: 0 }} className={inter.className}>
+        <ThemeProvider theme={theme}>
+          <Navbar />
+          {children}
+          <Box sx={{ width: "100%", backgroundColor: "primary.main" }}>
+            <Typography>footer</Typography>
+          </Box>
+        </ThemeProvider>
       </body>
     </html>
   );
