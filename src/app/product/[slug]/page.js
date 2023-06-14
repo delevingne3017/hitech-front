@@ -2,6 +2,7 @@
 import styled from "@emotion/styled";
 import { Box, Typography, Grid } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -88,5 +89,7 @@ const Product = ({ params }) => {
     </Grid>
   );
 };
+
+
 
 export default Product;

@@ -99,48 +99,8 @@ function Navbar() {
           </Button>
         </Box>
       </Toolbar>
-      <Box
-        component="img"
-        src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-        alt="{main image}"
-        sx={{ height: "35rem", width: "1" }}
-      />
-      <Box>
-        <Grid container spacing={4} justifyContent="center">
-          <Grid item xs={8} lg={2.5}>
-            <Item
-              component="img"
-              src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-              alt="{main image}"
-              sx={{ width: "1" }}
-            ></Item>
-          </Grid>
-          <Grid item xs={4} lg={2.5}>
-            <Item
-              component="img"
-              src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-              alt="{main image}"
-              sx={{ width: "1" }}
-            ></Item>
-          </Grid>
-          <Grid item xs={4} lg={2.5}>
-            <Item
-              component="img"
-              src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-              alt="{main image}"
-              sx={{ width: "1" }}
-            ></Item>
-          </Grid>
-          <Grid item xs={8} lg={2.5}>
-            <Item
-              component="img"
-              src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-              alt="{main image}"
-              sx={{ width: "1" }}
-            ></Item>
-          </Grid>
-        </Grid>
-      </Box>
+    
+      
     </>
   );
 }
