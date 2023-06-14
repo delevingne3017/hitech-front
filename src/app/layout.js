@@ -1,6 +1,6 @@
 "use client";
 import { Box, ThemeProvider, Typography } from "@mui/material";
-
+//import "./global =.css";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/home/navbar";
 import theme from "@/theme";
