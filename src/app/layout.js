@@ -3,6 +3,7 @@ import { Box, ThemeProvider, Typography } from "@mui/material";
 
 import { Inter } from "next/font/google";
 import Navbar from "@/components/home/navbar";
+import ProductCard from "@/components/home/specialProd";
 import theme from "@/theme";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
       <body style={{ margin: 0 }} className={inter.className}>
         <ThemeProvider theme={theme}>
           <Navbar />
+          <ProductCard/>
           {children}
           <Box sx={{ width: "100%", backgroundColor: "primary.main" }}>
             <Typography>footer</Typography>
