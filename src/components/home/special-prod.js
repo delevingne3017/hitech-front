@@ -13,7 +13,7 @@ const Item = styled(Paper)(({ theme }) => ({
   border: "1px ",
 }));
 
-function ProductCard() {
+export default function ProductCard() {
   return (
     <>
       <Grid container>
@@ -50,5 +50,3 @@ function ProductCard() {
     </>
   );
 }
-
-export default ProductCard;

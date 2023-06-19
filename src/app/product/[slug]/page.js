@@ -67,7 +67,7 @@ const Product = ({ params }) => {
   return state.loading ? (
     <CircularProgress />
   ) : (
-    <Grid container justifyContent='center'>
+    <Grid container justifyContent="center">
       <Grid item xs={12} lg={5}>
         <Box width="content-fit" height="content-fit" overflow="hidden">
           <ProductImage
@@ -81,7 +81,7 @@ const Product = ({ params }) => {
         </Box>
       </Grid>
       <Grid item xs={12} lg={5}>
-      <Typography></Typography>
+        <Typography></Typography>
         <Typography>Name: {state.product.name}</Typography>
         <Typography>Count: {state.product.count}</Typography>
         <Typography>Price: {state.product.price}</Typography>
@@ -89,7 +89,5 @@ const Product = ({ params }) => {
     </Grid>
   );
 };
-
-
 
 export default Product;
