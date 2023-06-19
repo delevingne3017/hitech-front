@@ -71,6 +71,7 @@ const Product = ({ params }) => {
   return state.loading ? (
     <CircularProgress />
   ) : (
+<<<<<<< HEAD
     <Box bgcolor={"#f7f7f7"}>
       <Box
         borderRadius={5}
@@ -378,4 +379,29 @@ const Product = ({ params }) => {
 
 
 
+=======
+    <Grid container justifyContent="center">
+      <Grid item xs={12} lg={5}>
+        <Box width="content-fit" height="content-fit" overflow="hidden">
+          <ProductImage
+            style={{
+              transformOrigin: `${transformOrigin.x}px ${transformOrigin.y}px`,
+            }}
+            ref={ref}
+            src="https://www.hitech.mn/_next/image?url=https%3A%2F%2Fapi.hitech.mn%2Fuploads%2Fimages%2F2023%2F2%2F19%2F11-1676790502808094150-thumbnail.jpg&w=1920&q=75"
+            alt="Prod"
+          />
+        </Box>
+      </Grid>
+      <Grid item xs={12} lg={5}>
+        <Typography></Typography>
+        <Typography>Name: {state.product.name}</Typography>
+        <Typography>Count: {state.product.count}</Typography>
+        <Typography>Price: {state.product.price}</Typography>
+      </Grid>
+    </Grid>
+  );
+};
+
+>>>>>>> bfcbade333d06dd97a5869f945e0217ad32c44af
 export default Product;
