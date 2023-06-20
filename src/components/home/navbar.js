@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -9,6 +9,9 @@ import {
   Carousel,
   Paper,
   Grid,
+  Dialog,
+  DialogContent,
+  DialogTitle,
 } from "@mui/material";
 import styled from "@emotion/styled";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
@@ -17,7 +20,9 @@ import NavbarItem from "./navbar-item";
 import NavbarMenu from "./navbar-menu";
 import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
-
+import Link from "next/link";
+import LoginForm from "@/components/userLogin/login";
+import Register from "@/components/userLogin/register";
 const CustomizedBox = styled(Box)(({ theme }) => ({
   display: "flex",
   padding: theme.spacing(1),
@@ -35,6 +40,27 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Navbar() {
+  const [state, setState] = useState({
+    registerOpen: false,
+    loginOpen: false,
+  });
+
+  const handleOpenRegister = () => {
+    setState({
+      ...state,
+      registerOpen: true,
+      loginOpen: false,
+    });
+  };
+
+  const handleOpenLogin = () => {
+    setState({
+      ...state,
+      registerOpen: false,
+      loginOpen: true,
+    });
+  };
+
   return (
     <>
       <CustomizedBox>
@@ -69,8 +95,8 @@ function Navbar() {
           sx={{
             height: "3.5rem",
             width: "12rem",
-            marginLeft: "3rem",
-            marginRight: "3rem",
+            marginLeft: "4rem",
+            marginRight: "4rem",
             cursor: "pointer",
           }}
         />
@@ -88,19 +114,41 @@ function Navbar() {
             ),
           }}
         />
-        <Box display="flex" justifyContent="center" alignItems="center">
-          <Button sx={{ marginRight: 1, color: "black" }}>Бүртгүүлэх</Button>
-          <Button
-            disableElevation={false}
-            variant="contained"
-            sx={{ marginRight: "3rem" }}
-          >
-            Нэвтрэх
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          marginRight="4rem"
+          gap="1.5rem"
+        >
+          <Button onClick={handleOpenRegister}>Бүртгүүлэх</Button>
+          <Button onClick={handleOpenLogin} variant="contained" color="primary">
+            Нэвтрэх{" "}
           </Button>
         </Box>
+        <Register
+          open={state.registerOpen}
+          handleOpen={handleOpenRegister}
+          handleOpenLogin={handleOpenLogin}
+          handleClose={() => {
+            setState({
+              ...state,
+              registerOpen: false,
+            });
+          }}
+        />
+        <LoginForm
+          open={state.loginOpen}
+          handleOpen={handleOpenLogin}
+          handleOpenRegister={handleOpenRegister}
+          handleClose={() => {
+            setState({
+              ...state,
+              loginOpen: false,
+            });
+          }}
+        />
       </Toolbar>
-    
-      
     </>
   );
 }

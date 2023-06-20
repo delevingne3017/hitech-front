@@ -12,38 +12,53 @@ const Item = styled(Paper)(({ theme }) => ({
   borderRadius: "2rem",
   border: "1px ",
 }));
+function handleClick() {
+  console.log(" like ");
+}
 
 export default function ProductCard() {
   return (
     <>
       <Grid container>
-        <Grid lg={4} justifyContent="center">
+        <Grid lg={3}>
           <Item>
+            <Button
+              onClick={handleClick}
+              sx={{
+                marginTop: "28rem",
+                position: "absolute",
+                width: "16%",
+                height: "3rem",
+                borderRadius: "10rem",
+                backgroundColor: "primary.main",
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              Худалдан авах
+            </Button>
             <Box
               component="img"
               src="https://api.hitech.mn/uploads/images/2023/4/21/61a2KPfgj9L_AC_SL1000_-1682051586419003924-full.jpg"
               alt="{main image}"
               sx={{
                 width: "100%",
-                height: "90%",
+                height: "92%",
                 backgroundColor: "green",
                 borderRadius: "2rem",
               }}
             ></Box>
-            <Typography>Үнэ:</Typography>
-            <Button
+            <Box
               sx={{
-                position: "absolute",
-                width: "16%",
-                height: "2rem",
-                borderRadius: "10rem",
-                backgroundColor: "primary.main",
-                color: "white",
-                zIndex: 1,
+                display: "flex",
+                margin: "auto",
+                marginTop: "0.5rem",
+                justifyContent: "space-around",
               }}
             >
-              Худалдан авах
-            </Button>
+              <Typography>Үнэ: 120,000</Typography>
+              <Typography>Үлдсэн: 1</Typography>
+            </Box>
           </Item>
         </Grid>
       </Grid>
