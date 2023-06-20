@@ -1,14 +1,21 @@
 "use client";
 import styled from "@emotion/styled";
-import { Box, Typography, Grid, Divider, Button, TextField } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Grid,
+  Divider,
+  Button,
+  TextField,
+} from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import Carousel from "react-multi-carousel";
 
-import Item from "./Item"
-import slider from "@/components/home/slider.json"
+import Item from "./Item";
+import slider from "@/components/home/slider.json";
 
 const ProductImage = styled("img")({
   transition: "all .25s ease",
@@ -160,9 +167,7 @@ const Product = ({ params }) => {
               </Typography>
             </Box>
             <Divider sx={{ mb: 4 }} />
-          
-         
-         
+
             {/*         
 
             <Button onClick={handleDecrement}>-</Button>
@@ -198,7 +203,6 @@ const Product = ({ params }) => {
         marginY={2}
         marginX={2}
       >
-       
         <Box
           marginTop={2}
           component="img"
@@ -252,12 +256,14 @@ const Product = ({ params }) => {
           }}
         />
       </Box>
-      <Box  borderRadius={5}
+      <Box
+        borderRadius={5}
         bgcolor={"white"}
         boxShadow={1}
         padding={1}
         marginY={2}
-        marginX={2}>
+        marginX={2}
+      >
         <Grid
           container
           spacing={1}
@@ -266,11 +272,17 @@ const Product = ({ params }) => {
           alignItems="center"
           sx={{ marginY: 1 }}
         >
-           <Typography sx={{  fontWeight: "bold" , fontSize:"0.9rem", display: "flex", flexDirection: "column", mt: 1 }}
-           >
-        Ижил бараанууд
-
-        </Typography>
+          <Typography
+            sx={{
+              fontWeight: "bold",
+              fontSize: "0.9rem",
+              display: "flex",
+              flexDirection: "column",
+              mt: 1,
+            }}
+          >
+            Ижил бараанууд
+          </Typography>
           <Grid item xs={3}>
             <img
               src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
@@ -278,12 +290,12 @@ const Product = ({ params }) => {
               style={{
                 width: "95%",
                 height: "10rem",
-                borderRadius:"0.5rem",
+                borderRadius: "0.5rem",
                 marginLeft: 9.5,
               }}
             />
           </Grid>
-         
+
           <Grid item xs={3}>
             <img
               src="https://api.hitech.mn/uploads/images/2023/5/10/2-1683710064596681390-thumbnail.jpg"
@@ -291,13 +303,13 @@ const Product = ({ params }) => {
               style={{
                 width: "95%",
                 height: "10rem",
-                borderRadius:"0.5rem",
-                
+                borderRadius: "0.5rem",
+
                 marginLeft: 9.5,
               }}
             />
           </Grid>
-          
+
           <Grid item xs={3}>
             <img
               src="https://api.hitech.mn/uploads/images/2023/4/28/1-1682667494399129561-thumbnail.jpg"
@@ -306,7 +318,7 @@ const Product = ({ params }) => {
                 width: "95%",
                 height: "7rem",
                 height: "10rem",
-                borderRadius:"0.5rem",
+                borderRadius: "0.5rem",
               }}
             />
           </Grid>
@@ -317,65 +329,63 @@ const Product = ({ params }) => {
               style={{
                 width: "95%",
                 height: "10rem",
-                borderRadius:"0.5rem",
+                borderRadius: "0.5rem",
                 marginLeft: 9.5,
               }}
             />
 
-            
-            <Typography sx={{  fontWeight: "bold" , fontSize:"0.9rem", display: "flex", flexDirection: "column", mt: 1 }}
-           >
-        Төсөөтэй бараанууд
-
-        </Typography>
-        <Grid item xs={3}>
-            <img
-              src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-              alt="{main image}"
-              style={{
-                width: "95%",
-                height: "10rem",
-                borderRadius:"0.5rem",
-                marginLeft: 9.5,
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                fontSize: "0.9rem",
+                display: "flex",
+                flexDirection: "column",
+                mt: 1,
               }}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <img
-              src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-              alt="{main image}"
-              style={{
-                width: "95%",
-                height: "10rem",
-                borderRadius:"0.5rem",
-                marginLeft: 9.5,
-              }}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <img
-              src="https://api.hitech.mn/uploads/images/2023/5/27/1-1685172765883052862-thumbnail.jpg"
-              alt="{main image}"
-              style={{
-                width: "95%",
-                height: "10rem",
-                borderRadius:"0.5rem",
-                marginLeft: 9.5,
-              }}
-            />
-          </Grid>
+            >
+              Төсөөтэй бараанууд
+            </Typography>
+            <Grid item xs={3}>
+              <img
+                src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
+                alt="{main image}"
+                style={{
+                  width: "95%",
+                  height: "10rem",
+                  borderRadius: "0.5rem",
+                  marginLeft: 9.5,
+                }}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <img
+                src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
+                alt="{main image}"
+                style={{
+                  width: "95%",
+                  height: "10rem",
+                  borderRadius: "0.5rem",
+                  marginLeft: 9.5,
+                }}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <img
+                src="https://api.hitech.mn/uploads/images/2023/5/27/1-1685172765883052862-thumbnail.jpg"
+                alt="{main image}"
+                style={{
+                  width: "95%",
+                  height: "10rem",
+                  borderRadius: "0.5rem",
+                  marginLeft: 9.5,
+                }}
+              />
+            </Grid>
           </Grid>
         </Grid>
       </Box>
-      
     </Box>
-    
   );
 };
-
-
-
-
-
 
 export default Product;

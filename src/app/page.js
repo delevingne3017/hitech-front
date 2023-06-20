@@ -1,5 +1,5 @@
 "use client";
-import { Box, Grid, Paper, FormRow, Typography } from "@mui/material";
+import { Box, Grid, Paper, FormRow, Typography, Button } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useRouter } from "next/navigation";
@@ -11,11 +11,9 @@ import styled from "@emotion/styled";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
-import HomePhoto from "../components/home/home-photo";
-import littleCarousel from "../components/home/little-carousel";
+import HomePhoto from "../components/home/homePhoto";
+import littleCarousel from "../components/home/littleCarousel";
 import readMore from "@/components/home/readMore";
-
-
 
 const Item = styled(Paper)(({ theme }) => ({
   // height: "10rem",
@@ -53,11 +51,11 @@ export default function Home() {
   return (
     <Box sx={{ width: "100%" }}>
       <div style={{ width: "100%", height: "63vh" }}>
-        <HomePhoto/>
+        <HomePhoto />
       </div>
       <div>
         <littleCarousel />
-        </div>
+      </div>
       <Box marginY={5}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={4}>
@@ -82,7 +80,6 @@ export default function Home() {
             md={8}
             justifyContent={"space-between"}
             alignItems={"space-between"}
-            
           >
             {Array.from(Array(6)).map((_, index) => (
               <Grid
@@ -91,10 +88,10 @@ export default function Home() {
                 sm={4}
                 md={3.5}
                 sx={{
-                  borderRadius:"2rem",
-                  bgcolor:"#ebedf0",
-                  marginTop:"1rem",
-                  marginRight:"1rem"
+                  borderRadius: "2rem",
+                  bgcolor: "#ebedf0",
+                  marginTop: "1rem",
+                  marginRight: "1rem",
                 }}
               >
                 <Box>
@@ -199,19 +196,25 @@ export default function Home() {
               />
             </Box>
           </Grid>
-          <Grid container spacing={2} item xs={12} md={8} justifyContent={"space-between"}
-            >
+          <Grid
+            container
+            spacing={2}
+            item
+            xs={12}
+            md={8}
+            justifyContent={"space-between"}
+          >
             {Array.from(Array(4)).map((_, index) => (
               <Grid
                 item
                 xs={2}
                 sm={4}
-                md={5.5 }
+                md={5.5}
                 sx={{
-                  borderRadius:"2rem",
-                  bgcolor:"#ebedf0",
-                  marginTop:"1rem",
-                  marginRight:"2.3rem"
+                  borderRadius: "2rem",
+                  bgcolor: "#ebedf0",
+                  marginTop: "1rem",
+                  marginRight: "2.3rem",
                 }}
                 borderRadius={"2rem"}
                 bgcolor={"#ebedf0"}
@@ -270,11 +273,23 @@ export default function Home() {
           </Grid>
         </Grid>
       </Box>
-        <Box>
-          <readMore limit={100}>
-            
-          </readMore>
-        </Box>
+      <Box>
+        <readMore limit={100}></readMore>
+        {state.products[0] &&
+          state.products.map((el, index) => {
+            return (
+              <Grid item xs={3} key={index}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleProduct(el._id)}
+                >
+                  product
+                </Button>
+              </Grid>
+            );
+          })}
+      </Box>
     </Box>
   );
 }

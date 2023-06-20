@@ -16,8 +16,8 @@ import {
 import styled from "@emotion/styled";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import CallIcon from "@mui/icons-material/Call";
-import NavbarItem from "./navbar-item";
-import NavbarMenu from "./navbar-menu";
+import NavbarItem from "./navbarItem";
+import NavbarMenu from "./navbarMenu";
 import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import Link from "next/link";
