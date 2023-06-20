@@ -16,7 +16,7 @@ function handleClick() {
   console.log(" like ");
 }
 
-function ProductCard() {
+export default function ProductCard() {
   return (
     <>
       <Grid container>
@@ -65,5 +65,3 @@ function ProductCard() {
     </>
   );
 }
-
-export default ProductCard;
