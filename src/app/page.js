@@ -1,5 +1,5 @@
 "use client";
-import { Box, Grid, Paper, FormRow, Typography, Button } from "@mui/material";
+import { Box, Grid, Paper, FormRow, Typography, Button, IconButton } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useRouter } from "next/navigation";
@@ -15,6 +15,8 @@ import HomePhoto from "../components/home/homePhoto";
 import littleCarousel from "../components/home/littleCarousel";
 import readMore from "@/components/home/readMore";
 
+
+
 const Item = styled(Paper)(({ theme }) => ({
   // height: "10rem",
   // marginTop: "2rem",
@@ -23,6 +25,10 @@ const Item = styled(Paper)(({ theme }) => ({
   border: "1px ",
   justifyContent: "center",
 }));
+
+
+
+
 
 export default function Home() {
   const [state, setState] = useState({
@@ -119,7 +125,7 @@ export default function Home() {
                         <FavoriteIcon width={10} height={10} />
                       </Box>
                       <Box
-                        bgcolor={"white"}
+                        bgcolor={"white"} 
                         margin={1}
                         borderRadius={"5rem"}
                         padding={"0.2rem"}

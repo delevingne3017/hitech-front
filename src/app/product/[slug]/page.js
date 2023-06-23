@@ -7,14 +7,25 @@ import {
   Divider,
   Button,
   TextField,
+  Stack
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { Directions, Grid3x3Outlined } from "@mui/icons-material";
 import Carousel from "react-multi-carousel";
 import slider from "@/components/home/slider.json";
 
+import "react-multi-carousel/lib/styles.css";
+import ReactImageMagnify from "react-image-magnify";
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+
+import { Drawer, List, ListItem, ListItemText } from '@mui/material';
 const ProductImage = styled("img")({
   transition: "all .25s ease",
   ":hover": {
@@ -22,6 +33,26 @@ const ProductImage = styled("img")({
     cursor: "crosshair",
   },
 });
+
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 4,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 1,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 1,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
 
 const Product = ({ params }) => {
   const [state, setState] = useState({
@@ -44,6 +75,10 @@ const Product = ({ params }) => {
       y: event.clientY,
     });
   };
+
+ 
+      
+    
   // useEffect(() => {
   //   if (ref.current) ref.current.addEventListener("mouseover", handleMouseOver);
   // }, [ref.current]);
@@ -94,6 +129,8 @@ const Product = ({ params }) => {
                 ref={ref}
                 src="https://www.hitech.mn/_next/image?url=https%3A%2F%2Fapi.hitech.mn%2Fuploads%2Fimages%2F2023%2F2%2F19%2F11-1676790502808094150-thumbnail.jpg&w=1920&q=75"
                 alt="Prod"
+                width="300"
+                height="380"
               />
             </Box>
           </Grid>
@@ -148,7 +185,13 @@ const Product = ({ params }) => {
                 Үнэгүй
               </Typography>
             </Box>
-            <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                mt: 1,
+              }}
+            >
               <Typography sx={{ fontSize: ".9rem" }}>
                 Агуулахад үлдсэн:
               </Typography>
@@ -164,20 +207,63 @@ const Product = ({ params }) => {
                 Шинэ,Онцлох
               </Typography>
             </Box>
+          
+  
             <Divider sx={{ mb: 4 }} />
+            <Stack spacing={4}>
+            <Stack spacing={2} direction='row' >
+            <Box
+            >
+              <TextField
+                size="small"
+                sx={{ m:"rem" ,
+                alignItems: "right",
+                mt: 1 }}
+                type="number"
+                InputProps={{
+                  inputProps: {
+                    max: 100,
+                    min: 1,
+                  },
+                }}
+                label="ширхэг"/>
 
-            {/*         
+              <Button
+                sx={{
+                  // some styles
+                  ":hover": {
+                    boxShadow: 8,
+                  },
 
-            <Button onClick={handleDecrement}>-</Button>
-          <TextField value={quantity} />
-           <Button onClick={handleIncrement}>+</Button>
-        <Typography>Ангилал: {state.product.sonsoh}</Typography>
-        <Typography>Брэнд : {state.product.hoco}</Typography>
-        <Typography></Typography>
-
-        <Typography> Агуулхад үлдсэн : {state.product.one}</Typography>
-        <Typography>Төлөв : {state.product.count}</Typography>
-        <Typography>Түлхүүр үг : {state.product.price}</Typography> */}
+                  top: ".5rem",
+                  width: "273px",
+                  height: "40px",
+                  spacing : "1rem",
+                  borderSpacing :"3rem"
+                  
+                }}
+                variant="outlined"
+                color="primary"
+              >
+                <ShoppingCartIcon sx={{ color: "black"  , size: "0.7rem"  }}></ShoppingCartIcon>
+                <Typography   sx={{ color: "black", fontSize: ".7rem",fontWeight: "bold" }} >
+                  Сагсанд хийх
+                </Typography>
+              </Button>
+            </Box>
+            </Stack>
+            </Stack>
+            <Box
+            sx={{ top:"5rem" , m:"rem"}}>
+              <Button
+                sx={{ width: 375  , height: 35 , top: 5}}
+                variant="contained"
+                color="primary"
+                
+              >
+                <Typography>Худалдан авах </Typography>{" "}
+              </Button>
+            </Box>
 
             <Divider sx={{ mb: 4 }} />
             <Box sx={{ display: "flex", flexDirection: "column", mt: 1 }}>
@@ -269,118 +355,253 @@ const Product = ({ params }) => {
           justifyContent="center"
           alignItems="center"
           sx={{ marginY: 1 }}
+        ></Grid>
+        <Typography
+          sx={{
+            paddingLeft: 6,
+            fontSize: "1.2rem",
+            fontWeight: "bold",
+            display: "flex",
+            marginLeft: "4",
+          }}
         >
-          <Typography
-            sx={{
-              fontWeight: "bold",
-              fontSize: "0.9rem",
-              display: "flex",
-              flexDirection: "column",
-              mt: 1,
-            }}
+          Ижил бараанууд:
+        </Typography>
+
+        <Box>
+          <Carousel
+            swipeable={true}
+            draggable={false}
+            showDots={true}
+            responsive={responsive}
+            ssr={false} // means to render carousel on server-side.
+            infinite={true}
+            autoPlay={true}
+            autoPlaySpeed={3000}
+            keyBoardControl={true}
+            customTransition="all .5"
+            transitionDuration={500}
+            containerClass="container"
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            // deviceType={this.props.deviceType}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-height-100%"
           >
-            Ижил бараанууд
+            <Box sx={{ width: "100%" }}>
+              <Grid
+                container
+                spacing={1}
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                sx={{ marginY: 1 }}
+              >
+                <Grid item xs={3}>
+                  
+                  <Box
+                    
+                    bgcolor={"white"}
+                    boxShadow={1}
+                    marginY={1}
+                    marginX={2}
+                  >
+                    <Typography
+                    sx={{
+                      fontSize: ".8rem",
+                      pl: 2,
+                      fontWeight: "500",
+                      padding: "0",
+                      marging: "0",
+                      display: "flex",
+                      flexDirection: "row",
+                      position: "relative",
+                      align: "left",
+                      spacing: "0",
+                      height: "3rem",
+                    }}
+                  >
+                    Asrock - AMD Radeon™ RX 6900 XT Phantom Gaming D 16G OC
+                  </Typography>
+                    <img
+                      src="https://api.hitech.mn/uploads/images/2023/5/27/5-1685154064634387085-thumbnail.jpg"
+                      alt="{main image}"
+                      style={{
+                        width: "12  rem",
+                        height: "10rem",
+                        borderRadius: "0.4rem",
+                        padding: "4",
+                        lg: "5rem",
+                        marginLeft: "6rem",
+                        marginRight: "6rem",
+                      }}
+                    />
+                  </Box>
+                  <Typography
+                    sx={{
+                      dispaly: "flex",
+                      fontSize: "1.1rem",
+                      fontWeight: "bolder",
+                      pl: 4,
+                    }}
+                  >
+                    1,500,000₮
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Box
+                    borderRadius={5}
+                    bgcolor={"white"}
+                    boxShadow={1}
+                    marginY={2}
+                    marginX={2}
+                  >
+                    <img
+                      src="https://api.hitech.mn/uploads/images/2023/6/17/1-1686981979885205220-thumbnail.jpg"
+                      alt="{main image}"
+                      style={{
+                        width: "12  rem",
+                        height: "10rem",
+                        borderRadius: "0.4rem",
+                        padding: "4",
+                        lg: "5rem",
+                        marginLeft: "6rem",
+                        marginRight: "6rem",
+                      }}
+                    />
+                  </Box>
+                </Grid>
+                <Grid item xs={3}>
+                  <Box
+                    borderRadius={5}
+                    bgcolor={"white"}
+                    boxShadow={1}
+                    marginY={2}
+                    marginX={2}
+                  >
+                    <img
+                      src="https://api.hitech.mn/uploads/images/2023/5/21/1-1684651272349644569-thumbnail.jpg"
+                      alt="{main image}"
+                      style={{
+                        width: "12  rem",
+                        height: "10rem",
+                        borderRadius: "0.4rem",
+                        padding: "4",
+                        lg: "5rem",
+                        marginLeft: "6rem",
+                        marginRight: "6rem",
+                      }}
+                    />
+                  </Box>
+                </Grid>
+                <Grid item xs={3}>
+                  <Box
+                    borderRadius={5}
+                    bgcolor={"white"}
+                    boxShadow={1}
+                    marginY={2}
+                    marginX={2}
+                  >
+                    <img
+                      src="https://api.hitech.mn/uploads/images/2023/5/2/5-1683009299677355672-thumbnail.jpg"
+                      alt="{main image}"
+                      style={{
+                        width: "12  rem",
+                        height: "10rem",
+                        borderRadius: "0.4rem",
+                        padding: "4",
+                        lg: "5rem",
+                        marginLeft: "6rem",
+                        marginRight: "6rem",
+                      }}
+                    />
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+          </Carousel>
+
+          <Typography sx={{ fontSize: "1rem", fontWeight: "bold" }}>
+            Төстэй бараанууд:
           </Typography>
-          <Grid item xs={3}>
-            <img
-              src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-              alt="{main image}"
-              style={{
-                width: "95%",
-                height: "10rem",
-                borderRadius: "0.5rem",
-                marginLeft: 9.5,
-              }}
-            />
-          </Grid>
-
-          <Grid item xs={3}>
-            <img
-              src="https://api.hitech.mn/uploads/images/2023/5/10/2-1683710064596681390-thumbnail.jpg"
-              alt="{main image}"
-              style={{
-                width: "95%",
-                height: "10rem",
-                borderRadius: "0.5rem",
-
-                marginLeft: 9.5,
-              }}
-            />
-          </Grid>
-
-          <Grid item xs={3}>
-            <img
-              src="https://api.hitech.mn/uploads/images/2023/4/28/1-1682667494399129561-thumbnail.jpg"
-              alt="{main image}"
-              style={{
-                width: "95%",
-                height: "7rem",
-                height: "10rem",
-                borderRadius: "0.5rem",
-              }}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <img
-              src="https://api.hitech.mn/uploads/images/2023/5/12/61L2e2TzFUL_AC_SL1500_-1683879349057074041-thumbnail.jpg"
-              alt="{main image}"
-              style={{
-                width: "95%",
-                height: "10rem",
-                borderRadius: "0.5rem",
-                marginLeft: 9.5,
-              }}
-            />
-
-            <Typography
-              sx={{
-                fontWeight: "bold",
-                fontSize: "0.9rem",
-                display: "flex",
-                flexDirection: "column",
-                mt: 1,
-              }}
-            >
-              Төсөөтэй бараанууд
-            </Typography>
-            <Grid item xs={3}>
-              <img
-                src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-                alt="{main image}"
-                style={{
-                  width: "95%",
-                  height: "10rem",
-                  borderRadius: "0.5rem",
-                  marginLeft: 9.5,
-                }}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <img
-                src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-                alt="{main image}"
-                style={{
-                  width: "95%",
-                  height: "10rem",
-                  borderRadius: "0.5rem",
-                  marginLeft: 9.5,
-                }}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <img
-                src="https://api.hitech.mn/uploads/images/2023/5/27/1-1685172765883052862-thumbnail.jpg"
-                alt="{main image}"
-                style={{
-                  width: "95%",
-                  height: "10rem",
-                  borderRadius: "0.5rem",
-                  marginLeft: 9.5,
-                }}
-              />
-            </Grid>
-          </Grid>
-        </Grid>
+          <Carousel
+            swipeable={true}
+            draggable={false}
+            showDots={true}
+            responsive={responsive}
+            ssr={false} // means to render carousel on server-side.
+            infinite={true}
+            autoPlay={true}
+            autoPlaySpeed={3000}
+            keyBoardControl={true}
+            customTransition="all .5"
+            transitionDuration={500}
+            containerClass="container"
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+            // deviceType={this.props.deviceType}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-height-100%"
+          >
+            <Box sx={{ width: "100%" }}>
+              <Grid
+                container
+                spacing={1}
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                sx={{ marginY: 1 }}
+              >
+                <Grid item xs={3}>
+                  <img
+                    src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
+                    alt="{main image}"
+                    style={{
+                      width: "95%",
+                      height: "7rem",
+                      borderRadius: "0.4rem",
+                      marginLeft: 9.5,
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <img
+                    src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
+                    alt="{main image}"
+                    style={{
+                      width: "95%",
+                      height: "7rem",
+                      borderRadius: "0.4rem",
+                      marginLeft: 9.5,
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <img
+                    src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
+                    alt="{main image}"
+                    style={{
+                      width: "95%",
+                      height: "7rem",
+                      borderRadius: "0.4rem",
+                      marginLeft: 9.5,
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <img
+                    src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
+                    alt="{main image}"
+                    style={{
+                      width: "95%",
+                      height: "7rem",
+                      borderRadius: "0.4rem",
+                      marginLeft: 9.5,
+                    }}
+                  />
+                </Grid>
+              </Grid>
+            </Box>
+          </Carousel>
+        </Box>
       </Box>
     </Box>
   );
