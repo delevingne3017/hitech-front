@@ -12,7 +12,10 @@ const Footer = (props) => {
       height={"40vh"}
       bgcolor={"#F7F7F7"}
       fontSize={15}
+<<<<<<< Updated upstream
       marginTop={"2rem"}
+=======
+>>>>>>> Stashed changes
     >
       <Grid xs={4} lg={4}>
         <Typography

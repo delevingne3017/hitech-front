@@ -1,6 +1,9 @@
 "use client";
 import { ThemeProvider } from "@mui/material";
-//import "./global =.css";
+import "./globals.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import { Inter } from "next/font/google";
 import Navbar from "@/components/home/navbar";
 import theme from "@/theme";
