@@ -20,7 +20,7 @@ export default function ProductCard() {
   return (
     <>
       <Grid container>
-        <Grid lg={3}>
+        <Grid width={"50%"}>
           <Item>
             <Button
               onClick={handleClick}

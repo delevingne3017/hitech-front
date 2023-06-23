@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -20,9 +20,11 @@ import NavbarItem from "./navbarItem";
 import NavbarMenu from "./navbarMenu";
 import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
-import Link from "next/link";
 import LoginForm from "@/components/userLogin/login";
 import Register from "@/components/userLogin/register";
+import { UserContext } from "../userContext";
+import FadeMenu from "./userMenu";
+
 const CustomizedBox = styled(Box)(({ theme }) => ({
   display: "flex",
   padding: theme.spacing(1),
@@ -60,6 +62,7 @@ function Navbar() {
       loginOpen: true,
     });
   };
+  const { user } = useContext(UserContext);
 
   return (
     <>
@@ -121,10 +124,32 @@ function Navbar() {
           marginRight="4rem"
           gap="1.5rem"
         >
-          <Button onClick={handleOpenRegister}>Бүртгүүлэх</Button>
-          <Button onClick={handleOpenLogin} variant="contained" color="primary">
-            Нэвтрэх{" "}
-          </Button>
+          {user ? (
+            <Box
+              sx={{
+                display: "flex",
+                marginRight: "1.5rem",
+                marginLeft: "3rem",
+              }}
+            >
+              <Typography alignContent="center">
+                Сайн байна уу, {user.email}
+              </Typography>
+              <FadeMenu />
+            </Box>
+          ) : (
+            <Box sx={{ display: "flex" }}>
+              <Button onClick={handleOpenRegister}>Бүртгүүлэх</Button>
+              <Button
+                onClick={handleOpenLogin}
+                variant="contained"
+                color="primary"
+                sx={{ marginLeft: "1rem" }}
+              >
+                Нэвтрэх
+              </Button>
+            </Box>
+          )}
         </Box>
         <Register
           open={state.registerOpen}
