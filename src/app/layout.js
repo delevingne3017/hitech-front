@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import Navbar from "@/components/home/navbar";
 import theme from "@/theme";
 import Footer from "@/components/home/footer";
-
+import { UserProvider } from "@/components/userContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -20,9 +20,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body style={{ margin: 0 }} className={inter.className}>
         <ThemeProvider theme={theme}>
-          <Navbar />
-          {children}
-          <Footer />
+          <UserProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </UserProvider>
         </ThemeProvider>
       </body>
     </html>

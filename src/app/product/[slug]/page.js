@@ -13,8 +13,6 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import Carousel from "react-multi-carousel";
-
-import Item from "./Item";
 import slider from "@/components/home/slider.json";
 
 const ProductImage = styled("img")({
