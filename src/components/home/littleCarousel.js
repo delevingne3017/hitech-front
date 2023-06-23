@@ -1,105 +1,50 @@
-"use client";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+import React, { Component } from "react";
+import Slider from "react-slick";
+import { Box } from "@mui/material";
 
-export default function littleCarousel() {
-  const responsive = {
-    superLargeDesktop: {
-      // the naming can be any, depends on you.
-      breakpoint: { max: 4000, min: 3000 },
-      items: 4,
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 1,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 1,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
-  return (
-    <Carousel
-      swipeable={true}
-      draggable={false}
-      showDots={true}
-      responsive={responsive}
-      ssr={false} // means to render carousel on server-side.
-      infinite={true}
-      autoPlay={true}
-      autoPlaySpeed={3000}
-      keyBoardControl={true}
-      customTransition="all .5"
-      transitionDuration={500}
-      containerClass="container"
-      removeArrowOnDeviceType={["tablet", "mobile"]}
-      // deviceType={this.props.deviceType}
-      dotListClass="custom-dot-list-style"
-      itemClass="carousel-item-height-100%"
-    >
-      <Box sx={{ width: "100%" }}>
-        <Grid
-          container
-          spacing={1}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          sx={{ marginY: 1 }}
-        >
-          <Grid item xs={3}>
-            <img
-              src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-              alt="{main image}"
-              style={{
-                width: "95%",
-                height: "7rem",
-                borderRadius: "0.4rem",
-                marginLeft: 9.5,
-              }}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <img
-              src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-              alt="{main image}"
-              style={{
-                width: "95%",
-                height: "7rem",
-                borderRadius: "0.4rem",
-                marginLeft: 9.5,
-              }}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <img
-              src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-              alt="{main image}"
-              style={{
-                width: "95%",
-                height: "7rem",
-                borderRadius: "0.4rem",
-                marginLeft: 9.5,
-              }}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <img
-              src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-              alt="{main image}"
-              style={{
-                width: "95%",
-                height: "7rem",
-                borderRadius: "0.4rem",
-                marginLeft: 9.5,
-              }}
-            />
-          </Grid>
-        </Grid>
+export default class LittleCarousel extends Component {
+  render() {
+    const settings = {
+      infinite: true,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      autoplay: true,
+      speed: 1000,
+      autoplaySpeed: 6500,
+      cssEase: "linear",
+    };
+    return (
+      <Box marginTop={"1rem"}>
+        <Slider {...settings}>
+          {Array.from(Array(9)).map((_, index) => (
+            <Box key={index}>
+              <img
+                src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
+                alt="{main image}"
+                style={{
+                  width: "95%",
+                  height: "8rem",
+                  borderRadius: "0.4rem",
+                  marginLeft: 9.5,
+                }}
+              />
+            </Box>
+          ))}
+        </Slider>
       </Box>
-    </Carousel>
-  );
+    );
+  }
 }
+
+//
+
+// {/* <img
+//               src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
+//               alt="{main image}"
+//               style={{
+//                 width: "95%",
+//                 height: "7rem",
+//                 borderRadius: "0.4rem",
+//                 marginLeft: 9.5,
+//               }}
+//             /> */}
