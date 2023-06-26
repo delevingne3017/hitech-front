@@ -19,9 +19,7 @@ import slider from "@/components/home/slider.json";
 
 import "react-multi-carousel/lib/styles.css";
 import ReactImageMagnify from "react-image-magnify";
-import RemoveIcon from "@mui/icons-material/Remove";
-import AddIcon from "@mui/icons-material/Add";
-import RestartAltIcon from "@mui/icons-material/RestartAlt";
+
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
