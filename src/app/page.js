@@ -1,7 +1,6 @@
 "use client";
 import { Box, Grid, Paper, FormRow, Typography, Button, IconButton } from "@mui/material";
 import Carousel from "react-multi-carousel";
-import { Box, Grid, Paper, Typography, Button } from "@mui/material";
 import "react-multi-carousel/lib/styles.css";
 import { useRouter } from "next/navigation";
 import "./globals.css";

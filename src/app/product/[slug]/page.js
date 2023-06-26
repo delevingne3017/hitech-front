@@ -15,13 +15,10 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Directions, Grid3x3Outlined } from "@mui/icons-material";
 import Carousel from "react-multi-carousel";
-import slider from "@/components/home/slider.json";
 
 import "react-multi-carousel/lib/styles.css";
-import ReactImageMagnify from "react-image-magnify";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
 import { Drawer, List, ListItem, ListItemText } from '@mui/material';
 const ProductImage = styled("img")({
