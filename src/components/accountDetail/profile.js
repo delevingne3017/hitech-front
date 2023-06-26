@@ -13,7 +13,9 @@ export default function NavProfile() {
   return (
     <>
       <Box sx={{ margin: "2rem" }}>
-        <Typography fontSize={"1.5rem"}>Хувийн мэдээлэл</Typography>
+        <Typography fontSize={"1.5rem"} fontWeight="bold">
+          Хувийн мэдээлэл
+        </Typography>
         <Box>
           <FormControl
             sx={{
@@ -66,8 +68,18 @@ export default function NavProfile() {
             Хадгалах
           </Button>
         </Box>
-        <Typography>Хүргэлтийн хаяг</Typography>
-        <Box></Box>
+        <Typography fontSize={"1.5rem"} fontWeight="bold">
+          Хүргэлтийн хаяг
+        </Typography>
+        <Box
+          sx={{
+            width: "25rem",
+            height: "10rem",
+            border: "1px solid",
+            margin: "2rem",
+            borderRadius: ".8rem",
+          }}
+        ></Box>
       </Box>
     </>
   );

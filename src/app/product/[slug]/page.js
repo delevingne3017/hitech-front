@@ -7,7 +7,7 @@ import {
   Divider,
   Button,
   TextField,
-  Stack
+  Stack,
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
@@ -15,12 +15,11 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Directions, Grid3x3Outlined } from "@mui/icons-material";
 import Carousel from "react-multi-carousel";
-
 import "react-multi-carousel/lib/styles.css";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-import { Drawer, List, ListItem, ListItemText } from '@mui/material';
+import { Drawer, List, ListItem, ListItemText } from "@mui/material";
 const ProductImage = styled("img")({
   transition: "all .25s ease",
   ":hover": {
@@ -71,9 +70,6 @@ const Product = ({ params }) => {
     });
   };
 
- 
-      
-    
   // useEffect(() => {
   //   if (ref.current) ref.current.addEventListener("mouseover", handleMouseOver);
   // }, [ref.current]);
@@ -202,59 +198,61 @@ const Product = ({ params }) => {
                 Шинэ,Онцлох
               </Typography>
             </Box>
-          
-  
+
             <Divider sx={{ mb: 4 }} />
             <Stack spacing={4}>
-            <Stack spacing={2} direction='row' >
-            <Box
-            >
-              <TextField
-                size="small"
-                sx={{ m:"rem" ,
-                alignItems: "right",
-                mt: 1 }}
-                type="number"
-                InputProps={{
-                  inputProps: {
-                    max: 100,
-                    min: 1,
-                  },
-                }}
-                label="ширхэг"/>
+              <Stack spacing={2} direction="row">
+                <Box>
+                  <TextField
+                    size="small"
+                    sx={{ m: "rem", alignItems: "right", mt: 1 }}
+                    type="number"
+                    InputProps={{
+                      inputProps: {
+                        max: 100,
+                        min: 1,
+                      },
+                    }}
+                    label="ширхэг"
+                  />
 
-              <Button
-                sx={{
-                  // some styles
-                  ":hover": {
-                    boxShadow: 8,
-                  },
+                  <Button
+                    sx={{
+                      // some styles
+                      ":hover": {
+                        boxShadow: 8,
+                      },
 
-                  top: ".5rem",
-                  width: "273px",
-                  height: "40px",
-                  spacing : "1rem",
-                  borderSpacing :"3rem"
-                  
-                }}
-                variant="outlined"
-                color="primary"
-              >
-                <ShoppingCartIcon sx={{ color: "black"  , size: "0.7rem"  }}></ShoppingCartIcon>
-                <Typography   sx={{ color: "black", fontSize: ".7rem",fontWeight: "bold" }} >
-                  Сагсанд хийх
-                </Typography>
-              </Button>
-            </Box>
+                      top: ".5rem",
+                      width: "273px",
+                      height: "40px",
+                      spacing: "1rem",
+                      borderSpacing: "3rem",
+                    }}
+                    variant="outlined"
+                    color="primary"
+                  >
+                    <ShoppingCartIcon
+                      sx={{ color: "black", size: "0.7rem" }}
+                    ></ShoppingCartIcon>
+                    <Typography
+                      sx={{
+                        color: "black",
+                        fontSize: ".7rem",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Сагсанд хийх
+                    </Typography>
+                  </Button>
+                </Box>
+              </Stack>
             </Stack>
-            </Stack>
-            <Box
-            sx={{ top:"5rem" , m:"rem"}}>
+            <Box sx={{ top: "5rem", m: "rem" }}>
               <Button
-                sx={{ width: 375  , height: 35 , top: 5}}
+                sx={{ width: 375, height: 35, top: 5 }}
                 variant="contained"
                 color="primary"
-                
               >
                 <Typography>Худалдан авах </Typography>{" "}
               </Button>
@@ -392,31 +390,24 @@ const Product = ({ params }) => {
                 sx={{ marginY: 1 }}
               >
                 <Grid item xs={3}>
-                  
-                  <Box
-                    
-                    bgcolor={"white"}
-                    boxShadow={1}
-                    marginY={1}
-                    marginX={2}
-                  >
+                  <Box bgcolor={"white"} boxShadow={1} marginY={1} marginX={2}>
                     <Typography
-                    sx={{
-                      fontSize: ".8rem",
-                      pl: 2,
-                      fontWeight: "500",
-                      padding: "0",
-                      marging: "0",
-                      display: "flex",
-                      flexDirection: "row",
-                      position: "relative",
-                      align: "left",
-                      spacing: "0",
-                      height: "3rem",
-                    }}
-                  >
-                    Asrock - AMD Radeon™ RX 6900 XT Phantom Gaming D 16G OC
-                  </Typography>
+                      sx={{
+                        fontSize: ".8rem",
+                        pl: 2,
+                        fontWeight: "500",
+                        padding: "0",
+                        marging: "0",
+                        display: "flex",
+                        flexDirection: "row",
+                        position: "relative",
+                        align: "left",
+                        spacing: "0",
+                        height: "3rem",
+                      }}
+                    >
+                      Asrock - AMD Radeon™ RX 6900 XT Phantom Gaming D 16G OC
+                    </Typography>
                     <img
                       src="https://api.hitech.mn/uploads/images/2023/5/27/5-1685154064634387085-thumbnail.jpg"
                       alt="{main image}"
