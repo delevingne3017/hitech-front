@@ -68,7 +68,8 @@ export default class NineCarousel extends Component {
                           style={{
                             width: "25vh",
                             borderRadius: "0.5rem",
-                            height:"20vh"
+                            height:"20vh",
+                            position:"absolute"
                           }}
                           bgcolor="white"
                         />
@@ -76,6 +77,8 @@ export default class NineCarousel extends Component {
                           display={"flex"}
                           justifyContent={"flex-start"}
                           alignItems={"center"}
+                          position={"relative"}
+                          marginTop={"5rem"}
                         >
                           <Box
                             bgcolor={"white"}
@@ -109,16 +112,17 @@ export default class NineCarousel extends Component {
                         justifyContent={"column"}
                         paddingBottom={"0.5rem"}
                       >
-                        <Box marginTop={"1"} marginX={1}>
-                          <Typography fontSize={14}>
+                        <Box marginLeft={"10rem"} marginTop={"1"} marginX={1}>
+                          <Typography marginLeft={"1.5rem"} fontSize={14}>
                             MSI GeForce RTX™ 4060 Ti GAMING X 8G
                           </Typography>
                         </Box>
                         <Box
-                          marginTop={"6rem"}
+                          marginTop={"4rem"}
                           display={"flex"}
                           justifyContent={"space-between"}
                           marginRight={"1rem"}
+                          marginLeft={"2rem"}
                         >
                           <Typography>1.750.000$</Typography>
                           <ShoppingBagIcon />
@@ -153,7 +157,7 @@ export default class NineCarousel extends Component {
                     }}
                     key={index}
                   >
-                    <Box display={"flex"} justifyContent={"flex-start"}>
+                    <Box display={"flex"} justifyContent={"flex-start"} >
                       <Box>
                         <img
                           src="https://api.hitech.mn/uploads/images/2023/6/15/2-1686814204120447025-524X524.jpg"
@@ -161,7 +165,8 @@ export default class NineCarousel extends Component {
                           style={{
                             width: "25vh",
                             borderRadius: "0.5rem",
-                            height:"20vh"
+                            height:"20vh",
+                            position:"absolute"
                           }}
                           bgcolor="white"
                         />
@@ -169,6 +174,10 @@ export default class NineCarousel extends Component {
                           display={"flex"}
                           justifyContent={"flex-start"}
                           alignItems={"center"}
+                          position={"relative"}
+                          marginTop={"5rem"}
+                          onMouseEnter={()=>setIsHovering(true)}
+                          onMouseleave={()=>setIsHovering(false)}
                         >
                           <Box
                             bgcolor={"white"}
@@ -202,16 +211,17 @@ export default class NineCarousel extends Component {
                         justifyContent={"column"}
                         paddingBottom={"0.5rem"}
                       >
-                        <Box marginTop={"1"} marginX={1}>
-                          <Typography fontSize={14}>
+                        <Box marginLeft={"10rem"} marginTop={"1"} marginX={1}>
+                          <Typography marginLeft={"1.5rem"} fontSize={14}>
                             MSI GeForce RTX™ 4060 Ti GAMING X 8G
                           </Typography>
                         </Box>
                         <Box
-                          marginTop={"6rem"}
+                          marginTop={"4rem"}
                           display={"flex"}
                           justifyContent={"space-between"}
                           marginRight={"1rem"}
+                          marginLeft={"2rem"}
                         >
                           <Typography>1.750.000$</Typography>
                           <ShoppingBagIcon />

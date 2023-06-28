@@ -33,7 +33,7 @@ export default class HomePhoto extends Component {
       slidesToScroll: 1,
       autoplay: true,
       speed: 1000,
-      autoplaySpeed: 6500,
+      autoplaySpeed: 3000,
       cssEase: "linear",
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />,
