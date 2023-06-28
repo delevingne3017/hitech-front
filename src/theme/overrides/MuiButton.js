@@ -1,7 +1,7 @@
 const MuiButton = {
   styleOverrides: {
     root: {
-      borderRadius: "16px",
+      borderRadius: "5px",
     },
   },
   defaultProps: {
