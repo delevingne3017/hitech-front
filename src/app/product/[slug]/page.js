@@ -11,15 +11,17 @@ import {
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { Directions, Grid3x3Outlined } from "@mui/icons-material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import {
+  Directions,
+  Grid3x3Outlined,
+  StayPrimaryLandscape,
+} from "@mui/icons-material";
 
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
-import { Drawer, List, ListItem, ListItemText } from "@mui/material";
 const ProductImage = styled("img")({
   transition: "all .25s ease",
   ":hover": {
@@ -70,6 +72,9 @@ const Product = ({ params }) => {
     });
   };
 
+ 
+      
+    
   // useEffect(() => {
   //   if (ref.current) ref.current.addEventListener("mouseover", handleMouseOver);
   // }, [ref.current]);
@@ -94,7 +99,6 @@ const Product = ({ params }) => {
       console.log(err);
     }
   };
-
   useEffect(() => {
     getProduct();
   }, []);
@@ -102,7 +106,9 @@ const Product = ({ params }) => {
   return state.loading ? (
     <CircularProgress />
   ) : (
-    <Box bgcolor={"#f7f7f7"}>
+    
+
+    <Box bgcolor={"#f7f7f7"} position={"relative"}>
       <Box
         borderRadius={5}
         bgcolor={"white"}
@@ -589,6 +595,7 @@ const Product = ({ params }) => {
           </Carousel>
         </Box>
       </Box>
+      <Box></Box>
     </Box>
   );
 };

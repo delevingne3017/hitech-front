@@ -12,7 +12,12 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  Badge,
+  Divider,
+  Drawer,
 } from "@mui/material";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
 import styled from "@emotion/styled";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import CallIcon from "@mui/icons-material/Call";
@@ -24,6 +29,7 @@ import LoginForm from "@/components/userLogin/login";
 import Register from "@/components/userLogin/register";
 import { UserContext } from "../userContext";
 import FadeMenu from "./userMenu";
+import { ShoppingBag, ShoppingCart } from "@mui/icons-material";
 
 const CustomizedBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -46,6 +52,7 @@ function Navbar() {
   const [state, setState] = useState({
     registerOpen: false,
     loginOpen: false,
+    right: false,
   });
 
   const handleOpenRegister = () => {
@@ -63,6 +70,64 @@ function Navbar() {
       loginOpen: true,
     });
   };
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 500 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <Box>
+        <ShoppingBag 
+        color="primary"
+        ></ShoppingBag>
+
+      </Box>
+      <Divider />
+      <Box>
+        <Box ></Box>
+      </Box>
+      <Box>
+        <Button
+         variant="contained"
+          color="primary" 
+          top="50rem"
+          borderRadius="10rem"
+          boxShadow="1"
+          marginY="2"
+          marginX= "2"
+        >
+          <Typography 
+          color="white"
+          paddingRight={"10rem"}
+          >PAYMNET
+          </Typography>
+          <Box
+          borderRadius={"10rem"}
+          color="white"
+          marginX="5rem"
+          marhinY="5rem"
+          >
+          <Typography 
+          >0</Typography>
+          </Box>
+        </Button>
+      </Box>
+    </Box>
+
+  );
 
   return (
     <>
@@ -151,6 +216,14 @@ function Navbar() {
             </Box>
           )}
         </Box>
+        <Box
+          sx={{ cursor: "pointer" }}
+          onClick={toggleDrawer("right", true)}
+        >
+          <Badge badgeContent={0  } color="primary">
+            <ShoppingCart color="action" />
+          </Badge>
+        </Box>
         <Register
           open={state.registerOpen}
           handleOpen={handleOpenRegister}
@@ -162,6 +235,13 @@ function Navbar() {
             });
           }}
         />
+        <Drawer
+          anchor={"right"}
+          open={state["right"]}
+          onClose={toggleDrawer("right", false)}
+        >
+          {list("right")}
+        </Drawer>
         <LoginForm
           open={state.loginOpen}
           handleOpen={handleOpenLogin}
