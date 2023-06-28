@@ -1,16 +1,17 @@
 "use client";
 import { useContext, useState } from "react";
 import { Box, Typography } from "@mui/material";
-import { UserContext } from "../userContext";
 
 export default function Wallet() {
   return (
     <>
       <Box margin="2rem">
-        <Typography> Миний хэтэвч </Typography>
+        <Typography fontSize={"1.5rem"} fontWeight="bold">
+          Миний хэтэвч
+        </Typography>
         <Box
           sx={{
-            marginTop: "2rem",
+            margin: "2rem",
             width: "35rem",
             height: "18rem",
             borderRadius: "1rem",
@@ -41,6 +42,11 @@ export default function Wallet() {
               $
             </Typography>
           </Box>
+        </Box>
+        <Box>
+          <Typography fontSize={"1.5rem"} fontWeight="bold">
+            Хэтэвч цэнэглэх
+          </Typography>
         </Box>
       </Box>
     </>

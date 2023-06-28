@@ -1,5 +1,13 @@
 "use client";
-import { Box, Grid, Paper, FormRow, Typography, Button, IconButton } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Paper,
+  FormRow,
+  Typography,
+  Button,
+  IconButton,
+} from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useRouter } from "next/navigation";
@@ -20,8 +28,6 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import NineCarouselBottom from "@/components/home/nineCarouselBottom";
 import SaleProduct from "@/components/home/saleProduct";
 
-
-
 const Item = styled(Paper)(({ theme }) => ({
   // height: "10rem",
   // marginTop: "2rem",
@@ -30,10 +36,6 @@ const Item = styled(Paper)(({ theme }) => ({
   border: "1px ",
   justifyContent: "center",
 }));
-
-
-
-
 
 export default function Home() {
   const [state, setState] = useState({
@@ -121,7 +123,7 @@ export default function Home() {
                         <FavoriteIcon width={10} height={10} />
                       </Box>
                       <Box
-                        bgcolor={"white"} 
+                        bgcolor={"white"}
                         margin={1}
                         borderRadius={"5rem"}
                         padding={"0.2rem"}
@@ -308,7 +310,6 @@ export default function Home() {
           marginLeft={"3rem"}
           marginRight={"3rem"}
           marginTop={"3rem"}
-          
         >
           {Array.from(Array(84)).map((_, index) => (
             <img

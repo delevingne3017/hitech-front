@@ -13,7 +13,7 @@ import { UserContext } from "../userContext";
 import { Typography } from "@mui/material";
 
 export default function FadeMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const router = useRouter();
 
   const open = Boolean(anchorEl);
@@ -25,6 +25,7 @@ export default function FadeMenu() {
   };
   const handleUser = () => {
     router.push(`/account`);
+    handleClose();
   };
   const { logout } = useContext(UserContext);
   const handleLogout = () => {
@@ -54,7 +55,7 @@ export default function FadeMenu() {
         TransitionComponent={Fade}
         sx={{ marginLeft: "-8rem" }}
       >
-        <MenuItem onClick={handleUser} onclose={handleClose}>
+        <MenuItem onClick={handleUser}>
           <PersonIcon />
           Профайл
         </MenuItem>

@@ -1,20 +1,27 @@
-import React, { createContext, useState } from "react";
+"use client";
+import React, { createContext, useEffect, useState } from "react";
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    isLogged: false,
+  });
 
-  const login = (userData) => {
-    setUser(userData);
+  const setUserContext = (payload) => {
+    setUser({
+      ...user,
+      ...payload,
+    });
   };
 
   const logout = () => {
-    setUser(null);
+    setUser({ isLogged: false });
+    localStorage.removeItem("accessToken");
   };
 
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, setUserContext, logout }}>
       {children}
     </UserContext.Provider>
   );

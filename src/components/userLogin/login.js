@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -17,6 +17,8 @@ import { UserContext } from "../userContext";
 import { useRouter } from "next/router";
 import axios from "axios";
 import ForgotPass from "./forgotPassword";
+import jwt_decode from "jwt-decode";
+
 const LoginForm = ({
   open,
   handleOpen,
@@ -34,7 +36,7 @@ const LoginForm = ({
 
   //const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
 
-  const { login } = useContext(UserContext);
+  const { setUserContext, logout } = useContext(UserContext);
   const handleOpenPass = () => {
     setState({
       ...state,
@@ -49,7 +51,6 @@ const LoginForm = ({
       passOpen: false,
     });
   };
-  const [setOpen] = useState(false);
 
   const handleLogin = async () => {
     const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
@@ -65,18 +66,19 @@ const LoginForm = ({
         username,
         password,
       });
+      const _id = response.data.data._id;
+      localStorage.setItem("accessToken", response.data.token);
+      const payload = { email: username, id: _id, isLogged: true };
+      setUserContext(payload);
       setState({
         ...state,
         user: response.data.data,
+        isLogged: true,
       });
-      console.log(response.data);
-      localStorage.setItem("data", JSON.stringify(response.data));
-      const userData = { email: username };
-      login(userData);
     } catch (error) {
       console.error(error);
     }
-
+    handleClose();
     return true;
   };
 
@@ -97,7 +99,6 @@ const LoginForm = ({
           <DialogContent>
             <TextField
               label="Username"
-              helperText={username}
               onChange={(e) => setUsername(e.target.value)}
               error={username && username.length ? true : false}
               margin="normal"
@@ -108,7 +109,6 @@ const LoginForm = ({
             <TextField
               label="Password"
               error={password && password.length ? true : false}
-              helperText={password}
               type="password"
               onChange={(e) => setPassword(e.target.value)}
               margin="normal"

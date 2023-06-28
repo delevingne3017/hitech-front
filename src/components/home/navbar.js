@@ -42,6 +42,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Navbar() {
+  const { user } = useContext(UserContext);
   const [state, setState] = useState({
     registerOpen: false,
     loginOpen: false,
@@ -62,7 +63,6 @@ function Navbar() {
       loginOpen: true,
     });
   };
-  const { user } = useContext(UserContext);
 
   return (
     <>
@@ -124,7 +124,7 @@ function Navbar() {
           marginRight="4rem"
           gap="1.5rem"
         >
-          {user ? (
+          {user.isLogged ? (
             <Box
               sx={{
                 display: "flex",
@@ -132,7 +132,7 @@ function Navbar() {
                 marginLeft: "3rem",
               }}
             >
-              <Typography alignContent="center">
+              <Typography marginTop={".4rem"} paddingRight="0.2rem">
                 Сайн байна уу, {user.email}
               </Typography>
               <FadeMenu />
