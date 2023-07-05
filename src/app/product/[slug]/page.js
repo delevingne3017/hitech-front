@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import Carousel from "react-multi-carousel";
@@ -21,6 +21,9 @@ import {
   Grid3x3Outlined,
   StayPrimaryLandscape,
 } from "@mui/icons-material";
+import DetailImage from "../productComponent/detailImage";
+import SameProduct from "../productComponent/sameProduct";
+import TusProduct from "../productComponent/tusProduct";
 
 const ProductImage = styled("img")({
   transition: "all .25s ease",
@@ -72,9 +75,6 @@ const Product = ({ params }) => {
     });
   };
 
- 
-      
-    
   // useEffect(() => {
   //   if (ref.current) ref.current.addEventListener("mouseover", handleMouseOver);
   // }, [ref.current]);
@@ -106,8 +106,6 @@ const Product = ({ params }) => {
   return state.loading ? (
     <CircularProgress />
   ) : (
-    
-
     <Box bgcolor={"#f7f7f7"} position={"relative"}>
       <Box
         borderRadius={5}
@@ -278,6 +276,7 @@ const Product = ({ params }) => {
           </Grid>
         </Grid>
       </Box>
+      <DetailImage />
       <Box
         borderRadius={5}
         bgcolor={"white"}
@@ -286,313 +285,9 @@ const Product = ({ params }) => {
         marginY={2}
         marginX={2}
       >
-        <Box
-          marginTop={2}
-          component="img"
-          src="https://sc04.alicdn.com/kf/H91dead8a595c46adb0f3119e3ddb7abeS/252793555/H91dead8a595c46adb0f3119e3ddb7abeS.jpg"
-          alt="{main image}"
-          sx={{
-            height: "100%",
-            width: "190vh",
-            marginLeft: "3rem",
-            marginRight: "3rem",
-            cursor: "pointer",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginLeft: 7,
-          }}
-        />
-        <Box
-          marginTop={2}
-          component="img"
-          src="https://sc04.alicdn.com/kf/H1f0fa678076a401abe26f505e601737ey/252793555/H1f0fa678076a401abe26f505e601737ey.jpg"
-          alt="{main image}"
-          sx={{
-            height: "100%",
-            width: "190vh",
-            marginLeft: "3rem",
-            marginRight: "3rem",
-            cursor: "pointer",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginLeft: 7,
-          }}
-        />
-
-        <Box
-          marginTop={2}
-          component="img"
-          src="https://sc04.alicdn.com/kf/Hc4c9bb22a84d48849ba62b01fa59ff45U/252793555/Hc4c9bb22a84d48849ba62b01fa59ff45U.jpg"
-          alt="{main image}"
-          sx={{
-            height: "100%",
-            width: "190vh",
-            marginLeft: "3rem",
-            marginRight: "3rem",
-            cursor: "pointer",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginLeft: 7,
-          }}
-        />
-      </Box>
-      <Box
-        borderRadius={5}
-        bgcolor={"white"}
-        boxShadow={1}
-        padding={1}
-        marginY={2}
-        marginX={2}
-      >
-        <Grid
-          container
-          spacing={1}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          sx={{ marginY: 1 }}
-        ></Grid>
-        <Typography
-          sx={{
-            paddingLeft: 6,
-            fontSize: "1.2rem",
-            fontWeight: "bold",
-            display: "flex",
-            marginLeft: "4",
-          }}
-        >
-          Ижил бараанууд:
-        </Typography>
-
         <Box>
-          <Carousel
-            swipeable={true}
-            draggable={false}
-            showDots={true}
-            responsive={responsive}
-            ssr={false} // means to render carousel on server-side.
-            infinite={true}
-            autoPlay={true}
-            autoPlaySpeed={3000}
-            keyBoardControl={true}
-            customTransition="all .5"
-            transitionDuration={500}
-            containerClass="container"
-            removeArrowOnDeviceType={["tablet", "mobile"]}
-            // deviceType={this.props.deviceType}
-            dotListClass="custom-dot-list-style"
-            itemClass="carousel-item-height-100%"
-          >
-            <Box sx={{ width: "100%" }}>
-              <Grid
-                container
-                spacing={1}
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ marginY: 1 }}
-              >
-                <Grid item xs={3}>
-                  <Box bgcolor={"white"} boxShadow={1} marginY={1} marginX={2}>
-                    <Typography
-                      sx={{
-                        fontSize: ".8rem",
-                        pl: 2,
-                        fontWeight: "500",
-                        padding: "0",
-                        marging: "0",
-                        display: "flex",
-                        flexDirection: "row",
-                        position: "relative",
-                        align: "left",
-                        spacing: "0",
-                        height: "3rem",
-                      }}
-                    >
-                      Asrock - AMD Radeon™ RX 6900 XT Phantom Gaming D 16G OC
-                    </Typography>
-                    <img
-                      src="https://api.hitech.mn/uploads/images/2023/5/27/5-1685154064634387085-thumbnail.jpg"
-                      alt="{main image}"
-                      style={{
-                        width: "12  rem",
-                        height: "10rem",
-                        borderRadius: "0.4rem",
-                        padding: "4",
-                        lg: "5rem",
-                        marginLeft: "6rem",
-                        marginRight: "6rem",
-                      }}
-                    />
-                  </Box>
-                  <Typography
-                    sx={{
-                      dispaly: "flex",
-                      fontSize: "1.1rem",
-                      fontWeight: "bolder",
-                      pl: 4,
-                    }}
-                  >
-                    1,500,000₮
-                  </Typography>
-                </Grid>
-                <Grid item xs={3}>
-                  <Box
-                    borderRadius={5}
-                    bgcolor={"white"}
-                    boxShadow={1}
-                    marginY={2}
-                    marginX={2}
-                  >
-                    <img
-                      src="https://api.hitech.mn/uploads/images/2023/6/17/1-1686981979885205220-thumbnail.jpg"
-                      alt="{main image}"
-                      style={{
-                        width: "12  rem",
-                        height: "10rem",
-                        borderRadius: "0.4rem",
-                        padding: "4",
-                        lg: "5rem",
-                        marginLeft: "6rem",
-                        marginRight: "6rem",
-                      }}
-                    />
-                  </Box>
-                </Grid>
-                <Grid item xs={3}>
-                  <Box
-                    borderRadius={5}
-                    bgcolor={"white"}
-                    boxShadow={1}
-                    marginY={2}
-                    marginX={2}
-                  >
-                    <img
-                      src="https://api.hitech.mn/uploads/images/2023/5/21/1-1684651272349644569-thumbnail.jpg"
-                      alt="{main image}"
-                      style={{
-                        width: "12  rem",
-                        height: "10rem",
-                        borderRadius: "0.4rem",
-                        padding: "4",
-                        lg: "5rem",
-                        marginLeft: "6rem",
-                        marginRight: "6rem",
-                      }}
-                    />
-                  </Box>
-                </Grid>
-                <Grid item xs={3}>
-                  <Box
-                    borderRadius={5}
-                    bgcolor={"white"}
-                    boxShadow={1}
-                    marginY={2}
-                    marginX={2}
-                  >
-                    <img
-                      src="https://api.hitech.mn/uploads/images/2023/5/2/5-1683009299677355672-thumbnail.jpg"
-                      alt="{main image}"
-                      style={{
-                        width: "12  rem",
-                        height: "10rem",
-                        borderRadius: "0.4rem",
-                        padding: "4",
-                        lg: "5rem",
-                        marginLeft: "6rem",
-                        marginRight: "6rem",
-                      }}
-                    />
-                  </Box>
-                </Grid>
-              </Grid>
-            </Box>
-          </Carousel>
-
-          <Typography sx={{ fontSize: "1rem", fontWeight: "bold" }}>
-            Төстэй бараанууд:
-          </Typography>
-          <Carousel
-            swipeable={true}
-            draggable={false}
-            showDots={true}
-            responsive={responsive}
-            ssr={false} // means to render carousel on server-side.
-            infinite={true}
-            autoPlay={true}
-            autoPlaySpeed={3000}
-            keyBoardControl={true}
-            customTransition="all .5"
-            transitionDuration={500}
-            containerClass="container"
-            removeArrowOnDeviceType={["tablet", "mobile"]}
-            // deviceType={this.props.deviceType}
-            dotListClass="custom-dot-list-style"
-            itemClass="carousel-item-height-100%"
-          >
-            <Box sx={{ width: "100%" }}>
-              <Grid
-                container
-                spacing={1}
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ marginY: 1 }}
-              >
-                <Grid item xs={3}>
-                  <img
-                    src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-                    alt="{main image}"
-                    style={{
-                      width: "95%",
-                      height: "7rem",
-                      borderRadius: "0.4rem",
-                      marginLeft: 9.5,
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <img
-                    src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-                    alt="{main image}"
-                    style={{
-                      width: "95%",
-                      height: "7rem",
-                      borderRadius: "0.4rem",
-                      marginLeft: 9.5,
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <img
-                    src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-                    alt="{main image}"
-                    style={{
-                      width: "95%",
-                      height: "7rem",
-                      borderRadius: "0.4rem",
-                      marginLeft: 9.5,
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <img
-                    src="https://api.hitech.mn/uploads/images/2023/5/9/ORICO-1683642779960040729-original.jpg"
-                    alt="{main image}"
-                    style={{
-                      width: "95%",
-                      height: "7rem",
-                      borderRadius: "0.4rem",
-                      marginLeft: 9.5,
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </Box>
-          </Carousel>
+          <SameProduct />
+          <TusProduct />
         </Box>
       </Box>
       <Box></Box>

@@ -31,31 +31,6 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Home() {
-  const [state, setState] = useState({
-    products: [],
-    seeMoreClicked: false,
-    brandLength: 84,
-  });
-  const router = useRouter();
-
-  const handleProduct = (productId) => {
-    router.push(`/product/${productId}`);
-  };
-
-  const getProducts = async () => {
-    try {
-      const response = await axios.get("/api/product");
-      setState({
-        ...state,
-        products: response.data.data,
-      });
-    } catch (err) {}
-  };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
-
   return (
     <Box sx={{ width: "100%" }} bgcolor={"#ffffff"}>
       <Box style={{ width: "100%", height: "63vh" }}>
@@ -63,7 +38,7 @@ export default function Home() {
         <LittleCarousel />
         <Box marginBottom={"2rem"}></Box>
       </Box>
-      <SpecialProduct/>
+      <SpecialProduct />
       <Box bgcolor={"#f3f6f4"}>
         <Box>
           <img
@@ -89,13 +64,12 @@ export default function Home() {
         </Box>
       </Box>
       <Box bgcolor={"#f3f6f4"}>
-        <Demand/>
+        <Demand />
         <SaleProduct />
         <Logo />
         <Service />
       </Box>
-      <Box>
-      </Box>
+      <Box></Box>
       <Box>
         <img
           src="https://api.hitech.mn/uploads/images/2021/7/27/thick-banner-1619167935537878672-original-1627399206221880513-original.jpg"
@@ -108,4 +82,3 @@ export default function Home() {
     </Box>
   );
 }
-
