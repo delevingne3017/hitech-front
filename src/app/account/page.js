@@ -5,23 +5,22 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import ProductCard from "@/components/home/special-prod";
 import NavProfile from "@/components/accountDetail/profile";
 import Wallet from "@/components/accountDetail/wallet";
 import FavProduct from "@/components/accountDetail/favProduct";
 import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
-const {
+import UserOrder from "@/components/accountDetail/userOrder";
+import {
   Typography,
   Box,
   Grid,
-  Paper,
   List,
   ListItemButton,
   ListItem,
   ListItemText,
   Divider,
-} = require("@mui/material");
+} from "@mui/material";
 
 export default function userPage() {
   const router = useRouter();
@@ -39,7 +38,7 @@ export default function userPage() {
         sx={{
           width: "100%",
           height: "18rem",
-          maxWidth: 340,
+          maxWidth: 300,
           marginTop: "2rem",
           marginLeft: "2rem",
           marginBottom: "2rem",
@@ -49,7 +48,7 @@ export default function userPage() {
         <nav aria-label="main mailbox folders">
           <List>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => handleClick("productCard")}>
+              <ListItemButton onClick={() => handleClick("order")}>
                 <ListItemIcon>
                   <ArchiveIcon />
                 </ListItemIcon>
@@ -108,8 +107,8 @@ export default function userPage() {
         }}
       >
         <Box height={"100%"}>
-          {activeComponent === "productCard" ? (
-            <ProductCard />
+          {activeComponent === "order" ? (
+            <UserOrder />
           ) : activeComponent === "navProfile" ? (
             <NavProfile />
           ) : activeComponent === "wallet" ? (

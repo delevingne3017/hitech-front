@@ -1,10 +1,13 @@
 "use client";
 import React from "react";
 import {
+  Alert,
   Box,
   Button,
   FormControl,
   OutlinedInput,
+  Snackbar,
+  TextField,
   Typography,
 } from "@mui/material";
 import axios from "axios";
@@ -13,33 +16,43 @@ import { UserContext } from "../userContext";
 import { useContext } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
+import { useEffect } from "react";
 
 const NavProfile = ({ params }) => {
   const { user } = useContext(UserContext);
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [state, setState] = useState({
+    firstName: null,
+    lastName: null,
+    email: null,
+    phone: null,
+    openSnackBar: false,
+    snackbarText: "",
+  });
 
   const userId = user.id;
   const updateUser = async () => {
     try {
       const userData = {
-        fname,
-        lname,
-        email,
-        phone,
+        firstName: state.firstName,
+        lastName: state.lastName,
+        email: state.email,
+        phone: state.phone,
       };
 
       const response = await axios.put("/api/user/" + userId, userData);
+      setState({
+        ...state,
+        openSnackBar: true,
+        snackbarText: "Success",
+      });
     } catch (error) {
       console.error(error);
     }
   };
   const form = useFormik({
     initialValues: {
-      fname: "",
-      lname: "",
+      firstName: "",
+      lastName: "",
       email: "",
       phone: "",
     },
@@ -59,6 +72,25 @@ const NavProfile = ({ params }) => {
     updateUser,
   });
 
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setState({
+      ...state,
+      [name]: value,
+    });
+  };
+
+  useEffect(() => {
+    setState({
+      ...state,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phone: user.phone,
+      email: user.email,
+    });
+  }, []);
+
   return (
     <>
       <Box sx={{ margin: "2rem" }}>
@@ -68,53 +100,62 @@ const NavProfile = ({ params }) => {
         <Box>
           <FormControl
             sx={{
-              width: "35rem",
+              width: "25rem",
               marginTop: "2rem",
               marginLeft: "2rem",
               marginBottom: "2rem",
             }}
           >
-            <OutlinedInput
-              name="fname"
-              error={Boolean(form.errors.fname)}
-              helperText={form.errors.fname}
-              onChange={form.handleChange}
-              placeholder="Нэр "
+            <TextField
+              id="outlined-uncontrolled"
+              label="Нэр"
+              name="firstName"
+              onChange={handleChange}
+              defaultValue={state.firstName}
             />
           </FormControl>
           <FormControl
             sx={{
-              width: "35rem",
+              width: "25rem",
               marginTop: "2rem",
               marginLeft: "2rem",
               marginBottom: "2rem",
             }}
           >
-            <OutlinedInput
-              onChange={(e) => setLname(e.target.value)}
-              placeholder="Овог"
+            <TextField
+              id="outlined-uncontrolled"
+              label="Овог"
+              name="lastName"
+              onChange={handleChange}
+              defaultValue={state.lastName}
             />
           </FormControl>
           <FormControl
             sx={{
-              width: "35rem",
+              width: "25rem",
               marginTop: "2rem",
               marginLeft: "2rem",
               marginBottom: "2rem",
             }}
           >
-            <OutlinedInput
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Хаяг "
+            <TextField
+              id="outlined-uncontrolled"
+              label="Имэйл"
+              name="email"
+              onChange={handleChange}
+              defaultValue={state.email}
             />
           </FormControl>
           <FormControl
             type="phone"
-            sx={{ width: "35rem", marginTop: "2rem", marginLeft: "2rem" }}
+            sx={{ width: "25rem", marginTop: "2rem", marginLeft: "2rem" }}
           >
-            <OutlinedInput
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="Утасны дугаар "
+            <TextField
+              id="outlined-uncontrolled"
+              label="Утасны дугаар"
+              name="phone"
+              onChange={handleChange}
+              defaultValue={state.phone}
             />
           </FormControl>
         </Box>
@@ -125,7 +166,7 @@ const NavProfile = ({ params }) => {
             color="primary"
             sx={{
               width: "10rem",
-              height: "3rem",
+              height: "2.3rem",
               margin: "2rem",
               borderRadius: ".5rem",
             }}
@@ -139,8 +180,8 @@ const NavProfile = ({ params }) => {
         <Box display={"flex"}>
           <Box
             sx={{
-              width: "25rem",
-              height: "10rem",
+              width: "20rem",
+              height: "8rem",
               background: "#E6E6FA",
               margin: "2rem",
               borderRadius: ".8rem",
@@ -156,8 +197,8 @@ const NavProfile = ({ params }) => {
           <Box>
             <Button
               sx={{
-                width: "25rem",
-                height: "10rem",
+                width: "20rem",
+                height: "8rem",
                 margin: "2rem",
                 borderRadius: ".8rem",
                 border: "1px solid ",
@@ -166,6 +207,20 @@ const NavProfile = ({ params }) => {
               Хаяг нэмэх +
             </Button>
           </Box>
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={state.openSnackBar}
+            autoHideDuration={6000}
+            onClose={() => setState({ ...state, openSnackBar: false })}
+          >
+            <Alert
+              onClose={() => setState({ ...state, openSnackBar: false })}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              {state.snackbarText}
+            </Alert>
+          </Snackbar>
         </Box>
       </Box>
     </>

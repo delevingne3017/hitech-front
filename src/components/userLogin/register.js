@@ -14,6 +14,7 @@ import {
 import { Phone } from "@mui/icons-material";
 import LoginForm from "./login";
 import axios from "axios";
+
 const Register = ({
   open,
   handleOpen,
@@ -29,55 +30,64 @@ const Register = ({
   const [passwordError, setPasswordError] = useState("");
   const [phonedError, setPhoneError] = useState("");
 
-  const handleSubmit = async () => {
+  const validation = () => {
+    let successCount = 0;
+
     // Validate email format
     const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-    if (email.trim() === "") {
-      setEmailError("Email -ээ оруулна уу.");
-      return;
-    }
-    if (!emailRegex.test(email)) {
-      setEmailError("Email буруу байна.");
-      return;
-    }
-
     const specialCharsRegex = /[!@#$%^&*()]/;
     const uppercaseRegex = /[A-Z]/;
-    if (password.trim() === "") {
-      setEmailError("password -аа оруулна уу.");
-      return;
+    if (email.trim() === "") {
+      setEmailError("Email -ээ оруулна уу.");
+    } else if (!emailRegex.test(email)) {
+      setEmailError("Email зөв байна.");
+    } else {
+      successCount++;
     }
-    if (password.length < 8) {
+    if (password.trim() === "") {
+      setPasswordError("password -аа оруулна уу.");
+    } else if (password.length < 8) {
       setPasswordError("Password дорж хаяж 8 урттай байна.");
     } else if (!specialCharsRegex.test(password.trim())) {
       setPasswordError("Password тусгай тэмдэгт агуулна.");
     } else if (!uppercaseRegex.test(password.trim())) {
       setPasswordError("Password том жижиг үсэг агуулна.");
     } else {
+      successCount++;
       setPasswordError("");
     }
 
     const phoneRegex = /^\d{8}$/; // Matches 8 digits
     if (!phoneRegex.test(phone.trim())) {
-      setPhoneError("Invalid phone number format");
-      return;
+      setPhoneError("Утасны дугаараа оруулна уу.");
+    } else {
+      successCount++;
     }
-    try {
-      const response = await axios.post("/api/user", {
-        email,
-        password,
-        phone,
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-    // All validations passed, show success message
-    alert("Form submitted successfully!");
 
-    // Reset the form fields
-    setEmail("");
-    setPassword("");
+    return successCount;
+  };
+
+  const handleSubmit = async () => {
+    let num = 0;
+    num = validation();
+    if (num === 3) {
+      try {
+        const existingUser = await axios.get(`/api/user?email=${email}`);
+
+        if (existingUser) {
+          setEmailError("Email аль хэдийн бүртгэгдсэн байна.");
+          return;
+        }
+        const response = await axios.post("/api/user", {
+          email,
+          password,
+          phone,
+        });
+        if (response.data.success === true) handleClose();
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
   return (
@@ -89,7 +99,7 @@ const Register = ({
             textAlign: "center",
             marginTop: "2rem",
             justifyContent: "center",
-            width: "30rem",
+            width: "27rem",
           }}
         >
           <DialogTitle color="primary" fontWeight="bold">
@@ -104,7 +114,7 @@ const Register = ({
               helperText={emailError}
               error={!!emailError}
               sx={{
-                width: "25rem",
+                width: "22rem",
               }}
             />
             <TextField
@@ -115,7 +125,7 @@ const Register = ({
               helperText={passwordError}
               error={!!passwordError}
               sx={{
-                width: "25rem",
+                width: "22rem",
               }}
             />
             <TextField
@@ -126,7 +136,7 @@ const Register = ({
               helperText={phonedError}
               error={!!phonedError}
               sx={{
-                width: "25rem",
+                width: "22rem",
               }}
             />
           </DialogContent>
@@ -137,7 +147,7 @@ const Register = ({
               onClick={handleSubmit}
               sx={{
                 margin: "auto",
-                width: "25rem",
+                width: "22rem",
                 height: "3rem",
                 justifyContent: "center",
                 fontWeight: "bold",

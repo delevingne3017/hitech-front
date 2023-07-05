@@ -61,15 +61,15 @@ export default function FadeMenu() {
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <ShoppingCartIcon />
-          Захиалга{" "}
+          Захиалга
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <FavoriteBorderIcon />
-          Хадгалсан бараа{" "}
+          Хадгалсан бараа
         </MenuItem>
         <MenuItem onClick={handleLogout}>
           <LogoutIcon />
-          Гарах{" "}
+          Гарах
         </MenuItem>
       </Menu>
     </div>

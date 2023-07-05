@@ -36,7 +36,7 @@ const LoginForm = ({
 
   //const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
 
-  const { setUserContext, logout } = useContext(UserContext);
+  const { setUserContext } = useContext(UserContext);
   const handleOpenPass = () => {
     setState({
       ...state,
@@ -54,22 +54,35 @@ const LoginForm = ({
 
   const handleLogin = async () => {
     const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-    if (!emailRegex.test(username)) {
-      setUsername("Email формат буруу байна.");
-    } else setUsername("");
+    if (username.trim() === "") {
+      setUsername("Email -ээ оруулна уу.");
+    } else if (password.trim() === "") {
+      setPassword("password -аа оруулна уу.");
+    }
 
-    if (!password || !password.length) {
-      setPassword("Нууц үгээ оруулна уу.");
-    } else setPassword("");
     try {
       const response = await axios.post("/api/user/login", {
         username,
         password,
       });
-      const _id = response.data.data._id;
+      const id = response.data.data._id;
+      const phone = response.data.data.phone;
+      const firstName = response.data.data.firstName;
+      const lastName = response.data.data.lastName;
+      const balance = response.data.data.balance;
       localStorage.setItem("accessToken", response.data.token);
-      const payload = { email: username, id: _id, isLogged: true };
+      const payload = {
+        email: username,
+        phone: phone,
+        firstName: firstName,
+        lastName: lastName,
+        balance: balance,
+        id: id,
+        isLogged: true,
+      };
       setUserContext(payload);
+
+      if (response.data.success === true) handleClose();
       setState({
         ...state,
         user: response.data.data,
@@ -78,8 +91,6 @@ const LoginForm = ({
     } catch (error) {
       console.error(error);
     }
-    handleClose();
-    return true;
   };
 
   return (
@@ -90,7 +101,7 @@ const LoginForm = ({
             textAlign: "center",
             marginTop: "2rem",
             justifyContent: "center",
-            width: "30rem",
+            width: "27rem",
           }}
         >
           <DialogTitle color="primary" fontWeight="bold">
@@ -98,22 +109,24 @@ const LoginForm = ({
           </DialogTitle>
           <DialogContent>
             <TextField
-              label="Username"
+              label="Имэйл"
               onChange={(e) => setUsername(e.target.value)}
-              error={username && username.length ? true : false}
+              helperText={username}
+              error={!!username}
               margin="normal"
               sx={{
-                width: "25rem",
+                width: "22rem",
               }}
             />
             <TextField
-              label="Password"
-              error={password && password.length ? true : false}
+              label="Нууц үг"
               type="password"
               onChange={(e) => setPassword(e.target.value)}
+              helperText={password}
+              error={!!password}
               margin="normal"
               sx={{
-                width: "25rem",
+                width: "22rem",
               }}
             />
           </DialogContent>
@@ -125,7 +138,7 @@ const LoginForm = ({
               onClick={handleLogin}
               sx={{
                 margin: "auto",
-                width: "25rem",
+                width: "22rem",
                 height: "3rem",
                 fontWeight: "bold",
               }}

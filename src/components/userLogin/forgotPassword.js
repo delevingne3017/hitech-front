@@ -32,7 +32,7 @@ const ForgotPass = ({
             textAlign: "center",
             marginTop: "2rem",
             justifyContent: "center",
-            width: "30rem",
+            width: "27rem",
           }}
         >
           <DialogTitle color="primary" fontWeight="bold">
@@ -47,7 +47,7 @@ const ForgotPass = ({
               error={username && username.length ? true : false}
               margin="normal"
               sx={{
-                width: "25rem",
+                width: "22rem",
               }}
             />
           </DialogContent>
@@ -58,7 +58,7 @@ const ForgotPass = ({
               onClick={handleLogin}
               sx={{
                 margin: "auto",
-                width: "25rem",
+                width: "22rem",
                 height: "3rem",
                 fontWeight: "bold",
               }}
