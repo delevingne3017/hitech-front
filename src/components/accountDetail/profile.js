@@ -5,17 +5,14 @@ import {
   Box,
   Button,
   FormControl,
-  OutlinedInput,
   Snackbar,
   TextField,
   Typography,
 } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import { UserContext } from "../userContext";
+import { UserContext } from "../../context/userContext";
 import { useContext } from "react";
-import * as yup from "yup";
-import { useFormik } from "formik";
 import { useEffect } from "react";
 
 const NavProfile = ({ params }) => {
@@ -49,28 +46,6 @@ const NavProfile = ({ params }) => {
       console.error(error);
     }
   };
-  const form = useFormik({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-    },
-    validationSchema: yup.object({
-      fname: yup.string().required("Заавал оруулна уу"),
-      lname: yup.string().required("Заавал оруулна уу"),
-      email: yup
-        .string()
-        .email("Зөв и-мэйл оруулна уу")
-        .required("Заавал оруулна уу"),
-      phone: yup
-        .number()
-        .min(50000000, "8 урттай байна")
-        .max(99999999, "8 урттай байна")
-        .required("Заавал оруулна уу"),
-    }),
-    updateUser,
-  });
 
   const handleChange = (event) => {
     const name = event.target.name;

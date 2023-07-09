@@ -1,7 +1,7 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
 import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
-import { UserContext } from "../userContext";
+import { UserContext } from "../../context/userContext";
 import { ConstructionOutlined } from "@mui/icons-material";
 import axios from "axios";
 export default function Wallet() {

@@ -9,7 +9,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useRouter } from "next/navigation";
-import { UserContext } from "../userContext";
+import { UserContext } from "../../context/userContext";
 import { Typography } from "@mui/material";
 
 export default function FadeMenu() {

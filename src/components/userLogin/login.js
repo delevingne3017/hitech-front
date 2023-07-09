@@ -12,8 +12,8 @@ import {
   Divider,
 } from "@mui/material";
 import Register from "./register";
-import { useAuth } from "../userContext";
-import { UserContext } from "../userContext";
+import { useAuth } from "../../context/userContext";
+import { UserContext } from "../../context/userContext";
 import { useRouter } from "next/router";
 import axios from "axios";
 import ForgotPass from "./forgotPassword";
@@ -83,6 +83,7 @@ const LoginForm = ({
       setUserContext(payload);
 
       if (response.data.success === true) handleClose();
+
       setState({
         ...state,
         user: response.data.data,

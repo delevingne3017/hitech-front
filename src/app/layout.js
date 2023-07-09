@@ -1,6 +1,5 @@
 "use client";
-import React, { useContext, useEffect } from "react";
-import { UserContext, UserProvider } from "@/components/userContext";
+import { UserProvider } from "@/context/userContext";
 import { ThemeProvider } from "@mui/material";
 import "./globals.css";
 import "slick-carousel/slick/slick.css";
@@ -9,10 +8,8 @@ import { Inter } from "next/font/google";
 import Navbar from "@/components/home/navbar";
 import theme from "@/theme";
 import Footer from "@/components/home/footer";
-import jwt_decode from "jwt-decode";
-import { useState } from "react";
 import MainLayout from "@/components/layouts";
-
+import { SettingsProvider } from "@/context/SettingsContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -28,11 +25,13 @@ export default function RootLayout({ children }) {
       <body style={{ margin: 0 }} className={inter.className}>
         <ThemeProvider theme={theme}>
           <UserProvider>
-            <MainLayout>
-              <Navbar />
-              {children}
-              <Footer />
-            </MainLayout>
+            <SettingsProvider>
+              <MainLayout>
+                <Navbar />
+                {children}
+                <Footer />
+              </MainLayout>
+            </SettingsProvider>
           </UserProvider>
         </ThemeProvider>
       </body>

@@ -27,7 +27,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import LoginForm from "@/components/userLogin/login";
 import Register from "@/components/userLogin/register";
-import { UserContext } from "../userContext";
+import { UserContext } from "../../context/userContext";
 import FadeMenu from "./userMenu";
 import {
   AddRounded,
@@ -38,6 +38,8 @@ import {
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
 import { Rowdies } from "next/font/google";
+import SettingsContext from "@/context/SettingsContext";
+import { useEffect } from "react";
 
 const CustomizedBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -89,83 +91,105 @@ function Navbar() {
 
     setState({ ...state, [anchor]: open });
   };
+  let [cartItems, setCartItems] = useState([]);
 
-  const list = (anchor) => (
-    <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 500 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <Box display="flex" flexDirection="row" justifyContent="flex-start">
-        <ShoppingBag color="primary"></ShoppingBag>
-        <Typography color="primary">1</Typography>
-        <Typography color="primary">Бараа</Typography>
-      </Box>
-      <Divider />
+  useEffect(() => {
+    let storedItems = localStorage.getItem("settings");
+    if (storedItems) {
+      setCartItems(JSON.parse(storedItems));
+    }
+  }, []);
+  let itemCount = cartItems.length;
+  let totalPrice = 0;
+  for (let item of cartItems) {
+    totalPrice += item.quantity * item.price;
+  }
 
+  const list = (anchor) => {
+    return (
       <Box
-        display="flex"
-        flexDirection="row"
-        justifyContent="flex-start"
-        marginTop={"2rem"}
+        sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 500 }}
+        role="presentation"
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}
       >
         <Box display="flex" flexDirection="row" justifyContent="flex-start">
-          <Box display={"flex"} flexDirection={"column"}>
-            <Button>
-              <AddRoundedIcon color="primary"></AddRoundedIcon>
-            </Button>
-            <Typography marginLeft={"1.7rem"}>1</Typography>
-            <Button marginTop="2rem">
-              <RemoveRoundedIcon></RemoveRoundedIcon>
-            </Button>
-          </Box>
-          <Box>
-            <img
-              marginTop="2rem"
-              width="80rem"
-              src="https://api.hitech.mn/uploads/images/2022/6/18/Untitled-3-1655522343772711389-thumbnail.jpg"
-              loading="lazy"
-            />
-          </Box>
-          <Box
-            display="flex"
-            flexDirection="Column"
-            justifyContent="flex-start"
-          >
-            <Typography fontSize={"0.8rem"}>
-              Logitech - Charging Dock
+          <ShoppingBag color="primary"></ShoppingBag>
+          <Typography color="primary">{itemCount}</Typography>
+          <Typography color="primary">Бараа</Typography>
+        </Box>
+        <Divider />
+
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="flex-start"
+          marginTop={"2rem"}
+        >
+          {cartItems.map((item) => (
+            <Box
+              key={item._id}
+              display="flex"
+              flexDirection="row"
+              justifyContent="flex-start"
+            >
+              <Box display={"flex"} flexDirection={"column"}>
+                <Button>
+                  <AddRoundedIcon color="primary"></AddRoundedIcon>
+                </Button>
+                <Typography marginLeft={"1.7rem"}>1</Typography>
+                <Button marginTop="2rem">
+                  <RemoveRoundedIcon></RemoveRoundedIcon>
+                </Button>
+              </Box>
+              <Box>
+                <img
+                  marginTop="2rem"
+                  width="80rem"
+                  src="https://api.hitech.mn/uploads/images/2022/6/18/Untitled-3-1655522343772711389-thumbnail.jpg"
+                  loading="lazy"
+                />
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="Column"
+                justifyContent="flex-start"
+              >
+                <Typography fontSize={"0.8rem"}>{item.name}</Typography>
+                <Typography
+                  color="primary"
+                  fontSize={"0.8rem"}
+                  fontWeight="Bold"
+                >
+                  {item.price}
+                </Typography>
+                <Typography color="gray">{item.quantity}x</Typography>
+              </Box>
+              <Box top="5rem">
+                <Typography marginTop={"2rem"} fontSize={"0.8rem"}>
+                  {item.quantity * item.price}
+                </Typography>
+              </Box>
+            </Box>
+          ))}
+        </Box>
+        <Box bottom="0" position={"fixed"}>
+          <Button variant="contained" paddingRight="0">
+            Төлбөр төлөх
+            <Typography
+              marginLeft={"2rem"}
+              borderRadius={5}
+              bgcolor={"white"}
+              boxShadow={1}
+              color={"black"}
+            >
+              {totalPrice}₮
             </Typography>
-            <Typography color="primary" fontSize={"0.8rem"} fontWeight="Bold">
-              ₮70000
-            </Typography>
-            <Typography color="gray">1x</Typography>
-          </Box>
-          <Box top="5rem">
-            <Typography marginTop={"2rem"} fontSize={"0.8rem"}>
-              ₮70000.00
-            </Typography>
-          </Box>
+          </Button>
         </Box>
       </Box>
-
-      <Box></Box>
-      <Box bottom="0" position={"fixed"}>
-        <Button variant="contained" paddingRight="0">
-          Төлбөр төлөх
-          <Typography
-            marginLeft={"2rem"}
-            borderRadius={5}
-            bgcolor={"white"}
-            boxShadow={1}
-            color={"black"}
-          >
-            ₮
-          </Typography>
-        </Button>
-      </Box>
-    </Box>
-  );
+    );
+  };
 
   return (
     <>
@@ -255,7 +279,7 @@ function Navbar() {
           )}
         </Box>
         <Box sx={{ cursor: "pointer" }} onClick={toggleDrawer("right", true)}>
-          <Badge badgeContent={0} color="primary">
+          <Badge badgeContent={itemCount} color="primary">
             <ShoppingCart color="action" />
           </Badge>
         </Box>

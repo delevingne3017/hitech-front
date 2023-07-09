@@ -24,6 +24,7 @@ import {
 import DetailImage from "../productComponent/detailImage";
 import SameProduct from "../productComponent/sameProduct";
 import TusProduct from "../productComponent/tusProduct";
+import useSettings from "@/hooks/useSettings";
 
 const ProductImage = styled("img")({
   transition: "all .25s ease",
@@ -54,6 +55,8 @@ const responsive = {
 };
 
 const Product = ({ params }) => {
+  const { settings, addItemToCart, removeItemFromCart } = useSettings();
+
   const [state, setState] = useState({
     product: {},
     loading: false,
@@ -75,10 +78,6 @@ const Product = ({ params }) => {
     });
   };
 
-  // useEffect(() => {
-  //   if (ref.current) ref.current.addEventListener("mouseover", handleMouseOver);
-  // }, [ref.current]);
-
   const getProduct = async () => {
     try {
       setState({
@@ -99,9 +98,13 @@ const Product = ({ params }) => {
       console.log(err);
     }
   };
+
+  const addToCart = () => {
+    addItemToCart(state.product);
+  };
   useEffect(() => {
     getProduct();
-  }, []);
+  }, [slug]);
 
   return state.loading ? (
     <CircularProgress />
@@ -226,7 +229,6 @@ const Product = ({ params }) => {
                       ":hover": {
                         boxShadow: 8,
                       },
-
                       top: ".5rem",
                       width: "273px",
                       height: "40px",
@@ -235,6 +237,7 @@ const Product = ({ params }) => {
                     }}
                     variant="outlined"
                     color="primary"
+                    onClick={addToCart}
                   >
                     <ShoppingCartIcon
                       sx={{ color: "black", size: "0.7rem" }}
