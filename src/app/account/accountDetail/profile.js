@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../../../context/userContext";
 import { useContext } from "react";
 import { useEffect } from "react";
 
@@ -26,7 +26,7 @@ const NavProfile = ({ params }) => {
     snackbarText: "",
   });
 
-  const userId = user.id;
+  const userId = user._id;
   const updateUser = async () => {
     try {
       const userData = {
@@ -40,7 +40,7 @@ const NavProfile = ({ params }) => {
       setState({
         ...state,
         openSnackBar: true,
-        snackbarText: "Success",
+        snackbarText: "Амжилттай шинэчлэгдлээ",
       });
     } catch (error) {
       console.error(error);

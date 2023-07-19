@@ -28,19 +28,23 @@ export const SettingsProvider = ({ children, ...props }) => {
         ? settings.cart.find((e) => e._id === item._id)
         : null;
     if (index) {
+      const tmpCard = settings.cart.map((e) =>
+        e._id === item._id ? { ...e, quantity: e.quantity + 1 } : e
+      );
+      localStorage.setItem("settings", JSON.stringify(tmpCard));
       setSettings((s) => ({
         ...s,
-        cart: s.cart.map((e) =>
-          e._id === item._id ? { ...e, quantity: e.quantity + 1 } : e
-        ),
+        cart: tmpCard,
       }));
     } else {
+      const tmpCard =
+        settings.cart && settings.cart.length > 0
+          ? [...settings.cart, { ...item, quantity: 1 }]
+          : [{ ...item, quantity: 1 }];
+      localStorage.setItem("settings", JSON.stringify(tmpCard));
       setSettings((s) => ({
         ...s,
-        cart:
-          s.cart && s.cart.length > 0
-            ? [...s.cart, { ...item, quantity: 1 }]
-            : [{ ...item, quantity: 1 }],
+        cart: tmpCard,
       }));
     }
   };
@@ -53,14 +57,12 @@ export const SettingsProvider = ({ children, ...props }) => {
 
   useEffect(() => {
     let tmp = localStorage.getItem("settings");
-    if (tmp) setSettings(tmp);
-    else setSettings(defaultValues);
+    if (tmp && tmp.length > 0) {
+      setSettings(JSON.parse(tmp)); // Parse the data before setting the state
+    } else {
+      setSettings(defaultValues);
+    }
   }, []);
-
-  useEffect(() => {
-    if (settings.cart)
-      localStorage.setItem("settings", JSON.stringify(settings.cart));
-  }, [settings]);
 
   return (
     <SettingsContext.Provider

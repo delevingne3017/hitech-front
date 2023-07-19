@@ -10,6 +10,8 @@ import {
   Box,
   Typography,
   Divider,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { Phone } from "@mui/icons-material";
 import LoginForm from "./login";
@@ -29,7 +31,10 @@ const Register = ({
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [phonedError, setPhoneError] = useState("");
-
+  const [state, setState] = useState({
+    openSnackBar: false,
+    snackbarText: "",
+  });
   const validation = () => {
     let successCount = 0;
 
@@ -75,7 +80,10 @@ const Register = ({
         const existingUser = await axios.get(`/api/user?email=${email}`);
 
         if (existingUser) {
-          setEmailError("Email аль хэдийн бүртгэгдсэн байна.");
+          setState({
+            openSnackBar: true,
+            snackbarText: "Email аль хэдийн бүртгэгдсэн байна.",
+          });
           return;
         }
         const response = await axios.post("/api/user", {
@@ -180,6 +188,20 @@ const Register = ({
             <Button onClick={handleOpenLogin}>Нэвтрэх </Button>
           </Box>
         </Box>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={state.openSnackBar}
+          autoHideDuration={6000}
+          onClose={() => setState({ ...state, openSnackBar: false })}
+        >
+          <Alert
+            onClose={() => setState({ ...state, openSnackBar: false })}
+            severity="warning"
+            sx={{ width: "100%" }}
+          >
+            {state.snackbarText}
+          </Alert>
+        </Snackbar>
       </Dialog>
     </>
   );

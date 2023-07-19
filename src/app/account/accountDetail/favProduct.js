@@ -1,7 +1,7 @@
 "use client";
 import { Box, Button, Divider, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../../../context/userContext";
 import { useContext } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";

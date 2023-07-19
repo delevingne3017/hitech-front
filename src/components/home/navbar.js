@@ -6,18 +6,10 @@ import {
   TextField,
   Toolbar,
   Typography,
-  Carousel,
-  Paper,
-  Grid,
-  Dialog,
-  DialogContent,
-  DialogTitle,
   Badge,
   Divider,
   Drawer,
 } from "@mui/material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import styled from "@emotion/styled";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import CallIcon from "@mui/icons-material/Call";
@@ -29,17 +21,12 @@ import LoginForm from "@/components/userLogin/login";
 import Register from "@/components/userLogin/register";
 import { UserContext } from "../../context/userContext";
 import FadeMenu from "./userMenu";
-import {
-  AddRounded,
-  Directions,
-  ShoppingBag,
-  ShoppingCart,
-} from "@mui/icons-material";
+import { ShoppingBag, ShoppingCart } from "@mui/icons-material";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
-import { Rowdies } from "next/font/google";
-import SettingsContext from "@/context/SettingsContext";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import useSettings from "@/hooks/useSettings";
 
 const CustomizedBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -49,20 +36,15 @@ const CustomizedBox = styled(Box)(({ theme }) => ({
   alignItems: "center",
   backgroundColor: theme.palette.primary.main,
 }));
-const Item = styled(Paper)(({ theme }) => ({
-  height: "10rem",
-  marginTop: "2rem",
-  borderRadius: "0.4rem",
-  border: "1px ",
-  justifyContent: "center",
-}));
 
 function Navbar() {
   const { user } = useContext(UserContext);
+  const { removeItemFromCart } = useSettings();
   const [state, setState] = useState({
     registerOpen: false,
     loginOpen: false,
     right: false,
+    product: {},
   });
 
   const handleOpenRegister = () => {
@@ -91,6 +73,15 @@ function Navbar() {
 
     setState({ ...state, [anchor]: open });
   };
+  const router = useRouter();
+
+  const checkout = () => {
+    router.push("/payment/");
+  };
+
+  const handleRemoveFromCart = (itemId) => {
+    removeItemFromCart(itemId);
+  };
   let [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
@@ -99,23 +90,57 @@ function Navbar() {
       setCartItems(JSON.parse(storedItems));
     }
   }, []);
+  useEffect(() => {
+    localStorage.setItem("settings", JSON.stringify(cartItems));
+  }, [cartItems]);
+
   let itemCount = cartItems.length;
   let totalPrice = 0;
   for (let item of cartItems) {
     totalPrice += item.quantity * item.price;
   }
 
+  const addProduct = (productId) => {
+    const updatedCartItems = cartItems.map((item) => {
+      if (item._id === productId) {
+        if (item.quantity < item.count)
+          return { ...item, quantity: item.quantity + 1 };
+      }
+      return item;
+    });
+
+    setCartItems(updatedCartItems);
+  };
+
+  const decreaseProduct = (productId) => {
+    const updatedCartItems = cartItems.map((item) => {
+      if (item._id === productId) {
+        const updatedQuantity = item.quantity - 1;
+        if (updatedQuantity <= 0) {
+          return null; // Remove the item from the cart
+        } else {
+          return { ...item, quantity: updatedQuantity };
+        }
+      }
+      return item;
+    });
+
+    const filteredCartItems = updatedCartItems.filter(Boolean); // Remove null items
+
+    setCartItems(filteredCartItems);
+  };
+
   const list = (anchor) => {
     return (
       <Box
         sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 500 }}
         role="presentation"
-        onClick={toggleDrawer(anchor, false)}
+        // onClick={toggleDrawer(anchor, false)}
         onKeyDown={toggleDrawer(anchor, false)}
       >
         <Box display="flex" flexDirection="row" justifyContent="flex-start">
           <ShoppingBag color="primary"></ShoppingBag>
-          <Typography color="primary">{itemCount}</Typography>
+          <Typography color="primary" value={state.count}></Typography>
           <Typography color="primary">Бараа</Typography>
         </Box>
         <Divider />
@@ -134,11 +159,17 @@ function Navbar() {
               justifyContent="flex-start"
             >
               <Box display={"flex"} flexDirection={"column"}>
-                <Button>
+                <Button
+                  onClick={() => addProduct(item._id)}
+                  maximum={item.count}
+                >
                   <AddRoundedIcon color="primary"></AddRoundedIcon>
                 </Button>
-                <Typography marginLeft={"1.7rem"}>1</Typography>
-                <Button marginTop="2rem">
+                <Typography marginLeft={"1.7rem"}>{item.quantity}</Typography>
+                <Button
+                  marginTop="2rem"
+                  onClick={() => decreaseProduct(item._id)}
+                >
                   <RemoveRoundedIcon></RemoveRoundedIcon>
                 </Button>
               </Box>
@@ -170,6 +201,11 @@ function Navbar() {
                   {item.quantity * item.price}
                 </Typography>
               </Box>
+              <Box>
+                <Button onClick={() => handleRemoveFromCart(item._id)}>
+                  X
+                </Button>
+              </Box>
             </Box>
           ))}
         </Box>
@@ -182,6 +218,7 @@ function Navbar() {
               bgcolor={"white"}
               boxShadow={1}
               color={"black"}
+              onClick={user.isLogged ? checkout : handleOpenLogin}
             >
               {totalPrice}₮
             </Typography>

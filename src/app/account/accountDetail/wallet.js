@@ -1,20 +1,38 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
-import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
-import { UserContext } from "../../context/userContext";
-import { ConstructionOutlined } from "@mui/icons-material";
+import { useContext, useState } from "react";
+import {
+  Alert,
+  Box,
+  Button,
+  FormControl,
+  Snackbar,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { UserContext } from "../../../context/userContext";
 import axios from "axios";
 export default function Wallet() {
   const { user } = useContext(UserContext);
-  const [balance, setBalance] = useState("");
-  const userId = user.id;
+  const [state, setState] = useState({
+    balance: 0,
+    openSnackBar: false,
+    snackbarText: "",
+  });
+  const userId = user._id;
 
-  const handleLogin = async () => {
-    console.log("hi");
-    console.log("data", balance);
+  const handleRecharge = async () => {
     try {
-      const response = await axios.put("api/user/" + userId, { balance });
-      console.log("er", response);
+      const previousBalance = parseInt(user.balance);
+      const rechargeAmount = parseInt(state.balance);
+      const newBalance = previousBalance + rechargeAmount;
+      const response = await axios.put("api/user/" + userId, {
+        balance: newBalance,
+      });
+      setState({
+        ...state,
+        openSnackBar: true,
+        snackbarText: "Амжилттай цэнэглэгдлээ.",
+      });
     } catch (err) {
       console.error(err);
     }
@@ -68,12 +86,30 @@ export default function Wallet() {
             <TextField
               id="outlined-uncontrolled"
               label="Цэнэглэх дүн"
-              onChange={(e) => setBalance(e.target.value)}
+              onChange={(e) => setState({ ...state, balance: e.target.value })}
             />
-            <Button variant="contained" color="primary" onClick={handleLogin}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleRecharge}
+            >
               Цэнэглэх
             </Button>
           </Box>
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={state.openSnackBar}
+            autoHideDuration={6000}
+            onClose={() => setState({ ...state, openSnackBar: false })}
+          >
+            <Alert
+              onClose={() => setState({ ...state, openSnackBar: false })}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              {state.snackbarText}
+            </Alert>
+          </Snackbar>
         </Box>
       </Box>
     </>

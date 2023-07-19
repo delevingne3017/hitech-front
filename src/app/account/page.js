@@ -5,12 +5,12 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import NavProfile from "@/components/accountDetail/profile";
-import Wallet from "@/components/accountDetail/wallet";
-import FavProduct from "@/components/accountDetail/favProduct";
+import NavProfile from "@/app/account/accountDetail/profile";
+import Wallet from "@/app/account/accountDetail/wallet";
+import FavProduct from "@/app/account/accountDetail/favProduct";
 import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
-import UserOrder from "@/components/accountDetail/userOrder";
+import UserOrder from "@/app/account/accountDetail/userOrder";
 import {
   Typography,
   Box,

@@ -10,6 +10,8 @@ import {
   Box,
   Typography,
   Divider,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import Register from "./register";
 import { useAuth } from "../../context/userContext";
@@ -26,11 +28,13 @@ const LoginForm = ({
   handleOpenRegister,
   ...props
 }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  var [username, setUsername] = useState("");
+  var [password, setPassword] = useState("");
   const [state, setState] = useState({
     passOpen: false,
     loginOpen: false,
+    openSnackBar: false,
+    snackbarText: "",
     user: {},
   });
 
@@ -65,6 +69,14 @@ const LoginForm = ({
         username,
         password,
       });
+      if (response.data.success === true) handleClose();
+      else {
+        setState({
+          openSnackBar: true,
+          snackbarText: "Нэвтрэх нэр эсвэл нууц үг буруу байна.",
+        });
+      }
+
       const id = response.data.data._id;
       const phone = response.data.data.phone;
       const firstName = response.data.data.firstName;
@@ -81,8 +93,6 @@ const LoginForm = ({
         isLogged: true,
       };
       setUserContext(payload);
-
-      if (response.data.success === true) handleClose();
 
       setState({
         ...state,
@@ -173,6 +183,20 @@ const LoginForm = ({
             }}
           />
         </Box>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={state.openSnackBar}
+          autoHideDuration={6000}
+          onClose={() => setState({ ...state, openSnackBar: false })}
+        >
+          <Alert
+            onClose={() => setState({ ...state, openSnackBar: false })}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            {state.snackbarText}
+          </Alert>
+        </Snackbar>
       </Dialog>
     </>
   );
