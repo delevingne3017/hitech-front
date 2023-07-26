@@ -1,74 +1,74 @@
 "use client";
-import { Box } from "@mui/material";
-import React, { Component } from "react";
+import { Box, Button } from "@mui/material";
+import React, { useRef } from "react";
 import Slider from "react-slick";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 
-function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
+export default function HomePhoto() {
+  const ref = useRef();
+  const next = () => {
+    // const obj = new Slider();
+    ref.current.slickNext();
+  };
+  const previous = () => {
+    // const obj = new Slider();
+    ref.current.slickPrev();
+  };
+
+  const settings = {
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 1000,
+    autoplaySpeed: 3000,
+    cssEase: "linear",
+  };
   return (
-    <Box
-      className={className}
-      style={{ ...style, marginRight:"20rem", height: 20, zIndex: 20 }}
-      onClick={onClick}
-    />
-  );
-}
-
-function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <Box
-      className={className}
-      style={{ ...style,  display:"block", marginLeft:"20rem", height:"2rem", width:"4rem", zIndex: 20, bgcolor:"#ffffff" }}
-      onClick={onClick}
-    />
-  );
-}
-
-export default class HomePhoto extends Component {
-  render() {
-    const settings = {
-      infinite: true,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      autoplay: true,
-      speed: 1000,
-      autoplaySpeed: 3000,
-      cssEase: "linear",
-      nextArrow: <SampleNextArrow />,
-      prevArrow: <SamplePrevArrow />,
-    };
-    return (
+    <>
       <Box>
-        <Slider {...settings}>
-          <Box height={"27rem"} >
+        <Slider ref={ref} {...settings} position={"absolute"}>
+          <Box height={"27rem"}>
             <img
               src="https://api.hitech.mn/uploads/images/2023/6/19/WD-Black-1687181175112843912-original.jpg"
               alt="main image"
-              style={{ height:"27rem", width:"100%"}}
-              
+              style={{ height: "27rem", width: "100%" }}
             />
-          </Box  >
+          </Box>
           <Box height={"27rem"}>
             <img
               src="https://api.hitech.mn/uploads/images/2023/6/19/rx7600-1687181206740710246-original.jpg"
               alt="main image"
-              style={{ height:"27rem", width:"100%"}}
-              
+              style={{ height: "27rem", width: "100%" }}
             />
           </Box>
           <Box height={"27rem"}>
             <img
               src="https://api.hitech.mn/uploads/images/2023/6/19/corsair-1687181115820730970-original.jpg"
               alt="main image"
-              style={{ height:"27rem", width:"100%"}}
-              
+              style={{ height: "27rem", width: "100%" }}
             />
           </Box>
         </Slider>
       </Box>
-    );
-  }
+      <Box
+        display={"flex"}
+        justifyContent={"space-between"}
+      >
+        <Button onClick={previous}>
+          <Box width={"4rem"} borderRadius={"2rem"} bottom={"15rem"} position={"relative"}>
+            <KeyboardDoubleArrowLeftIcon fontSize="large" />
+          </Box>
+        </Button>
+        <Button onClick={next}>
+          <Box width={"4rem"} borderRadius={"2rem"} bottom={"15rem"} position={"relative"} >
+            <KeyboardDoubleArrowRightIcon fontSize="large" />
+          </Box>
+        </Button>
+      </Box>
+    </>
+  );
 }
 
 // export default function HomePhoto() {

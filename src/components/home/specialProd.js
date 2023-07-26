@@ -6,7 +6,6 @@ import LeftCarousel from "./leftCarousel";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 export default function SpecialProduct() {
 
