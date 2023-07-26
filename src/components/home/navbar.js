@@ -27,6 +27,7 @@ import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useSettings from "@/hooks/useSettings";
+import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 
 const CustomizedBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -108,7 +109,6 @@ function Navbar() {
       }
       return item;
     });
-
     setCartItems(updatedCartItems);
   };
 
@@ -126,43 +126,40 @@ function Navbar() {
     });
 
     const filteredCartItems = updatedCartItems.filter(Boolean); // Remove null items
-
     setCartItems(filteredCartItems);
   };
 
   const list = (anchor) => {
     return (
       <Box
-        sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 500 }}
+        sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 420 }}
         role="presentation"
         // onClick={toggleDrawer(anchor, false)}
         onKeyDown={toggleDrawer(anchor, false)}
       >
-        <Box display="flex" flexDirection="row" justifyContent="flex-start">
-          <ShoppingBag color="primary"></ShoppingBag>
-          <Typography color="primary" value={state.count}></Typography>
+        <Box
+          display="flex"
+          height={"3rem"}
+          alignItems={"center"}
+          marginLeft={"1rem"}
+        >
+          <ShoppingBag color="primary" />
+          <Typography color="primary">{itemCount}</Typography>
           <Typography color="primary">Бараа</Typography>
         </Box>
         <Divider />
 
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="flex-start"
-          marginTop={"2rem"}
-        >
+        <Box display="flex" flexDirection="column" justifyContent="flex-start">
           {cartItems.map((item) => (
             <Box
               key={item._id}
               display="flex"
               flexDirection="row"
-              justifyContent="flex-start"
+              alignItems={"center"}
+              marginTop={"1rem"}
             >
               <Box display={"flex"} flexDirection={"column"}>
-                <Button
-                  onClick={() => addProduct(item._id)}
-                  maximum={item.count}
-                >
+                <Button onClick={() => addProduct(item._id)}>
                   <AddRoundedIcon color="primary"></AddRoundedIcon>
                 </Button>
                 <Typography marginLeft={"1.7rem"}>{item.quantity}</Typography>
@@ -175,8 +172,7 @@ function Navbar() {
               </Box>
               <Box>
                 <img
-                  marginTop="2rem"
-                  width="80rem"
+                  width="70rem"
                   src="https://api.hitech.mn/uploads/images/2022/6/18/Untitled-3-1655522343772711389-thumbnail.jpg"
                   loading="lazy"
                 />
@@ -184,7 +180,8 @@ function Navbar() {
               <Box
                 display="flex"
                 flexDirection="Column"
-                justifyContent="flex-start"
+                marginLeft={"2rem"}
+                width={"8rem"}
               >
                 <Typography fontSize={"0.8rem"}>{item.name}</Typography>
                 <Typography
@@ -192,16 +189,16 @@ function Navbar() {
                   fontSize={"0.8rem"}
                   fontWeight="Bold"
                 >
-                  {item.price}
+                  ₮{item.price}
                 </Typography>
                 <Typography color="gray">{item.quantity}x</Typography>
               </Box>
-              <Box top="5rem">
-                <Typography marginTop={"2rem"} fontSize={"0.8rem"}>
-                  {item.quantity * item.price}
+              <Box>
+                <Typography fontSize={"1rem"} fontWeight={"bold"}>
+                  ₮{item.quantity * item.price}
                 </Typography>
               </Box>
-              <Box>
+              <Box marginRight={"1rem"}>
                 <Button onClick={() => handleRemoveFromCart(item._id)}>
                   X
                 </Button>
@@ -209,19 +206,31 @@ function Navbar() {
             </Box>
           ))}
         </Box>
-        <Box bottom="0" position={"fixed"}>
-          <Button variant="contained" paddingRight="0">
+        <Box right={"3.5rem"} bottom="2rem" position="fixed">
+          <Button
+            variant="contained"
+            sx={{
+              padding: "0 .1rem 0 .8rem",
+              borderRadius: "5rem",
+              height: "2.7rem",
+              boxShadow: "3px 3px 7px -2px rgba(0, 0, 0, 0.56)",
+            }}
+            onClick={user.isLogged ? checkout : handleOpenLogin}
+          >
             Төлбөр төлөх
-            <Typography
-              marginLeft={"2rem"}
-              borderRadius={5}
-              bgcolor={"white"}
-              boxShadow={1}
+            <Box
+              display="flex"
+              alignItems={"center"}
+              justifyContent={"center"}
+              width={"6rem"}
+              height="2.5rem"
+              marginLeft={"3rem"}
+              borderRadius={"5rem"}
+              backgroundColor={"white"}
               color={"black"}
-              onClick={user.isLogged ? checkout : handleOpenLogin}
             >
-              {totalPrice}₮
-            </Typography>
+              <Typography>{totalPrice}₮</Typography>
+            </Box>
           </Button>
         </Box>
       </Box>
@@ -282,6 +291,24 @@ function Navbar() {
           }}
         />
         <Box
+          onClick={toggleDrawer("right", true)}
+          sx={{
+            cursor: "pointer",
+            margin: "0 1rem 0 2rem",
+          }}
+        >
+          <Badge
+            badgeContent={itemCount}
+            color="primary"
+            sx={{ fontSize: "1rem" }}
+          >
+            <LocalMallOutlinedIcon
+              color="action"
+              sx={{ fontSize: "2rem", ":hover": { color: "#FE5900" } }}
+            />
+          </Badge>
+        </Box>
+        <Box
           display="flex"
           justifyContent="center"
           alignItems="center"
@@ -314,11 +341,6 @@ function Navbar() {
               </Button>
             </Box>
           )}
-        </Box>
-        <Box sx={{ cursor: "pointer" }} onClick={toggleDrawer("right", true)}>
-          <Badge badgeContent={itemCount} color="primary">
-            <ShoppingCart color="action" />
-          </Badge>
         </Box>
         <Register
           open={state.registerOpen}

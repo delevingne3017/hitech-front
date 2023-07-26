@@ -14,11 +14,7 @@ const MainLayout = ({ children }) => {
       if (token) {
         const decodedToken = jwt_decode(token);
         if (decodedToken.exp > Date.now() / 1000) {
-          console.log("decodedToken:", decodedToken);
-
           const response = await axios.get(`/api/user/${decodedToken.userId}`);
-
-          console.log("fetched user:", response.data.data);
           setUserContext({
             isLogged: true,
             //fetched user info

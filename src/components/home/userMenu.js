@@ -4,13 +4,12 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import PersonIcon from "@mui/icons-material/Person";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LogoutIcon from "@mui/icons-material/Logout";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useRouter } from "next/navigation";
 import { UserContext } from "../../context/userContext";
-import { Typography } from "@mui/material";
 
 export default function FadeMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -53,22 +52,52 @@ export default function FadeMenu() {
         open={open}
         onClose={handleClose}
         TransitionComponent={Fade}
-        sx={{ marginLeft: "-8rem" }}
+        sx={{
+          marginLeft: "-8rem",
+        }}
       >
-        <MenuItem onClick={handleUser}>
-          <PersonIcon />
+        <MenuItem
+          onClick={handleUser}
+          sx={{
+            ":hover": {
+              color: "#FE5900",
+            },
+          }}
+        >
+          <PersonOutlineOutlinedIcon sx={{ marginRight: ".5rem" }} />
           Профайл
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ShoppingCartIcon />
+        <MenuItem
+          onClick={handleClose}
+          sx={{
+            ":hover": {
+              color: "#FE5900",
+            },
+          }}
+        >
+          <ShoppingCartOutlinedIcon sx={{ marginRight: ".5rem" }} />
           Захиалга
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <FavoriteBorderIcon />
+        <MenuItem
+          onClick={handleClose}
+          sx={{
+            ":hover": {
+              color: "#FE5900",
+            },
+          }}
+        >
+          <FavoriteBorderIcon sx={{ marginRight: ".5rem" }} />
           Хадгалсан бараа
         </MenuItem>
-        <MenuItem onClick={handleLogout}>
-          <LogoutIcon />
+        <MenuItem
+          onClick={handleLogout}
+          sx={{
+            ":hover": {
+              color: "red",
+            },
+          }}
+        >
+          <LogoutIcon sx={{ marginRight: ".5rem" }} />
           Гарах
         </MenuItem>
       </Menu>

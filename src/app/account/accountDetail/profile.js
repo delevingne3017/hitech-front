@@ -15,7 +15,7 @@ import { UserContext } from "../../../context/userContext";
 import { useContext } from "react";
 import { useEffect } from "react";
 
-const NavProfile = ({ params }) => {
+const NavProfile = () => {
   const { user } = useContext(UserContext);
   const [state, setState] = useState({
     firstName: null,
