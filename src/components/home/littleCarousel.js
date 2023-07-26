@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 import { Box } from "@mui/material";
 
-export default class LittleCarousel extends Component {
-  render() {
+export default function LittleCarousel() {
     const settings = {
       infinite: true,
       slidesToShow: 4,
@@ -34,7 +33,7 @@ export default class LittleCarousel extends Component {
       </Box>
     );
   }
-}
+
 
 //
 
