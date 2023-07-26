@@ -61,12 +61,8 @@ export default function payment() {
       buttonText: "Худалдаж авах",
     });
     if (state.current === 2) {
-      console.log("working");
       if (user.balance > totalPrice) {
-        console.log("balance");
         try {
-          console.log("data", userId, orders);
-
           const headers = {
             Authorization: "Bearer " + localStorage.getItem("accessToken"),
           };
