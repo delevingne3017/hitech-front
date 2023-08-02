@@ -48,6 +48,7 @@ const Register = ({
       setEmailError("Email зөв байна.");
     } else {
       successCount++;
+      setEmailError("");
     }
     if (password.trim() === "") {
       setPasswordError("password -аа оруулна уу.");
@@ -67,6 +68,7 @@ const Register = ({
       setPhoneError("Утасны дугаараа оруулна уу.");
     } else {
       successCount++;
+      setPhoneError("");
     }
 
     return successCount;
@@ -191,7 +193,7 @@ const Register = ({
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={state.openSnackBar}
-          autoHideDuration={6000}
+          autoHideDuration={2000}
           onClose={() => setState({ ...state, openSnackBar: false })}
         >
           <Alert
