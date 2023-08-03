@@ -245,9 +245,59 @@ export default function NavbarMenu() {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        {navItems.map((el, index) => {
+          return (
+            <MenuItem
+              onClick={searchedItems}
+              sx={{
+                ":hover": {
+                  color: "#FE5900",
+                },
+                fontSize: "1rem",
+                color: "black",
+              }}
+              aria-owns={popover.id}
+              aria-describedby={popover.id}
+            >
+              {<el.Icon />}
+              {el.name}
+              {el.children && el.children.length > 0 && (
+                <IconButton
+                  onClick={(e) => {
+                    setPopover({
+                      ...popover,
+                      el: e.currentTarget,
+                      id: index,
+                    });
+                  }}
+                >
+                  <ArrowRight />
+                </IconButton>
+              )}
+            </MenuItem>
+          );
+        })}
+        <Popover
+          id={popover.id}
+          open={Boolean(popover.el)}
+          anchorEl={popover.el}
+          onClose={closePopover}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          sx={{
+            p: 10,
+            height: 500,
+            width: 1200,
+            backgroundColor: "",
+          }}
+        >
+          {navItems[popover.id] &&
+            navItems[popover.id].children.map((e) => {
+              return <Typography>{e.name}</Typography>;
+            })}
+        </Popover>
       </Menu>
     </div>
   );
