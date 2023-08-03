@@ -337,7 +337,6 @@ const Product = ({ params }) => {
           <TusProduct />
         </Box>
       </Box>
-      <Box></Box>
     </Box>
   );
 };

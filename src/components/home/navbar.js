@@ -28,6 +28,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useSettings from "@/hooks/useSettings";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
+import MailIcon from "@mui/icons-material/Mail";
 
 const CustomizedBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -241,7 +242,7 @@ function Navbar() {
     <>
       <CustomizedBox>
         <NavbarItem>
-          <HelpOutlineIcon sx={{ width: 20, height: 20 }} />
+          <MailIcon sx={{ width: 20, height: 20 }} />
           <Typography sx={{ marginLeft: 1 }} variant="caption">
             Түгээмэл асуултууд
           </Typography>

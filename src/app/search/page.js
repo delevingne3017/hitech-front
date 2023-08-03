@@ -6,9 +6,9 @@ import FilteredProducts from "./component/filteredProducts";
 
 export default function BasicAccordion() {
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={1} bgcolor={""}>
       <Grid item xs={12} lg={3}>
-        <Filter />
+        <Filter sx={{}} />
       </Grid>
       <Grid item xs={12} lg={9}>
         <FilteredProducts />
