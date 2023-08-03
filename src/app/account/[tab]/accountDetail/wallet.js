@@ -45,7 +45,7 @@ export default function Wallet() {
         <Typography fontSize={"1.5rem"} fontWeight="bold" paddingTop="2rem">
           Миний хэтэвч
         </Typography>
-        <Grid item xs={12} lg={5}>
+        <Grid item xs={12} sm={11} md={9} lg={5}>
           <Box
             sx={{
               margin: "1rem",
@@ -63,6 +63,8 @@ export default function Wallet() {
             <Typography margin="2rem">{user.email}</Typography>
             <Box
               sx={{
+                display: "flex",
+                alignItems: "center",
                 margin: "auto",
                 border: "1px solid white",
                 borderRadius: "0.8rem",
@@ -70,7 +72,7 @@ export default function Wallet() {
                 height: "3rem",
               }}
             >
-              <Typography margin="1.5vh" marginLeft="2rem">
+              <Typography marginLeft="2rem">
                 Үлдэгдэл : ${user.balance}
               </Typography>
             </Box>

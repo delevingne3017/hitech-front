@@ -38,13 +38,14 @@ export default function userPage() {
   return (
     <Box display={"flex"}>
       <Grid container>
-        <Grid item xs={12} lg={3}>
+        <Grid item xs={12} sm={5} md={4} lg={3}>
           <Box
             bgcolor={"white"}
             sx={{
-              margin: "2rem 2rem 2rem 2rem",
+              marginTop: "2rem",
               boxShadow: 2,
             }}
+            marginX={{ xs: 0, md: "1rem", sm: "1rem", lg: "2rem" }}
           >
             <nav aria-label="main mailbox folders">
               <List>
@@ -97,12 +98,12 @@ export default function userPage() {
             </nav>
           </Box>
         </Grid>
-        <Grid item xs={12} lg={9}>
+        <Grid item xs={12} sm={9} md={8} lg={9}>
           <Box
             sx={{
-              margin: "2rem 2rem 2rem 2rem",
               boxShadow: 2,
             }}
+            marginX={{ xs: 0, md: "1rem", sm: "1rem", lg: "2rem " }}
           >
             {activeComponent === "order" ? (
               <UserOrder />

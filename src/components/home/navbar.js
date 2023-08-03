@@ -136,7 +136,7 @@ function Navbar() {
   const list = (anchor) => {
     return (
       <Box
-        sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 420 }}
+        sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 400 }}
         role="presentation"
         onKeyDown={toggleDrawer(anchor, false)}
       >
@@ -150,7 +150,14 @@ function Navbar() {
           <Typography color="primary">
             {settings.cart ? settings.cart.length : 0}
           </Typography>
-          <Typography color="primary">Бараа</Typography>
+          <Typography color="primary"> Бараа</Typography>
+          <Button
+            disableRipple
+            sx={{ position: "fixed", right: "1rem", fontSize: "1.2rem" }}
+            onClick={() => setState({ ...state, right: false })}
+          >
+            X
+          </Button>
         </Box>
         <Divider />
 
@@ -285,6 +292,8 @@ function Navbar() {
           backgroundColor: "#fff",
           zIndex: 999,
         }}
+        right={0}
+        left={0}
       >
         <Toolbar>
           <Box
@@ -305,6 +314,7 @@ function Navbar() {
               <NavbarMenu />
               <TextField
                 sx={{ marginX: 3 }}
+                fullWidth
                 size="small"
                 placeholder="хайлт  хийх "
                 InputProps={{
@@ -373,7 +383,28 @@ function Navbar() {
               </Box>
             </Box>
           ) : (
-            <MobileMenu />
+            <Box display="flex" flexDirection="row" alignItems="center">
+              <Box
+                onClick={toggleDrawer("right", true)}
+                sx={{
+                  cursor: "pointer",
+                }}
+                display="flex"
+                alignItems="center"
+              >
+                <Badge
+                  badgeContent={settings.cart ? settings.cart.length : 0}
+                  color="primary"
+                  sx={{ fontSize: "1rem" }}
+                >
+                  <LocalMallOutlinedIcon
+                    color="action"
+                    sx={{ fontSize: "2rem", ":hover": { color: "#FE5900" } }}
+                  />
+                </Badge>
+              </Box>
+              <MobileMenu />
+            </Box>
           )}
           <Register
             open={state.registerOpen}

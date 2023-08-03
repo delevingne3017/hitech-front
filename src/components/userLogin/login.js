@@ -114,6 +114,7 @@ const LoginForm = ({
             justifyContent: "center",
             width: "27rem",
           }}
+          marginX={{ xs: 0 }}
         >
           <DialogTitle color="primary" fontWeight="bold">
             Тавтай морил
@@ -128,6 +129,7 @@ const LoginForm = ({
               sx={{
                 width: "22rem",
               }}
+              width={{ xs: "15rem" }}
             />
             <TextField
               label="Нууц үг"
@@ -139,6 +141,7 @@ const LoginForm = ({
               sx={{
                 width: "22rem",
               }}
+              width={{ xs: "15rem" }}
             />
           </DialogContent>
           <Button onClick={handleOpenPass}>Нууц үг сэргээх </Button>
@@ -153,6 +156,7 @@ const LoginForm = ({
                 height: "3rem",
                 fontWeight: "bold",
               }}
+              widthX={{ xs: "15rem" }}
             >
               Нэвтрэх
             </Button>

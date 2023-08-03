@@ -1,6 +1,6 @@
 import useSettings from "@/hooks/useSettings";
 import styled from "@emotion/styled";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Hidden, Typography } from "@mui/material";
 import React from "react";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import PaymentMethod from "./paymentAcc";
@@ -9,8 +9,8 @@ const CustomizedBox = styled(Box)(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   flexDirection: "column",
-  width: "3rem",
-  height: "3rem",
+  width: "48px",
+  height: "48px",
   border: "1px solid white",
   borderRadius: ".4rem",
   marginLeft: "1rem",
@@ -26,9 +26,9 @@ const ReviewOrder = (props) => {
         <Box
           display="flex"
           justifyContent="center"
-          margin="1rem 0 0 6rem"
           flexDirection="column "
           alignItems="center"
+          margin={{ xs: "2rem 0 0 0", lg: "1rem 0 0 6rem" }}
         >
           <img
             src="https://www.hitech.mn/_next/static/images/pluto-welcome-89ea1cbb5c4895f7ab5e096000646669.svg"
@@ -45,7 +45,6 @@ const ReviewOrder = (props) => {
           </Typography>
           <Box
             display="flex"
-            width="60%"
             marginTop="2rem"
             sx={{
               borderRadius: ".4rem",
@@ -54,39 +53,58 @@ const ReviewOrder = (props) => {
                 "linear-gradient(90deg, rgba(254,89,0,1) 49%, rgba(243,163,120,1) 82%)",
               boxShadow: 3,
             }}
+            width={{ xs: "90%", md: "60%", sm: "60%", lg: "60%" }}
           >
-            <Box display="flex" margin="1rem 2rem 1rem 0">
-              <CustomizedBox>
-                <Typography>00</Typography>
-                <Typography>өдөр </Typography>
-              </CustomizedBox>
-              <CustomizedBox>
-                <Typography>00</Typography>
-                <Typography>цаг </Typography>
-              </CustomizedBox>
-              <CustomizedBox>
-                <Typography>00</Typography>
-                <Typography>мин </Typography>
-              </CustomizedBox>
-              <CustomizedBox>
-                <Typography>00</Typography>
-                <Typography>сек </Typography>
-              </CustomizedBox>
-            </Box>
-            <Box
-              marginTop="1rem"
-              height="3rem"
-              sx={{ border: "1px solid white" }}
-            />
-            <Box margin="1rem " display="flex" alignItems="center">
-              <Typography
-                color="white"
-                marginLeft="1rem"
-                sx={{ fontSize: ".8rem" }}
+            <Grid container>
+              <Grid item xs={12} md={6} sm={12} lg={7}>
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  margin={{ xs: "1rem", lg: "1rem 2rem 1rem 0" }}
+                >
+                  <CustomizedBox>
+                    <Typography>00</Typography>
+                    <Typography>өдөр </Typography>
+                  </CustomizedBox>
+                  <CustomizedBox>
+                    <Typography>00</Typography>
+                    <Typography>цаг </Typography>
+                  </CustomizedBox>
+                  <CustomizedBox>
+                    <Typography>00</Typography>
+                    <Typography>мин </Typography>
+                  </CustomizedBox>
+                  <CustomizedBox>
+                    <Typography>00</Typography>
+                    <Typography>сек </Typography>
+                  </CustomizedBox>
+                </Box>
+              </Grid>
+              <Hidden smDown={true}>
+                <Box
+                  marginTop="1rem"
+                  height="3rem"
+                  sx={{ border: "1px solid white" }}
+                />
+              </Hidden>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={5}
+                lg={4}
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
               >
-                Төлбөр төлөгдөхийг хүлээж байна
-              </Typography>
-            </Box>
+                <Box marginLeft="2rem" marginBottom="1rem">
+                  <Typography color="white" sx={{ fontSize: ".8rem" }}>
+                    Төлбөр төлөгдөхийг хүлээж байна
+                  </Typography>
+                </Box>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
         <Box

@@ -54,6 +54,7 @@ const MobileMenu = () => {
   const handleLogout = () => {
     logout();
     router.push("/");
+    setOpenDraw(false);
   };
   const mainPage = () => {
     router.push("/");
@@ -66,7 +67,6 @@ const MobileMenu = () => {
         open={openDraw}
         role="presentation"
         onClose={() => setOpenDraw(false)}
-        sx={{ width: 270 }}
       >
         <IconButton
           sx={{ margin: "1rem 0 1rem 0" }}
@@ -76,7 +76,7 @@ const MobileMenu = () => {
           <CloseIcon />
         </IconButton>
         <Box
-          width="250px"
+          width="320px"
           backgroundColor="#f7f7f7"
           display="flex"
           alignItems="center"
@@ -166,8 +166,11 @@ const MobileMenu = () => {
           </Box>
         ) : null}
       </Drawer>
-      <IconButton onClick={() => setOpenDraw(!openDraw)}>
-        <MenuIcon />
+      <IconButton
+        onClick={() => setOpenDraw(!openDraw)}
+        sx={{ margin: "0 0 0 2rem" }}
+      >
+        <MenuIcon sx={{ fontSize: "1.5rem" }} />
       </IconButton>
       <Register
         open={state.registerOpen}

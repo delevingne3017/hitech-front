@@ -4,9 +4,9 @@ const OrderShow = (props) => {
   return (
     <Grid xs={12}>
       <Box
-        margin="1rem 6rem 1rem 0"
         borderRadius=".5rem"
         boxShadow="3px 3px 7px -2px rgba(0, 0, 0, 0.56)"
+        margin={{ xs: 0, sm: "1rem 6rem 1rem 6rem", lg: "1rem 6rem 1rem 0" }}
       >
         <Box>
           <Typography
