@@ -1,5 +1,5 @@
 "use client";
-import { Box, Grid, Typography, Button } from "@mui/material";
+import { Box, Grid, Typography, Button, Pagination } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
@@ -12,15 +12,30 @@ import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrow
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import {Cpagination} from "./cPagination"
 
 export default function NewProducts() {
   const [state, setState] = useState({
     newProducts: [],
   });
+  const [isHovering, setIsHovering] = useState(false);
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
+
+  const router = useRouter();
+  const handleProduct = (productId) => {
+    router.push(`/product/${productId}`);
+  };
   const getNewProducts = async () => {
     try {
       const resNewPrd = await axios.post("/api/product/search", {
-        type: "new",
+        type: "new"
       });
       console.log("resNewPrd:", resNewPrd.data.data);
 
@@ -49,6 +64,11 @@ export default function NewProducts() {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+
+  const [page, setPage] = React.useState(1);
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
   return (
     <>
       <Box marginTop={"6rem"} marginBottom={"3rem"}>
@@ -68,90 +88,105 @@ export default function NewProducts() {
                 md={12}
                 justifyContent={"center"}
               >
-                {Array.from(Array(9)).map((_, index) => (
-                  <Grid
-                    item
-                    xs={2}
-                    sm={4}
-                    md={3.5}
-                    sx={{
-                      bgcolor: "#ffffff",
-                      margin: "1rem",
-                      borderRadius: "0.5rem",
-                    }}
-                    key={index}
-                  >
-                    <Box display={"flex"} justifyContent={"flex-start"}>
-                      <Box>
-                        <img
-                          src="https://api.hitech.mn/uploads/images/2022/10/11/jombogo-Recovered-Recovered-1665462625503444295-thumbnail.jpg"
-                          alt="{main image}"
-                          style={{
-                            width: "25vh",
-                            borderRadius: "0.5rem",
-                            height: "20vh",
-                            position: "absolute",
-                          }}
-                          bgcolor="white"
-                        />
-                        <Box
-                          display={"flex"}
-                          justifyContent={"flex-start"}
-                          alignItems={"center"}
-                          position={"relative"}
-                          marginTop={"5rem"}
-                        >
-                          <Box
-                            bgcolor={"white"}
-                            margin={1}
-                            borderRadius={"5rem"}
-                            padding={"0.2rem"}
-                          >
-                            <FavoriteIcon width={10} height={10} />
-                          </Box>
-                          <Box
-                            bgcolor={"white"}
-                            margin={1}
-                            borderRadius={"5rem"}
-                            padding={"0.2rem"}
-                          >
-                            <RemoveRedEyeIcon width={20} height={12} />
-                          </Box>
-                          <Box
-                            bgcolor={"white"}
-                            margin={1}
-                            borderRadius={"5rem"}
-                            padding={"0.2rem"}
-                          >
-                            <SwapHorizIcon width={20} height={12} />
-                          </Box>
-                        </Box>
-                      </Box>
-                      <Box
-                        display={"flex"}
-                        flexDirection={"column"}
-                        justifyContent={"column"}
-                        paddingBottom={"0.5rem"}
+                {state.newProducts &&
+                  state.newProducts[0] &&
+                  state.newProducts.map((item, index) => {
+                    return (
+                      <Grid
+                        onMouseOver={handleMouseOver}
+                        onMouseOut={handleMouseOut}
+                        key={index}
+                        item
+                        xs={2}
+                        sm={4}
+                        md={3.5}
+                        sx={{
+                          bgcolor: "#ffffff",
+                          margin: "1rem",
+                          borderRadius: "0.5rem",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleProduct(item._id)}
                       >
-                        <Box marginLeft={"10rem"} marginTop={"1"} marginX={1}>
-                          <Typography marginLeft={"1.5rem"} fontSize={14}>
-                            MSI GeForce RTX™ 4060 Ti GAMING X 8G
-                          </Typography>
+                        <Box display={"flex"} justifyContent={"flex-start"}>
+                          <Box>
+                            <img
+                              src="https://api.hitech.mn/uploads/images/2022/10/11/jombogo-Recovered-Recovered-1665462625503444295-thumbnail.jpg"
+                              alt="{main image}"
+                              style={{
+                                width: "25vh",
+                                borderRadius: "0.5rem",
+                                height: "20vh",
+                                position: "absolute",
+                              }}
+                              bgcolor="white"
+                            />
+                            
+                              <Box
+                                display={"flex"}
+                                justifyContent={"flex-start"}
+                                alignItems={"center"}
+                                position={"relative"}
+                                marginTop={"5rem"}
+                              >
+                                <Box
+                                  bgcolor={"white"}
+                                  margin={1}
+                                  borderRadius={"5rem"}
+                                  padding={"0.2rem"}
+                                >
+                                  <FavoriteIcon width={10} height={10} />
+                                </Box>
+                                <Box
+                                  bgcolor={"white"}
+                                  margin={1}
+                                  borderRadius={"5rem"}
+                                  padding={"0.2rem"}
+                                >
+                                  <RemoveRedEyeIcon width={20} height={12} />
+                                </Box>
+                                <Box
+                                  bgcolor={"white"}
+                                  margin={1}
+                                  borderRadius={"5rem"}
+                                  padding={"0.2rem"}
+                                >
+                                  <SwapHorizIcon width={20} height={12} />
+                                </Box>
+                              </Box>
+                            
+                          </Box>
+
+                          <Box
+                            display={"flex"}
+                            flexDirection={"column"}
+                            justifyContent={"column"}
+                            paddingBottom={"0.5rem"}
+                          >
+                            <Box
+                              marginLeft={"10rem"}
+                              marginTop={"1"}
+                              marginX={1}
+                            >
+                              <Typography marginLeft={"1.5rem"} fontSize={14}>
+                                {item.name}
+                              </Typography>
+                            </Box>
+                            <Box
+                              marginTop={"4rem"}
+                              display={"flex"}
+                              justifyContent={"space-between"}
+                              marginRight={"1rem"}
+                              marginLeft={"2rem"}
+                            >
+                              <Typography>{item.price}T</Typography>
+                              <ShoppingBagIcon/>
+                            </Box>
+                          </Box>
                         </Box>
-                        <Box
-                          marginTop={"4rem"}
-                          display={"flex"}
-                          justifyContent={"space-between"}
-                          marginRight={"1rem"}
-                          marginLeft={"2rem"}
-                        >
-                          <Typography>1.750.000$</Typography>
-                          <ShoppingBagIcon />
-                        </Box>
-                      </Box>
-                    </Box>
-                  </Grid>
-                ))}
+                      </Grid>
+                    );
+                  })}
               </Grid>
             </Box>
           </Box>
@@ -168,7 +203,7 @@ export default function NewProducts() {
                 {Array.from(Array(9)).map((_, index) => (
                   <Grid
                     item
-                    xs={2}
+                    xs={12}
                     sm={4}
                     md={3.5}
                     sx={{
@@ -254,6 +289,8 @@ export default function NewProducts() {
           </Box>
         </Slider>
         <Box style={{ textAlign: "center" }}>
+        <Pagination count={10} page={page} onChange={handleChange} />
+          aaaaaaaa
           <Button onClick={previous}>
             <Box
               bgcolor={"#ffffff"}

@@ -12,9 +12,8 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import HomePhoto from "../components/home/homePhoto";
 import LittleCarousel from "../components/home/littleCarousel";
-import LeftCarousel from "@/components/home/leftCarousel";
-import NineCarousel from "@/components/home/nineCarousel";
-import NineCarouselBottom from "@/components/home/nineCarouselBottom";
+import NewProducts from "@/components/home/newProducts";
+import PopularProducts from "@/components/home/popularProducts";
 import SaleProduct from "@/components/home/saleProduct";
 import Logo from "@/components/home/logo";
 import Service from "@/components/home/service";
@@ -35,8 +34,8 @@ export default function Home() {
     <Box sx={{ width: "100%" }} bgcolor={"#ffffff"}>
       <Box style={{ width: "100%", height: "63vh" }}>
         <HomePhoto />
-        <LittleCarousel />
-        <Box marginBottom={"2rem"}></Box>
+        <LittleCarousel/>
+        {/* <Box marginBottom={"2rem"}></Box> */}
       </Box>
       <SpecialProduct />
       <Box bgcolor={"#f3f6f4"}>
@@ -50,8 +49,8 @@ export default function Home() {
           />
         </Box>
         <Box bgcolor={"F7F7F7"}>
-          <NineCarousel />
-          <NineCarouselBottom />
+          <NewProducts />
+          <PopularProducts/>
         </Box>
         <Box>
           <img

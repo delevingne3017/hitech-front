@@ -13,6 +13,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import axios from "axios";
+<<<<<<< Updated upstream
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import useSettings from "@/hooks/useSettings";
 import { useContext } from "react";
@@ -20,9 +21,19 @@ import { UserContext } from "@/context/userContext";
 import { useRouter } from "next/navigation";
 import LoginForm from "@/components/userLogin/login";
 import Register from "@/components/userLogin/register";
+=======
+import React, { useContext, useEffect, useRef, useState } from "react";
+import "react-multi-carousel/lib/styles.css";
+>>>>>>> Stashed changes
 import DetailImage from "../productComponent/detailImage";
 import SameProduct from "../productComponent/sameProduct";
 import TusProduct from "../productComponent/tusProduct";
+import useSettings from "@/hooks/useSettings";
+import { useRouter } from "next/navigation";
+import { UserContext } from "@/context/userContext";
+import LoginForm from "@/components/userLogin/login";
+import Register from "@/components/userLogin/register";
+
 
 const ProductImage = styled("img")({
   transition: "all .25s ease",
