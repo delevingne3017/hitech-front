@@ -13,7 +13,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import axios from "axios";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useSettings from "@/hooks/useSettings";
 import { useContext } from "react";
 import { UserContext } from "@/context/userContext";
@@ -77,7 +77,7 @@ const Product = ({ params }) => {
     });
   };
 
-  const getProduct = useCallback(async () => {
+  const getProduct = async () => {
     try {
       setState({
         ...state,
@@ -96,12 +96,11 @@ const Product = ({ params }) => {
       });
       console.log(err);
     }
-  }, []);
-
+  };
   const router = useRouter();
 
   const checkout = () => {
-    router.push("/payment");
+    router.push("/payment/");
   };
   const handleOpenLogin = () => {
     setState({

@@ -19,12 +19,12 @@ export default function FadeMenu() {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const accountUSer = (tab) => {
-    router.push(`/account/${tab}`);
-    setAnchorEl(null);
-  };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleUser = () => {
+    router.push(`/account`);
+    handleClose();
   };
   const { logout } = useContext(UserContext);
   const handleLogout = () => {
@@ -57,8 +57,7 @@ export default function FadeMenu() {
         }}
       >
         <MenuItem
-          value="navProfile"
-          onClick={() => accountUSer("navProfile")}
+          onClick={handleUser}
           sx={{
             ":hover": {
               color: "#FE5900",
@@ -69,8 +68,7 @@ export default function FadeMenu() {
           Профайл
         </MenuItem>
         <MenuItem
-          value="order"
-          onClick={() => accountUSer("order")}
+          onClick={handleClose}
           sx={{
             ":hover": {
               color: "#FE5900",
@@ -81,8 +79,7 @@ export default function FadeMenu() {
           Захиалга
         </MenuItem>
         <MenuItem
-          value="product"
-          onClick={() => accountUSer("product")}
+          onClick={handleClose}
           sx={{
             ":hover": {
               color: "#FE5900",
