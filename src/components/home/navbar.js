@@ -10,6 +10,7 @@ import {
   Divider,
   Drawer,
   useMediaQuery,
+  Hidden,
 } from "@mui/material";
 import styled from "@emotion/styled";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
@@ -30,6 +31,7 @@ import { useRouter } from "next/navigation";
 import useSettings from "@/hooks/useSettings";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import MobileMenu from "../drawer/menuDraw";
+import axios from "axios";
 
 const CustomizedBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -48,6 +50,7 @@ function Navbar() {
     loginOpen: false,
     right: false,
     product: {},
+    query: "",
   });
   const matches = useMediaQuery("(min-width:991px)");
   const [isScrolled, setIsScrolled] = useState(false);
@@ -56,7 +59,19 @@ function Navbar() {
     const scrollY = window.scrollY;
     setIsScrolled(scrollY > 0);
   };
-
+  console.log("q", state.query);
+  const searchProductByName = async () => {
+    const res = await axios.get("/api/product?query=${state.query}");
+    console.log("filet: ", res);
+  };
+  useEffect(() => {
+    searchProductByName();
+  }, []);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      searchProductByName(state.query);
+    }
+  };
   const handleOpenRegister = () => {
     setState({
       ...state,
@@ -95,11 +110,9 @@ function Navbar() {
   const buyItem = () => {
     router.push("/payment");
     setState({ ...state, right: false });
-    changeOrderPage("review");
+    changeOrderPage("personalInfo");
   };
-  const mainPage = () => {
-    router.push("/");
-  };
+
   const handleRemoveFromCart = (itemId) => {
     removeItemFromCart(itemId);
   };
@@ -220,38 +233,40 @@ function Navbar() {
             ))}
         </Box>
         <Box right={"3.5rem"} bottom="2rem" position="fixed">
-          <Button
-            variant="contained"
-            sx={{
-              padding: "0 .1rem 0 .8rem",
-              borderRadius: "5rem",
-              height: "2.7rem",
-              boxShadow: "3px 3px 7px -2px rgba(0, 0, 0, 0.56)",
-            }}
-            onClick={user.isLogged ? buyItem : handleOpenLogin}
-          >
-            Төлбөр төлөх
-            <Box
-              display="flex"
-              alignItems={"center"}
-              justifyContent={"center"}
-              width={"6rem"}
-              height="2.5rem"
-              marginLeft={"3rem"}
-              borderRadius={"5rem"}
-              backgroundColor={"white"}
-              color={"black"}
+          {settings.cart.length == 0 ? null : (
+            <Button
+              variant="contained"
+              sx={{
+                padding: "0 .1rem 0 .8rem",
+                borderRadius: "5rem",
+                height: "2.7rem",
+                boxShadow: "3px 3px 7px -2px rgba(0, 0, 0, 0.56)",
+              }}
+              onClick={user.isLogged ? buyItem : handleOpenLogin}
             >
-              <Typography>
-                {settings.cart &&
-                  settings.cart.reduce(
-                    (sum, curr) => sum + curr.quantity * curr.price,
-                    0
-                  )}
-                ₮
-              </Typography>
-            </Box>
-          </Button>
+              Төлбөр төлөх
+              <Box
+                display="flex"
+                alignItems={"center"}
+                justifyContent={"center"}
+                width={"6rem"}
+                height="2.5rem"
+                marginLeft={"3rem"}
+                borderRadius={"5rem"}
+                backgroundColor={"white"}
+                color={"black"}
+              >
+                <Typography>
+                  {settings.cart &&
+                    settings.cart.reduce(
+                      (sum, curr) => sum + curr.quantity * curr.price,
+                      0
+                    )}
+                  ₮
+                </Typography>
+              </Box>
+            </Button>
+          )}
         </Box>
       </Box>
     );
@@ -307,7 +322,7 @@ function Navbar() {
               marginRight: "4rem",
               cursor: "pointer",
             }}
-            onClick={mainPage}
+            onClick={() => router.push("/")}
           />
           {matches ? (
             <Box display="flex" alignItems="center">
@@ -317,6 +332,8 @@ function Navbar() {
                 fullWidth
                 size="small"
                 placeholder="хайлт  хийх "
+                onChange={(e) => setState({ ...state, query: e.target.value })}
+                onKeyDown={handleKeyDown} // Add the onKeyDown event
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
