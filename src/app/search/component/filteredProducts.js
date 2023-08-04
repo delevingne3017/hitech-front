@@ -44,6 +44,7 @@ export default function FilteredProducts() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentData = data.slice(startIndex, endIndex);
+  const [page, setPage] = React.useState(1);
 
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   return (

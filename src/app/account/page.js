@@ -8,12 +8,12 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ProductCard from "@/components/home/specialProd";
-import NavProfile from "./accountDetail/profile";
-import Wallet from "./accountDetail/wallet";
-import FavProduct from "./accountDetail/favProduct";
+import NavProfile from "./[tab]/accountDetail/profile";
+import Wallet from "./[tab]/accountDetail/wallet";
+import FavProduct from "./[tab]/accountDetail/favProduct";
 import { useContext, useState } from "react";
-import { useRouter } from "next/navigation";
-import UserOrder from "@/app/account/accountDetail/userOrder";
+import { useParams, useRouter } from "next/navigation";
+import UserOrder from "./[tab]/accountDetail/userOrder";
 import {
   Typography,
   Box,
@@ -27,7 +27,8 @@ import {
 
 export default function userPage() {
   const router = useRouter();
-  const [activeComponent, setActiveComponent] = useState("");
+  const { tab } = useParams();
+  const [activeComponent, setActiveComponent] = useState(tab);
   const handleClick = (name) => {
     setActiveComponent(name);
   };
@@ -36,91 +37,86 @@ export default function userPage() {
   };
   return (
     <Box display={"flex"}>
-      <Box
-        bgcolor={"white"}
-        sx={{
-          width: "100%",
-          height: "18rem",
-          maxWidth: 300,
-          marginTop: "2rem",
-          marginLeft: "2rem",
-          marginBottom: "2rem",
-          boxShadow: 2,
-        }}
-      >
-        <nav aria-label="main mailbox folders">
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => handleClick("order")}>
-                <ListItemIcon>
-                  <ArchiveIcon />
-                </ListItemIcon>
-                <ListItemText primary="Захиалга " />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => handleClick("wallet")}>
-                <ListItemIcon>
-                  <WalletIcon />
-                </ListItemIcon>
-                <ListItemText primary="Хэтэвч  " />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => handleClick("product")}>
-                <ListItemIcon>
-                  <FavoriteBorderIcon />
-                </ListItemIcon>
-                <ListItemText primary="Хадгалсан бараа " />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </nav>
-        <Divider />
-        <nav aria-label="secondary mailbox folders">
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => handleClick("navProfile")}>
-                <ListItemIcon>
-                  <PersonOutlineIcon />
-                </ListItemIcon>
-                <ListItemText primary="Профайл " />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={handleLogOut}>
-                <ListItemIcon>
-                  <ExitToAppIcon />
-                </ListItemIcon>
-                <ListItemText primary="Гарах " />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </nav>
-      </Box>
-      <Box
-        sx={{
-          marginTop: "2rem",
-          marginLeft: "2rem",
-          marginRight: "2rem",
-          marginBottom: "2rem",
-          width: "100%",
-          height: "60rem",
-          boxShadow: 2,
-        }}
-      >
-        <Box height={"100%"}>
-          {activeComponent === "order" ? (
-            <UserOrder />
-          ) : activeComponent === "navProfile" ? (
-            <NavProfile />
-          ) : activeComponent === "wallet" ? (
-            <Wallet />
-          ) : activeComponent === "product" ? (
-            <FavProduct />
-          ) : null}
-        </Box>
-      </Box>
+      <Grid container>
+        <Grid item xs={12} sm={5} md={4} lg={3}>
+          <Box
+            bgcolor={"white"}
+            sx={{
+              marginTop: "2rem",
+              boxShadow: 2,
+            }}
+            marginX={{ xs: 0, md: "1rem", sm: "1rem", lg: "2rem" }}
+          >
+            <nav aria-label="main mailbox folders">
+              <List>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => handleClick("order")}>
+                    <ListItemIcon>
+                      <ArchiveIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Захиалга " />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => handleClick("wallet")}>
+                    <ListItemIcon>
+                      <WalletIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Хэтэвч  " />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => handleClick("product")}>
+                    <ListItemIcon>
+                      <FavoriteBorderIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Хадгалсан бараа " />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </nav>
+            <Divider />
+            <nav aria-label="secondary mailbox folders">
+              <List>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => handleClick("navProfile")}>
+                    <ListItemIcon>
+                      <PersonOutlineIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Профайл " />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={handleLogOut}>
+                    <ListItemIcon>
+                      <ExitToAppIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Гарах " />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </nav>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={9} md={8} lg={9}>
+          <Box
+            sx={{
+              boxShadow: 2,
+            }}
+            marginX={{ xs: 0, md: "1rem", sm: "1rem", lg: "2rem " }}
+          >
+            {activeComponent === "order" ? (
+              <UserOrder />
+            ) : activeComponent === "navProfile" ? (
+              <NavProfile />
+            ) : activeComponent === "wallet" ? (
+              <Wallet />
+            ) : activeComponent === "product" ? (
+              <FavProduct />
+            ) : null}
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 }
