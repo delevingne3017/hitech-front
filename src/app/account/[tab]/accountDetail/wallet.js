@@ -26,7 +26,7 @@ export default function Wallet() {
       const previousBalance = parseInt(user.balance);
       const rechargeAmount = parseInt(state.balance);
       const newBalance = previousBalance + rechargeAmount;
-      const response = await axios.put("api/user/" + userId, {
+      const response = await axios.put("/api/user/" + userId, {
         balance: newBalance,
       });
       setState({

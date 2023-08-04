@@ -53,7 +53,8 @@ const responsive = {
 };
 
 const Product = ({ params }) => {
-  const { settings, addItemToCart, removeItemFromCart } = useSettings();
+  const { settings, addItemToCart, removeItemFromCart, changeOrderPage } =
+    useSettings();
   const { user } = useContext(UserContext);
 
   const [state, setState] = useState({
@@ -119,6 +120,7 @@ const Product = ({ params }) => {
 
   const addToCart = () => {
     addItemToCart(state.product);
+    changeOrderPage("personalInfo");
   };
 
   useEffect(() => {
