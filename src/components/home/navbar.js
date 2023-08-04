@@ -116,6 +116,7 @@ function Navbar() {
   const handleRemoveFromCart = (itemId) => {
     removeItemFromCart(itemId);
   };
+
   let [cartItems, setCartItems] = useState([]);
 
   const addProduct = (productId) => {
