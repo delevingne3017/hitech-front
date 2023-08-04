@@ -29,7 +29,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useSettings from "@/hooks/useSettings";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
-import MobileMenu from "../drawer/menuDraw";
+import MailIcon from "@mui/icons-material/Mail";
 
 const CustomizedBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -259,32 +259,30 @@ function Navbar() {
 
   return (
     <>
-      {matches ? (
-        <CustomizedBox style={{ display: isScrolled ? "none" : "flex" }}>
-          <NavbarItem>
-            <HelpOutlineIcon sx={{ width: 20, height: 20 }} />
-            <Typography sx={{ marginLeft: 1 }} variant="caption">
-              Түгээмэл асуултууд
-            </Typography>
-          </NavbarItem>
+      <CustomizedBox>
+        <NavbarItem>
+          <MailIcon sx={{ width: 20, height: 20 }} />
+          <Typography sx={{ marginLeft: 1 }} variant="caption">
+            Түгээмэл асуултууд
+          </Typography>
+        </NavbarItem>
 
-          <NavbarItem onClick={() => console.log("Contact")}>
-            <CallIcon sx={{ width: 20, height: 20, marginRight: 1 }} />
-            <Typography variant="caption">Холбоо барих</Typography>
-          </NavbarItem>
+        <NavbarItem onClick={() => console.log("Contact")}>
+          <CallIcon sx={{ width: 20, height: 20, marginRight: 1 }} />
+          <Typography variant="caption">Холбоо барих</Typography>
+        </NavbarItem>
 
-          <NavbarItem>
-            <HelpOutlineIcon sx={{ width: 20, height: 20, marginRight: 1 }} />
-            <Typography variant="caption">Түгээмэл асуултууд</Typography>
-          </NavbarItem>
+        <NavbarItem>
+          <HelpOutlineIcon sx={{ width: 20, height: 20, marginRight: 1 }} />
+          <Typography variant="caption">Түгээмэл асуултууд</Typography>
+        </NavbarItem>
 
-          <NavbarItem>
-            <HelpOutlineIcon sx={{ width: 20, height: 20, marginRight: 1 }} />
-            <Typography variant="caption">Түгээмэл асуултууд</Typography>
-          </NavbarItem>
-        </CustomizedBox>
+        <NavbarItem>
+          <HelpOutlineIcon sx={{ width: 20, height: 20, marginRight: 1 }} />
+          <Typography variant="caption">Түгээмэл асуултууд</Typography>
+        </NavbarItem>
+      </CustomizedBox>
       ) : null}
-
       <Box
         position={isScrolled ? "fixed" : "relative"}
         top={0}
