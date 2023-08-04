@@ -38,6 +38,8 @@ const LoginForm = ({
     user: {},
   });
 
+  //const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
+
   const { setUserContext } = useContext(UserContext);
   const handleOpenPass = () => {
     setState({
@@ -97,8 +99,6 @@ const LoginForm = ({
         user: response.data.data,
         isLogged: true,
       });
-      setUsername("");
-      setPassword("");
     } catch (error) {
       console.error(error);
     }
@@ -190,7 +190,7 @@ const LoginForm = ({
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={state.openSnackBar}
-          autoHideDuration={1500}
+          autoHideDuration={6000}
           onClose={() => setState({ ...state, openSnackBar: false })}
         >
           <Alert

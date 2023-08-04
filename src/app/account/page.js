@@ -8,12 +8,12 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ProductCard from "@/components/home/specialProd";
-import NavProfile from "./accountDetail/profile";
-import Wallet from "./accountDetail/wallet";
-import FavProduct from "./accountDetail/favProduct";
+import NavProfile from "./[tab]/accountDetail/profile";
+import Wallet from "./[tab]/accountDetail/wallet";
+import FavProduct from "./[tab]/accountDetail/favProduct";
 import { useContext, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import UserOrder from "./accountDetail/userOrder";
+import UserOrder from "./[tab]/accountDetail/userOrder";
 import {
   Typography,
   Box,
