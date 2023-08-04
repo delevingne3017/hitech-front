@@ -55,6 +55,7 @@ const Checkout = (props) => {
   const headers = {
     Authorization: "Bearer " + localStorage.getItem("accessToken"),
   };
+
   const placeOrder = useCallback(async () => {
     if (totalPrice <= user.balance) {
       try {

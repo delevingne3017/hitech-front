@@ -17,6 +17,7 @@ import AddCardIcon from "@mui/icons-material/AddCard";
 import { useRouter } from "next/navigation";
 import useSettings from "@/hooks/useSettings";
 import PersonalInfo from "./paymentDetail/personalInfo";
+
 import Checkout from "./paymentDetail/checkout";
 import ReviewOrder from "./paymentDetail/review";
 import OrderShow from "./paymentDetail/orders";
