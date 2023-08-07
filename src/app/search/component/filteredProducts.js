@@ -1,54 +1,66 @@
-"use client";
-import * as React from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import { Box, Button, Checkbox, Grid, IconButton, Stack } from "@mui/material";
-import { styled } from "@mui/material/styles";
-
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  IconButton,
+  Pagination,
+  Stack,
+  Typography,
+} from "@mui/material";
 import GridViewIcon from "@mui/icons-material/GridView";
-import Paper from "@mui/material/Paper";
-import Pagination from "@mui/material/Pagination";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
-import { useState } from "react";
+import { useSearchContext } from "@/context/searchContext";
+import axios from "axios";
+import useSettings from "@/hooks/useSettings";
+
 export default function FilteredProducts() {
-  const [value, setValue] = React.useState([20, 37]);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "black" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(0.2),
-    textAlign: "start",
-    width: "7rem",
-    margin: "1rem, 0",
-    color: theme.palette.text.secondary,
-  }));
-  const data = [...Array(160).keys()].map((i) => i + 1);
+  const { lastSearch } = useSearchContext();
+  const [products, setProducts] = useState([]);
+  const { addItemToCart } = useSettings();
   const itemsPerPage = 16;
-  const totalPages = Math.ceil(data.length / itemsPerPage);
 
+  useEffect(() => {
+    if (lastSearch) {
+      async function fetchProducts() {
+        try {
+          const res = await axios.get("/api/product");
+          const allProducts = res.data.data;
+
+          const filteredProducts = allProducts.filter((product) =>
+            product.name.toLowerCase().includes(lastSearch.toLowerCase())
+          );
+
+          setProducts(filteredProducts);
+        } catch (error) {
+          console.error("Error fetching products: ", error);
+        }
+      }
+
+      fetchProducts();
+    }
+  }, [lastSearch]);
+  const addToCart = () => {
+    addItemToCart(products);
+  };
+
+  const totalPages = Math.ceil(products.length / itemsPerPage);
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
   };
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentData = data.slice(startIndex, endIndex);
-  const [page, setPage] = React.useState(1);
+  const currentProducts = products.slice(startIndex, endIndex);
 
-  const label = { inputProps: { "aria-label": "Checkbox demo" } };
   return (
-    <>
+    <Box>
       <Box
         sx={{
           position: "relative",
@@ -72,6 +84,108 @@ export default function FilteredProducts() {
           Бэлэн .... бараа байна{" "}
         </Typography>
       </Box>
+
+      <Grid
+        container
+        spacing={3}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        marginTop="1rem"
+      >
+        {currentProducts.map((product) => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={product._id}>
+            <Box sx={{ display: "flex", justifyConten: "center" }}>
+              <Card>
+                <CardContent>
+                  <Button
+                    size="small"
+                    sx={{ borderRadius: "20%" }}
+                    variant="outlined"
+                  >
+                    шинэ
+                  </Button>
+                  <img
+                    src="https://www.hitech.mn/_next/image?url=https%3A%2F%2Fapi.hitech.mn%2Fuploads%2Fimages%2F2023%2F8%2F1%2F1-1690872502046385648-thumbnail.jpg&w=1920&q=75"
+                    alt="{main image}"
+                    width={"170px"}
+                    height={"170px"}
+                  />
+                  <Typography variant="body2" component="p" fontWeight="bold">
+                    {product.name}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    component="p"
+                    marginTop={"0.4rem"}
+                  >
+                    {product.price}₮
+                  </Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginTop: "1rem",
+                    }}
+                    color={""}
+                  >
+                    <Button sx={{}}>
+                      {" "}
+                      <Box
+                        sx={{
+                          bgcolor: "#fe5900",
+                          margin: "1",
+                          borderRadius: "5rem",
+                          padding: "0.4rem",
+                        }}
+                      >
+                        <Box
+                          display={"flex"}
+                          flexDirection="row"
+                          onClick={() => addToCart()}
+                        >
+                          <ShoppingBagIcon
+                            sx={{ color: "#fffcfa" }}
+                            width="20"
+                            height="12"
+                            size="small"
+                            flexDirection="row"
+                          ></ShoppingBagIcon>
+                          <Typography
+                            flexDirection="row"
+                            fontSize={".6rem"}
+                            fontWeight={"bold"}
+                            marginTop={".4rem"}
+                            sx={{
+                              color: "white",
+                              alignItems: "center",
+                              flexDirection: "row",
+                              top: ".2rem",
+                            }}
+                          >
+                            сагсанд хийх
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Button>
+                    <IconButton
+                      aria-label="FavoriteBorderIcon"
+                      disabled
+                      color="primary"
+                    >
+                      <FavoriteBorderIcon
+                        sx={{ ":lefth": "2rem" }}
+                        color={"primary"}
+                      ></FavoriteBorderIcon>
+                    </IconButton>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Box>
+          </Grid>
+        ))}
+      </Grid>
+
       <Stack
         spacing={2}
         sx={{
@@ -82,209 +196,13 @@ export default function FilteredProducts() {
         }}
       >
         <Pagination
-          count={totalPages} // Total number of pages
-          page={currentPage} // Current page
-          onChange={handlePageChange} // Callback function for page change
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
           variant="outlined"
           color="primary"
         />
       </Stack>
-      <Box>
-        <Grid
-          container
-          spacing={3}
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          marginTop={"1rem"}
-        >
-          {Array.from(Array(16)).map((_, index) => (
-            <Grid item xs={12} sm={2} md={3} lg={2.5} key={index}>
-              <Box sx={{ display: "flex", justifyConten: "center" }}>
-                <Card>
-                  <CardContent>
-                    <Button
-                      size="small"
-                      sx={{ borderRadius: "20%" }}
-                      variant="outlined"
-                    >
-                      шинэ
-                    </Button>
-                    <img
-                      src="https://www.hitech.mn/_next/image?url=https%3A%2F%2Fapi.hitech.mn%2Fuploads%2Fimages%2F2023%2F8%2F1%2F1-1690872502046385648-thumbnail.jpg&w=1920&q=75"
-                      alt="{main image}"
-                      width={"170px"}
-                      height={"170px"}
-                    />
-                    <Typography variant="body2" component="p" fontWeight="bold">
-                      MSI - MAG B760M MORTAR WIFI DDR5
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      component="p"
-                      marginTop={"0.4rem"}
-                    >
-                      650,000₮
-                    </Typography>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        marginTop: "1rem",
-                      }}
-                      color={""}
-                    >
-                      <Button sx={{}}>
-                        {" "}
-                        <Box
-                          sx={{
-                            bgcolor: "#fe5900",
-                            margin: "1",
-                            borderRadius: "5rem",
-                            padding: "0.4rem",
-                          }}
-                        >
-                          <Box display={"flex"} flexDirection="row">
-                            <ShoppingBagIcon
-                              sx={{ color: "#fffcfa" }}
-                              width="20"
-                              height="12"
-                              size="small"
-                              flexDirection="row"
-                            ></ShoppingBagIcon>
-                            <Typography
-                              flexDirection="row"
-                              fontSize={".6rem"}
-                              fontWeight={"bold"}
-                              marginTop={".4rem"}
-                              sx={{
-                                color: "white",
-                                alignItems: "center",
-                                flexDirection: "row",
-                                top: ".2rem",
-                              }}
-                            >
-                              сагсанд хийх
-                            </Typography>
-                          </Box>
-                        </Box>
-                      </Button>
-                      <IconButton
-                        aria-label="FavoriteBorderIcon"
-                        disabled
-                        color="primary"
-                      >
-                        <FavoriteBorderIcon
-                          sx={{ ":lefth": "2rem" }}
-                          color={"primary"}
-                        ></FavoriteBorderIcon>
-                      </IconButton>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-        <Pagination
-          count={totalPages} // Total number of pages
-          page={currentPage} // Current page
-          onChange={handlePageChange} // Callback function for page change
-          variant="outlined"
-          color="primary"
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "2rem",
-          }}
-        />
-      </Box>
-    </>
+    </Box>
   );
 }
-// export default function Build() {
-//   const data = [...Array(160).keys()].map((i) => i + 1);
-//   const itemsPerPage = 16;
-//   const totalPages = Math.ceil(data.length / itemsPerPage);
-
-//   const [currentPage, setCurrentPage] = useState(1);
-
-//   const handlePageChange = (event, newPage) => {
-//     setCurrentPage(newPage);
-//   };
-//   const startIndex = (currentPage - 1) * itemsPerPage;
-//   const endIndex = startIndex + itemsPerPage;
-//   const currentData = data.slice(startIndex, endIndex);
-
-//   return (
-//     <>
-//       <Box>
-//         <img
-//           src="https://api.hitech.mn/uploads/images/2021/4/9/CPU-1617961246091546110-original.jpg"
-//           alt="{main image}"
-//           width={"100%"}
-//         />
-//       </Box>
-//       <Grid container spacing={2}>
-//         {/* 8-column grid */}
-//         <Grid item xs={3}>
-//           {Array.from(Array(6)).map((_, index) => (
-//             <Box
-//               border={"dashed"}
-//               width={"15rem"}
-//               height={"5rem"}
-//               borderRadius={"0.6rem"}
-//               borderColor={"#FE5900"}
-//               bgcolor={"#FFD1B8"}
-//               marginLeft={"4rem"}
-//               marginTop={"1rem"}
-//             >
-//               <Box sx={{ display:"flex", justifyContent:"center", margin:"auto"}}>
-//                 <AddCircleOutlineIcon />
-//                 <Typography>CPU</Typography>
-//               </Box>
-//             </Box>
-//           ))}
-//         </Grid>
-
-//         {/* 4-column grid */}
-//         <Grid item xs={9}>
-//           <Box>
-//             {/* Pagination component */}
-//             <Box
-//               display={"flex"}
-//               justifyContent={"center"}
-//               alignItems={"center"}
-//             >
-//               <Pagination
-//                 count={totalPages} // Total number of pages
-//                 page={currentPage} // Current page
-//                 onChange={handlePageChange} // Callback function for page change
-//                 variant="outlined"
-//                 color="primary"
-//               />
-//             </Box>
-//             <Box>
-//               {/* Display your data */}
-//               {currentData.map((item) => (
-//                 <Grid item xs={3} sm={2} md={2}>
-//                   <Card>
-//                     <CardContent>
-//                       <Typography variant="h5" component="h2">
-//                         Card Title
-//                       </Typography>
-//                       <Typography variant="body2" component="p">
-//                         This is the content of the card.
-//                       </Typography>
-//                     </CardContent>
-//                   </Card>
-//                 </Grid>
-//               ))}
-//             </Box>
-//           </Box>
-//         </Grid>
-//       </Grid>
-//     </>
-//   );
-// }

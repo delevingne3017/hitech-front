@@ -6,20 +6,16 @@ import { useState } from "react";
 import { useCallback } from "react";
 import axios from "axios";
 import useSettings from "@/hooks/useSettings";
-
+import { useRouter } from "next/navigation";
+import { useSearchContext } from "@/context/searchContext";
 export default function SearchProdByName() {
   const [query, setQuery] = useState("");
   const { settings } = useSettings();
+  const { addSearch } = useSearchContext();
 
+  const router = useRouter();
   const searchProductByName = useCallback(async () => {
     try {
-      // const res = await axios.get("/api/product", {
-      //   params: {
-      //     name: query,
-      //   },
-      // });
-      // console.log("filtered: ", res.data);
-
       const res = await axios.get("/api/product");
       const products = res.data.data;
 
@@ -28,17 +24,17 @@ export default function SearchProdByName() {
       );
       console.log("filtered: ", filteredProducts);
     } catch (error) {
-      console.error("Error searching products: ", error);
+      console.error("Error searching: ", error);
     }
   }, [query]);
 
   const searchProduct = (e) => {
     if (e.key === "Enter") {
       searchProductByName(query);
+      addSearch(query);
+      router.push("/search");
     }
   };
-  //   const updatedSearches = [...settings.recentSearches, query];
-  //   settings.recentSearches = query;
 
   return (
     <Box marginRight="3rem">

@@ -10,6 +10,7 @@ import theme from "@/theme";
 import Footer from "@/components/home/footer";
 import MainLayout from "@/components/layouts";
 import { SettingsProvider } from "@/context/SettingsContext";
+import { SearchProvider } from "@/context/searchContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -26,11 +27,13 @@ export default function RootLayout({ children }) {
         <ThemeProvider theme={theme}>
           <UserProvider>
             <SettingsProvider>
-              <MainLayout>
-                <Navbar />
-                {children}
-                <Footer />
-              </MainLayout>
+              <SearchProvider>
+                <MainLayout>
+                  <Navbar />
+                  {children}
+                  <Footer />
+                </MainLayout>
+              </SearchProvider>
             </SettingsProvider>
           </UserProvider>
         </ThemeProvider>

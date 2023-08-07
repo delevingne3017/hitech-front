@@ -5,7 +5,6 @@ const { createContext } = require("react");
 
 export const defaultValues = {
   cart: [],
-  recentSearches: [],
   save: [],
   order: {
     page: "personalInfo",
@@ -93,22 +92,6 @@ export const SettingsProvider = ({ children, ...props }) => {
     localStorage.setItem("settings", JSON.stringify(settings));
   }, [settings]);
 
-  useEffect(() => {
-    const storedRecentSearches = localStorage.getItem("recentSearches");
-    if (storedRecentSearches) {
-      setSettings((prevSettings) => ({
-        ...prevSettings,
-        recentSearches: JSON.parse(storedRecentSearches),
-      }));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(
-      "recentSearches",
-      JSON.stringify(settings.recentSearches)
-    );
-  }, [settings.recentSearches]);
   return (
     <SettingsContext.Provider
       value={{
