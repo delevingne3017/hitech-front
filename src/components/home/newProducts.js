@@ -13,7 +13,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import {Cpagination} from "./cPagination"
 
 export default function NewProducts() {
   const [state, setState] = useState({

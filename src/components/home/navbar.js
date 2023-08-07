@@ -51,7 +51,6 @@ function Navbar() {
     right: false,
     product: {},
   });
-<<<<<<< Updated upstream
   const matches = useMediaQuery("(min-width:991px)");
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -59,10 +58,6 @@ function Navbar() {
     const scrollY = window.scrollY;
     setIsScrolled(scrollY > 0);
   };
-=======
-  const handleProduct = () => {
-    router.push(`/build`);};
->>>>>>> Stashed changes
 
   const handleOpenRegister = () => {
     setState({
@@ -286,20 +281,12 @@ function Navbar() {
             <Typography variant="caption">Түгээмэл асуултууд</Typography>
           </NavbarItem>
 
-<<<<<<< Updated upstream
           <NavbarItem>
             <HelpOutlineIcon sx={{ width: 20, height: 20, marginRight: 1 }} />
             <Typography variant="caption">Түгээмэл асуултууд</Typography>
           </NavbarItem>
         </CustomizedBox>
       ) : null}
-=======
-        <NavbarItem onClick={() => handleProduct()} cursor="pointer" >
-          <HelpOutlineIcon sx={{ width: 20, height: 20, marginRight: 1 }} />
-           <Button >Компьютер угсрах</Button>
-        </NavbarItem>
-      </CustomizedBox>
->>>>>>> Stashed changes
 
       <Box
         position={isScrolled ? "fixed" : "relative"}
