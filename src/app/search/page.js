@@ -1,30 +1,18 @@
 "use client";
 import * as React from "react";
-import { Typography, Box, TextField, Checkbox, MenuItem } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
+import Filter from "./component/filter";
+import FilteredProducts from "./component/filteredProducts";
 
-export default function Search() {
+export default function BasicAccordion() {
   return (
-    <Box
-      component="form"
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <div>
-        <TextField id="outlined-select-currency" select label="Select">
-          <MenuItem value={1}>
-            <Checkbox />
-          </MenuItem>
-          <MenuItem value={2}>
-            <Checkbox />
-          </MenuItem>
-          <MenuItem value={3}>
-            <Checkbox />
-          </MenuItem>
-        </TextField>
-      </div>
-    </Box>
+    <Grid container spacing={1} bgcolor={""}>
+      <Grid item xs={12} lg={3}>
+        <Filter sx={{}} />
+      </Grid>
+      <Grid item xs={12} lg={9}>
+        <FilteredProducts />
+      </Grid>
+    </Grid>
   );
 }

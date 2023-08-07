@@ -13,7 +13,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import axios from "axios";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useSettings from "@/hooks/useSettings";
 import { useContext } from "react";
 import { UserContext } from "@/context/userContext";
@@ -53,7 +53,8 @@ const responsive = {
 };
 
 const Product = ({ params }) => {
-  const { settings, addItemToCart, removeItemFromCart } = useSettings();
+  const { settings, addItemToCart, removeItemFromCart, changeOrderPage } =
+    useSettings();
   const { user } = useContext(UserContext);
 
   const [state, setState] = useState({
@@ -77,7 +78,7 @@ const Product = ({ params }) => {
     });
   };
 
-  const getProduct = useCallback(async () => {
+  const getProduct = async () => {
     try {
       setState({
         ...state,
@@ -96,8 +97,7 @@ const Product = ({ params }) => {
       });
       console.log(err);
     }
-  }, []);
-
+  };
   const router = useRouter();
 
   const checkout = () => {
@@ -121,6 +121,7 @@ const Product = ({ params }) => {
 
   const addToCart = () => {
     addItemToCart(state.product);
+    changeOrderPage("personalInfo");
   };
 
   useEffect(() => {
@@ -339,7 +340,6 @@ const Product = ({ params }) => {
           <TusProduct />
         </Box>
       </Box>
-      <Box></Box>
     </Box>
   );
 };
