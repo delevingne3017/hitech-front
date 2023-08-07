@@ -17,7 +17,6 @@ import AddCardIcon from "@mui/icons-material/AddCard";
 import { useRouter } from "next/navigation";
 import useSettings from "@/hooks/useSettings";
 import PersonalInfo from "./paymentDetail/personalInfo";
-
 import Checkout from "./paymentDetail/checkout";
 import ReviewOrder from "./paymentDetail/review";
 import OrderShow from "./paymentDetail/orders";
@@ -117,20 +116,27 @@ export default function Payment() {
           </Grid>
         </Grid>
         <Grid container>
-          <Grid item xs={12} lg={8}>
+          <Grid item xs={12} md={7} lg={8}>
             {settings.order.page === "personalInfo" ? (
               <PersonalInfo />
             ) : settings.order.page === "checkout" ? (
               <Checkout />
-            ) : (
+            ) : settings.order.page === "review" ? (
               <ReviewOrder />
-            )}
+            ) : null}
           </Grid>
-          <Grid item xs={12} lg={4}>
+          <Grid item xs={12} sm={8} md={6} lg={4}>
             {settings.order.page == "review" ? (
               <OrderShow />
             ) : (
-              <Box margin="1rem 7rem 1rem 0">
+              <Box
+                margin={{
+                  xs: "1rem  2rem 1rem 2rem",
+                  sm: "1rem 4rem 0 4rem",
+                  md: "2rem 5rem 0 5rem",
+                  lg: "1rem 7rem 1rem 0",
+                }}
+              >
                 <Box display="flex" margin=".5rem">
                   <Typography>Барааны үнэ:</Typography>
                   <Typography sx={{ textAlign: "right" }}>

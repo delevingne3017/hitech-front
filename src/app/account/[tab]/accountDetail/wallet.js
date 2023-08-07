@@ -1,42 +1,19 @@
 "use client";
 import { useContext, useState } from "react";
-import {
-  Alert,
-  Box,
-  Button,
-  FormControl,
-  Grid,
-  Snackbar,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Alert, Box, Button, Grid, Typography } from "@mui/material";
 import axios from "axios";
 import { UserContext } from "@/context/userContext";
+import ChargeWallet from "@/app/payment/paymentDetail/cartPage";
 export default function Wallet() {
   const { user } = useContext(UserContext);
   const [state, setState] = useState({
-    balance: 0,
-    openSnackBar: false,
-    snackbarText: "",
+    opens: false,
   });
-  const userId = user._id;
-
-  const rechargeWallet = async () => {
-    try {
-      const previousBalance = parseInt(user.balance);
-      const rechargeAmount = parseInt(state.balance);
-      const newBalance = previousBalance + rechargeAmount;
-      const response = await axios.put("api/user/" + userId, {
-        balance: newBalance,
-      });
-      setState({
-        ...state,
-        openSnackBar: true,
-        snackbarText: "Амжилттай цэнэглэгдлээ.",
-      });
-    } catch (err) {
-      console.error(err);
-    }
+  const chargeWallet = () => {
+    setState({
+      ...state,
+      opens: true,
+    });
   };
 
   return (
@@ -73,7 +50,7 @@ export default function Wallet() {
               }}
             >
               <Typography marginLeft="2rem">
-                Үлдэгдэл : ${user.balance}
+                Үлдэгдэл : {user.balance}₮
               </Typography>
             </Box>
           </Box>
@@ -84,36 +61,25 @@ export default function Wallet() {
           </Typography>
           <Grid item xs={12} lg={6}>
             <Box display={"flex"} padding=" 1rem 1rem 2rem 1rem">
-              <TextField
-                id="outlined-uncontrolled"
-                label="Цэнэглэх дүн"
-                onChange={(e) =>
-                  setState({ ...state, balance: e.target.value })
-                }
-              />
               <Button
                 variant="contained"
                 color="primary"
-                onClick={rechargeWallet}
+                onClick={chargeWallet}
               >
                 Цэнэглэх
               </Button>
             </Box>
           </Grid>
-          <Snackbar
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            open={state.openSnackBar}
-            autoHideDuration={2000}
-            onClose={() => setState({ ...state, openSnackBar: false })}
-          >
-            <Alert
-              onClose={() => setState({ ...state, openSnackBar: false })}
-              severity="success"
-              sx={{ width: "100%" }}
-            >
-              {state.snackbarText}
-            </Alert>
-          </Snackbar>
+          <ChargeWallet
+            open={state.opens}
+            handleOpen={chargeWallet}
+            handleClose={() => {
+              setState({
+                ...state,
+                opens: false,
+              });
+            }}
+          />
         </Box>
       </Grid>
     </>

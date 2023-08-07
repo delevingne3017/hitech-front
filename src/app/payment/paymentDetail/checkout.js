@@ -8,8 +8,8 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { UserContext } from "@/context/userContext";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
-import { ChargeWallet } from "./cartPage";
 import PaymentMethod from "./paymentAcc";
+import ChargeWallet from "./cartPage";
 const CircleNumber = styled(Box)(({ theme }) => ({
   margin: "1rem",
   display: "flex",
@@ -43,7 +43,14 @@ const Checkout = (props) => {
     payment: false,
     openSnackBar: false,
     snackbarText: "",
+    opens: false,
   });
+  const chargeWallet = () => {
+    setState({
+      ...state,
+      opens: true,
+    });
+  };
   const orders = settings.cart.map((item) => ({
     productId: item._id,
     quantity: item.quantity,
@@ -73,15 +80,14 @@ const Checkout = (props) => {
       } catch (error) {
         console.error(error);
       }
-      localStorage.clear();
-
+      changeOrderPage("review");
       localStorage.removeItem("cart");
     }
     setState({
       ...state,
       payment: true,
       openSnackBar: true,
-      snackbarText: "Үлдэгдэл хүрэлцэхгүй байна.",
+      snackbarText: "Үлдэгдэл хүрэлцэхгүй байна. Хэтэвчээ цэнэглэнэ үү.",
     });
   }, []);
   const paymentsTypes = [
@@ -100,9 +106,14 @@ const Checkout = (props) => {
   return (
     <Grid item xs={12} sm={12}>
       <Box
-        margin="1rem 6rem 0 6rem"
         borderRadius=".5rem"
         boxShadow="3px 3px 7px -2px rgba(0, 0, 0, 0.56)"
+        margin={{
+          xs: "2rem 0 0 0 ",
+          md: "1rem",
+          md: "1rem 6rem 0 6rem",
+          lg: "1rem 6rem 0 6rem",
+        }}
       >
         <Box display="flex" alignItems="center">
           <CircleNumber>
@@ -111,7 +122,7 @@ const Checkout = (props) => {
           <Typography>Төлбөрийн хэлбэр сонгох</Typography>
         </Box>
         <Grid item xs={12} sm={12}>
-          <Box display="flex" justifyContent="center">
+          <Box display="flex" justifyContent="center" flexWrap="wrap">
             {paymentsTypes.map((item) => (
               <PaymentMethods border={state.selected ? "1px solid red" : null}>
                 <Box
@@ -143,13 +154,21 @@ const Checkout = (props) => {
         fullWidth
         color="primary"
         variant="contained"
-        onClick={() => {
-          placeOrder() && changeOrderPage("review");
-        }}
+        onClick={state.payment ? chargeWallet : placeOrder}
         sx={{ marginTop: "2rem" }}
       >
         Худалдаж авах
       </Button>
+      <ChargeWallet
+        open={state.opens}
+        handleOpen={chargeWallet}
+        handleClose={() => {
+          setState({
+            ...state,
+            opens: false,
+          });
+        }}
+      />
       <Button
         variant="text"
         startIcon={<KeyboardReturnIcon />}
@@ -159,6 +178,7 @@ const Checkout = (props) => {
       >
         Буцах
       </Button>
+
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={state.openSnackBar}
@@ -167,7 +187,7 @@ const Checkout = (props) => {
       >
         <Alert
           onClose={() => setState({ ...state, openSnackBar: false })}
-          severity="warning"
+          severity="error"
           sx={{ width: "100%" }}
         >
           {state.snackbarText}

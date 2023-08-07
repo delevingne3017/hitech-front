@@ -32,9 +32,7 @@ export default function userPage() {
   const handleClick = (name) => {
     setActiveComponent(name);
   };
-  const handleLogOut = () => {
-    router.push("/");
-  };
+
   return (
     <Box display={"flex"}>
       <Grid container>
@@ -87,7 +85,7 @@ export default function userPage() {
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton onClick={handleLogOut}>
+                  <ListItemButton onClick={() => router.push("/")}>
                     <ListItemIcon>
                       <ExitToAppIcon />
                     </ListItemIcon>

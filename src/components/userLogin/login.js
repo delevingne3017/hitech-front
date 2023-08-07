@@ -14,12 +14,9 @@ import {
   Alert,
 } from "@mui/material";
 import Register from "./register";
-import { useAuth } from "../../context/userContext";
 import { UserContext } from "../../context/userContext";
-import { useRouter } from "next/router";
 import axios from "axios";
 import ForgotPass from "./forgotPassword";
-import jwt_decode from "jwt-decode";
 
 const LoginForm = ({
   open,
@@ -106,13 +103,23 @@ const LoginForm = ({
 
   return (
     <>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        sx={{
+          "& .MuiDialog-container": {
+            "& .MuiPaper-root": {
+              width: "100%",
+              maxWidth: "450px",
+            },
+          },
+        }}
+      >
         <Box
           sx={{
             textAlign: "center",
             marginTop: "2rem",
             justifyContent: "center",
-            width: "27rem",
           }}
           marginX={{ xs: 0 }}
         >
@@ -122,26 +129,20 @@ const LoginForm = ({
           <DialogContent>
             <TextField
               label="Имэйл"
+              fullWidth
               onChange={(e) => setUsername(e.target.value)}
               helperText={username}
               error={!!username}
-              margin="normal"
-              sx={{
-                width: "22rem",
-              }}
-              width={{ xs: "15rem" }}
+              margin="auto"
             />
             <TextField
               label="Нууц үг"
+              fullWidth
               type="password"
               onChange={(e) => setPassword(e.target.value)}
               helperText={password}
               error={!!password}
               margin="normal"
-              sx={{
-                width: "22rem",
-              }}
-              width={{ xs: "15rem" }}
             />
           </DialogContent>
           <Button onClick={handleOpenPass}>Нууц үг сэргээх </Button>
@@ -149,14 +150,13 @@ const LoginForm = ({
             <Button
               variant="contained"
               color="primary"
+              fullWidth
               onClick={handleLogin}
               sx={{
-                margin: "auto",
-                width: "22rem",
                 height: "3rem",
                 fontWeight: "bold",
+                margin: "0 1rem 0 1rem  ",
               }}
-              widthX={{ xs: "15rem" }}
             >
               Нэвтрэх
             </Button>

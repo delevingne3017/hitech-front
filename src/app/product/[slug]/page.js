@@ -102,6 +102,7 @@ const Product = ({ params }) => {
 
   const checkout = () => {
     router.push("/payment");
+    changeOrderPage("personalInfo");
   };
   const handleOpenLogin = () => {
     setState({
