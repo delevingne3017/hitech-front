@@ -13,8 +13,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 export default function Demand() {
   const [state, setState] = useState({
     products: [],
-    seeMoreClicked: false,
-    brandLength: 84,
   });
   const router = useRouter();
   const handleProduct = (productId) => {

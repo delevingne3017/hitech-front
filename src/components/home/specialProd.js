@@ -1,11 +1,13 @@
 
 "use client";
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography, Grid} from "@mui/material";
+
 import "react-multi-carousel/lib/styles.css";
 import LeftCarousel from "./leftCarousel";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
+
 
 export default function SpecialProduct() {
 
@@ -31,7 +33,7 @@ export default function SpecialProduct() {
             {Array.from(Array(6)).map((_, index) => (
               <Grid
                 item
-                xs={2}
+                xs={12}
                 sm={4}
                 md={3.5}
                 sx={{
@@ -39,9 +41,12 @@ export default function SpecialProduct() {
                   bgcolor: "#f3f6f4",
                   marginTop: "1rem",
                   marginRight: "1rem",
+                  display:"flex",
+                  justifyContent:"center",
+                  alignItems:"center"
                 }}
               >
-                <Box>
+                <Box  margin={{xs:"1rem"}}>
                   <Box>
                     <img
                       src="https://api.hitech.mn/uploads/images/2023/5/27/1-1685172765883052862-thumbnail.jpg"

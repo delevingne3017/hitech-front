@@ -48,7 +48,7 @@ export default function PopularProducts() {
                 {Array.from(Array(9)).map((_, index) => (
                   <Grid
                     item
-                    xs={2}
+                    xs={12}
                     sm={4}
                     md={3.5}
                     sx={{
@@ -139,13 +139,13 @@ export default function PopularProducts() {
                 spacing={2}
                 item
                 xs={12}
-                md={12}
+                md={8}
                 justifyContent={"center"}
               >
                 {Array.from(Array(9)).map((_, index) => (
                   <Grid
                     item
-                    xs={2}
+                    xs={12}
                     sm={4}
                     md={3.5}
                     sx={{

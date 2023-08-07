@@ -8,11 +8,9 @@ import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrow
 export default function HomePhoto() {
   const ref = useRef();
   const next = () => {
-    // const obj = new Slider();
     ref.current.slickNext();
   };
   const previous = () => {
-    // const obj = new Slider();
     ref.current.slickPrev();
   };
 
@@ -25,6 +23,7 @@ export default function HomePhoto() {
     autoplaySpeed: 3000,
     cssEase: "linear",
   };
+
   return (
     <>
       <Box>
@@ -55,62 +54,37 @@ export default function HomePhoto() {
       <Box
         display={"flex"}
         justifyContent={"space-between"}
+        marginTop={"-4rem"}
       >
         <Button onClick={previous}>
-          <Box width={"4rem"} borderRadius={"2rem"} bottom={"15rem"} position={"relative"}>
+          <Box width={"4rem"} borderRadius={"2rem"} bottom={"12rem"} position={"relative"}>
             <KeyboardDoubleArrowLeftIcon fontSize="large" />
           </Box>
         </Button>
         <Button onClick={next}>
-          <Box width={"4rem"} borderRadius={"2rem"} bottom={"15rem"} position={"relative"} >
+          <Box width={"4rem"} borderRadius={"2rem"} bottom={"12rem"} position={"relative"} >
             <KeyboardDoubleArrowRightIcon fontSize="large" />
           </Box>
         </Button>
       </Box>
+
+      {/* CSS for mobile devices */}
+      <style>
+        {`
+        @media (max-width: 600px) {
+          /* Adjust slider height for mobile */
+          .slick-slide > div {
+            height: 15rem;
+          }
+
+          /* Adjust arrow buttons position for mobile */
+          .slick-next,
+          .slick-prev {
+            bottom: 5rem;
+          }
+        }
+        `}
+      </style>
     </>
   );
 }
-
-// export default function HomePhoto() {
-//   return (
-//     <>
-//       <Slider
-//         adaptiveHeight={false}
-//         // arrows={true}
-//         className="hello"
-//         nextArrow={
-//           <IconButton sx={{ m: 0, mt: 20, mr: 5, height: 20, zIndex: 20 }}>
-//             <ArrowRightAltRounded />
-//           </IconButton>
-//         }
-//         prevArrow={
-//           <IconButton sx={{ m: 0, mt: 20, ml: 5, height: 20, zIndex: 20 }}>
-//             <ArrowRightAltRounded />
-//           </IconButton>
-//         }
-//       >
-//         <Box style={{ width: "100%", height: "100%" }}>
-//           <img
-//             src="https://api.hitech.mn/uploads/images/2023/6/19/WD-Black-1687181175112843912-original.jpg"
-//             alt="main image"
-//             style={{ width: "100%", height: "100%" }}
-//           />
-//         </Box>
-//         <Box style={{ width: "100%", height: "100%" }}>
-//           <img
-//             src="https://api.hitech.mn/uploads/images/2023/6/19/rx7600-1687181206740710246-original.jpg"
-//             alt="main image"
-//             style={{ width: "100%", height: "100%" }}
-//           />
-//         </Box>
-//         <Box style={{ width: "100%", height: "100%" }}>
-//           <img
-//             src="https://api.hitech.mn/uploads/images/2023/6/19/corsair-1687181115820730970-original.jpg"
-//             alt="main image"
-//             style={{ width: "100%", height: "100%" }}
-//           />
-//         </Box>
-//       </Slider>
-//     </>
-//   );
-// }
