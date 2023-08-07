@@ -31,9 +31,15 @@ const PersonalInfo = (props) => {
       <Grid item xs={12}>
         <Box>
           <Box
-            margin="1rem 6rem 0 6rem"
             borderRadius=".5rem"
             boxShadow="3px 3px 7px -2px rgba(0, 0, 0, 0.56)"
+            margin={{
+              xs: "2rem 0 0 0 ",
+              md: "1rem",
+              sm: "3rem 6rem 1rem 6rem",
+              lg: "3rem 6rem 1rem 6rem",
+            }}
+            gap="1rem"
           >
             <Box display="flex" alignItems="center">
               <CircleNumber
@@ -47,28 +53,44 @@ const PersonalInfo = (props) => {
               </CircleNumber>
               <Typography>Мэдээлэл оруулах</Typography>
             </Box>
-            <Box margin="1rem" paddingBottom="2rem">
-              <FormControl sx={{ width: "24rem" }}>
-                <Typography>Утасны дугаар</Typography>
-                <TextField variant="outlined" defaultValue={user.phone} />
-              </FormControl>
-              <FormControl sx={{ width: "24rem", paddingLeft: "1rem" }}>
-                <Typography>Тэмдэглэл</Typography>
-                <TextField
-                  name="note"
-                  onChange={(e) =>
-                    onChangOrderValue(e.target.name, e.target.value)
-                  }
-                  variant="outlined"
-                  placeholder="Оройн цагаар хүргүүлмээр байна гэх мэт..."
-                />
-              </FormControl>
+            <Box
+              margin="1rem"
+              paddingBottom="2rem"
+              display="flex"
+              flexWrap="wrap"
+            >
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6} lg={6}>
+                  <FormControl fullWidth>
+                    <Typography>Утасны дугаар</Typography>
+                    <TextField variant="outlined" defaultValue={user.phone} />
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} md={6} lg={6}>
+                  <FormControl fullWidth>
+                    <Typography>Тэмдэглэл</Typography>
+                    <TextField
+                      name="note"
+                      onChange={(e) =>
+                        onChangOrderValue(e.target.name, e.target.value)
+                      }
+                      variant="outlined"
+                      placeholder="Оройн цагаар хүргүүлмээр байна гэх мэт..."
+                    />
+                  </FormControl>
+                </Grid>
+              </Grid>
             </Box>
           </Box>
           <Box
-            margin="1rem 6rem 0 6rem"
             borderRadius=".5rem"
             boxShadow="3px 3px 7px -2px rgba(0, 0, 0, 0.56)"
+            margin={{
+              xs: "2rem 0 0 0 ",
+              md: "1rem",
+              sm: "3rem 6rem 1rem 6rem",
+              lg: "3rem 6rem 1rem 6rem",
+            }}
           >
             <Box display="flex" alignItems="center">
               <CircleNumber
@@ -85,7 +107,11 @@ const PersonalInfo = (props) => {
                 variant="text"
                 color="primary"
                 disableRipple
-                sx={{ fontWeight: "bold" }}
+                sx={{
+                  fontWeight: "bold",
+                }}
+                display="flex"
+                justifyContent="flex-end"
               >
                 + Нэмэх
               </Button>

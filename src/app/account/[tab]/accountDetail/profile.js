@@ -74,7 +74,7 @@ const NavProfile = () => {
           Хувийн мэдээлэл
         </Typography>
         <Grid container spacing={2}>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} md={6} lg={6}>
             <FormControl fullWidth sx={{ marginTop: "1rem" }}>
               <TextField
                 id="outlined-uncontrolled"
@@ -85,7 +85,7 @@ const NavProfile = () => {
               />
             </FormControl>
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} md={6} lg={6}>
             <FormControl fullWidth sx={{ marginTop: "1rem" }}>
               <TextField
                 id="outlined-uncontrolled"
@@ -96,7 +96,7 @@ const NavProfile = () => {
               />
             </FormControl>
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} md={6} lg={6}>
             <FormControl fullWidth sx={{ marginTop: "1rem" }}>
               <TextField
                 id="outlined-uncontrolled"
@@ -107,7 +107,7 @@ const NavProfile = () => {
               />
             </FormControl>
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} md={6} lg={6}>
             <FormControl type="phone" fullWidth sx={{ marginTop: "1rem" }}>
               <TextField
                 id="outlined-uncontrolled"
@@ -118,7 +118,7 @@ const NavProfile = () => {
               />
             </FormControl>
           </Grid>
-          <Grid item xs={12} lg={3}>
+          <Grid item xs={12} md={4} lg={3}>
             <Box>
               <Button
                 fullWidth
@@ -142,7 +142,7 @@ const NavProfile = () => {
         </Typography>
         <Box display={"flex"}>
           <Grid container spacing={2}>
-            <Grid item xs={12} lg={4}>
+            <Grid item xs={12} md={6} lg={4}>
               <Box
                 sx={{
                   background: "#E6E6FA",
@@ -162,7 +162,7 @@ const NavProfile = () => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid item xs={12} lg={4}>
+            <Grid item xs={12} md={6} lg={4}>
               <Box marginTop="1rem" marginBottom="2rem">
                 <Button
                   fullWidth

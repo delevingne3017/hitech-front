@@ -13,6 +13,7 @@ const CustomizedBox = styled(Box)(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   flexDirection: "column",
+
   width: "3rem",
   height: "3rem",
   border: "1px solid",

@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "@emotion/styled";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Hidden, Typography } from "@mui/material";
 
 const CircleNumber = styled(Box)(({ theme }) => ({
   margin: "1rem",
@@ -29,44 +29,55 @@ const PaymentMethod = () => {
     },
   ];
   return (
-    <Grid>
-      <Box
-        margin="1rem 6rem 0 6rem"
-        borderRadius=".5rem"
-        boxShadow="3px 3px 7px -2px rgba(0, 0, 0, 0.56)"
-      >
-        <Box display="flex" alignItems="center">
-          <CircleNumber>
-            <Typography color="white">2</Typography>
-          </CircleNumber>
-          <Typography>Хэрхэн төлбөрөө хийх вэ?</Typography>
-        </Box>
+    <Box
+      borderRadius=".5rem"
+      boxShadow="3px 3px 7px -2px rgba(0, 0, 0, 0.56)"
+      margin={{
+        xs: "2rem 0 0 0 ",
+        md: "1rem",
+        md: "1rem 6rem 0 6rem",
+        lg: "1rem 6rem 0 6rem",
+      }}
+    >
+      <Box display="flex" alignItems="center">
+        <CircleNumber>
+          <Typography color="white">2</Typography>
+        </CircleNumber>
+        <Typography>Хэрхэн төлбөрөө хийх вэ?</Typography>
+      </Box>
 
-        {accounts.map((items) => (
-          <Box
-            display="flex"
-            flexDirection="row"
-            margin="1rem 0 1rem 2rem"
-            alignItems="center"
-            paddingBottom="1rem"
-          >
-            <img src={items.img} width="40px" height="40px" alt=" logo" />
-            <Typography marginLeft="1rem" fontWeight="bold" width="7rem">
-              {items.name}
-            </Typography>
+      {accounts.map((items) => (
+        <Box
+          display="flex"
+          flexDirection="row"
+          margin="1rem 0 1rem 3rem"
+          alignItems="center"
+          paddingBottom="1rem"
+          flexWrap="wrap"
+        >
+          <img src={items.img} width="40px" height="40px" alt=" logo" />
+          <Typography marginLeft="1rem" fontWeight="bold" width="7rem">
+            {items.name}
+          </Typography>
+          <Hidden smDown={true}>
             <Box
               height="3rem"
               marginLeft="2rem"
               sx={{ border: "1px solid " }}
             />
-            <Box display="flex" flexDirection="column" marginLeft="3rem">
-              <Typography>Хүлээн авагчийн нэр: {items.accName}</Typography>
-              <Typography>Дансны дугаар: {items.accountNUmber}</Typography>
-            </Box>
+          </Hidden>
+          <Box
+            display="flex"
+            flexDirection="column"
+            marginLeft="3rem"
+            margin={{ xs: "1rem" }}
+          >
+            <Typography>Хүлээн авагчийн нэр: {items.accName}</Typography>
+            <Typography>Дансны дугаар: {items.accountNUmber}</Typography>
           </Box>
-        ))}
-      </Box>
-    </Grid>
+        </Box>
+      ))}
+    </Box>
   );
 };
 export default PaymentMethod;

@@ -13,27 +13,16 @@ import CircularProgress from "@mui/material/CircularProgress";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import axios from "axios";
-<<<<<<< Updated upstream
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useSettings from "@/hooks/useSettings";
 import { useContext } from "react";
 import { UserContext } from "@/context/userContext";
 import { useRouter } from "next/navigation";
 import LoginForm from "@/components/userLogin/login";
 import Register from "@/components/userLogin/register";
-=======
-import React, { useContext, useEffect, useRef, useState } from "react";
-import "react-multi-carousel/lib/styles.css";
->>>>>>> Stashed changes
 import DetailImage from "../productComponent/detailImage";
 import SameProduct from "../productComponent/sameProduct";
 import TusProduct from "../productComponent/tusProduct";
-import useSettings from "@/hooks/useSettings";
-import { useRouter } from "next/navigation";
-import { UserContext } from "@/context/userContext";
-import LoginForm from "@/components/userLogin/login";
-import Register from "@/components/userLogin/register";
-
 
 const ProductImage = styled("img")({
   transition: "all .25s ease",
@@ -64,7 +53,8 @@ const responsive = {
 };
 
 const Product = ({ params }) => {
-  const { settings, addItemToCart, removeItemFromCart } = useSettings();
+  const { settings, addItemToCart, removeItemFromCart, changeOrderPage } =
+    useSettings();
   const { user } = useContext(UserContext);
 
   const [state, setState] = useState({
@@ -88,7 +78,7 @@ const Product = ({ params }) => {
     });
   };
 
-  const getProduct = useCallback(async () => {
+  const getProduct = async () => {
     try {
       setState({
         ...state,
@@ -107,12 +97,12 @@ const Product = ({ params }) => {
       });
       console.log(err);
     }
-  }, []);
-
+  };
   const router = useRouter();
 
   const checkout = () => {
     router.push("/payment");
+    changeOrderPage("personalInfo");
   };
   const handleOpenLogin = () => {
     setState({
@@ -131,6 +121,7 @@ const Product = ({ params }) => {
 
   const addToCart = () => {
     addItemToCart(state.product);
+    changeOrderPage("personalInfo");
   };
 
   useEffect(() => {
@@ -349,7 +340,6 @@ const Product = ({ params }) => {
           <TusProduct />
         </Box>
       </Box>
-      <Box></Box>
     </Box>
   );
 };

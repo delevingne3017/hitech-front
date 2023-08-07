@@ -1,5 +1,5 @@
 "use client";
-import { Box, Grid, Paper, Typography, Button } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 import "react-multi-carousel/lib/styles.css";
 import { useRouter } from "next/navigation";
 import "./globals.css";
@@ -30,6 +30,31 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Home() {
+  const [state, setState] = useState({
+    products: [],
+    seeMoreClicked: false,
+    brandLength: 84,
+  });
+  const router = useRouter();
+
+  const handleProduct = (productId) => {
+    router.push(`/product/${productId}`);
+  };
+
+  const getProducts = async () => {
+    try {
+      const response = await axios.get("/api/product");
+      setState({
+        ...state,
+        products: response.data.data,
+      });
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   return (
     <Box sx={{ width: "100%" }} bgcolor={"#ffffff"}>
       <Box style={{ width: "100%", height: "63vh" }}>

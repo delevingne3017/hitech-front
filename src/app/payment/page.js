@@ -44,43 +44,8 @@ export default function Payment() {
     settings.order.page && (
       <>
         <Grid container>
-          <Hidden lgUp={true}>
-            <Grid
-              item
-              xs={12}
-              lg={4}
-              md={9}
-              sx={{
-                height: "100px",
-                backgroundColor: "black",
-                [theme.breakpoints.down("md")]: { backgroundColor: "blue" },
-              }}
-            ></Grid>
-          </Hidden>
-          <Grid
-            item
-            xs={12}
-            lg={4}
-            md={6}
-            sx={{ height: "100px", backgroundColor: "red" }}
-          ></Grid>
-          <Grid
-            item
-            xs={12}
-            lg={4}
-            md={6}
-            sx={{ height: "100px", backgroundColor: "yellow" }}
-          ></Grid>
-          <Grid
-            item
-            xs={12}
-            lg={4}
-            md={6}
-            sx={{ height: "100px", backgroundColor: "purple" }}
-          ></Grid>
           <Grid item xs={12} lg={12}>
             <Box
-              margin="3rem 6rem 1rem 6rem"
               height="6rem"
               borderRadius=".5rem"
               boxShadow="3px 3px 7px -2px rgba(0, 0, 0, 0.56)"
@@ -88,9 +53,15 @@ export default function Payment() {
               flexDirection="row"
               alignItems="center"
               justifyContent="center"
+              margin={{
+                xs: "2rem 0 0 0 ",
+                md: "1rem",
+                sm: "3rem 6rem 1rem 6rem",
+                lg: "3rem 6rem 1rem 6rem",
+              }}
             >
               <CircleNumber
-                marginLeft="1rem"
+                marginLeft="2rem"
                 sx={{
                   background:
                     settings.order.page === "personalInfo"
@@ -145,20 +116,27 @@ export default function Payment() {
           </Grid>
         </Grid>
         <Grid container>
-          <Grid item xs={12} lg={8}>
+          <Grid item xs={12} md={7} lg={8}>
             {settings.order.page === "personalInfo" ? (
               <PersonalInfo />
             ) : settings.order.page === "checkout" ? (
               <Checkout />
-            ) : (
+            ) : settings.order.page === "review" ? (
               <ReviewOrder />
-            )}
+            ) : null}
           </Grid>
-          <Grid item xs={12} lg={4}>
+          <Grid item xs={12} sm={8} md={6} lg={4}>
             {settings.order.page == "review" ? (
               <OrderShow />
             ) : (
-              <Box margin="1rem 7rem 1rem 0">
+              <Box
+                margin={{
+                  xs: "1rem  2rem 1rem 2rem",
+                  sm: "1rem 4rem 0 4rem",
+                  md: "2rem 5rem 0 5rem",
+                  lg: "1rem 7rem 1rem 0",
+                }}
+              >
                 <Box display="flex" margin=".5rem">
                   <Typography>Барааны үнэ:</Typography>
                   <Typography sx={{ textAlign: "right" }}>

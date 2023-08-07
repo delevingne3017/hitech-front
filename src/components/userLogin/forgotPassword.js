@@ -26,13 +26,23 @@ const ForgotPass = ({
 
   return (
     <>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        sx={{
+          "& .MuiDialog-container": {
+            "& .MuiPaper-root": {
+              width: "100%",
+              maxWidth: "450px",
+            },
+          },
+        }}
+      >
         <Box
           sx={{
             textAlign: "center",
             marginTop: "2rem",
             justifyContent: "center",
-            width: "27rem",
           }}
         >
           <DialogTitle color="primary" fontWeight="bold">
@@ -46,19 +56,17 @@ const ForgotPass = ({
               onChange={(e) => setUsername(e.target.value)}
               error={username && username.length ? true : false}
               margin="normal"
-              sx={{
-                width: "22rem",
-              }}
+              fullWidth
             />
           </DialogContent>
           <DialogActions>
             <Button
+              fullWidth
               variant="contained"
               color="primary"
               onClick={handleLogin}
               sx={{
-                margin: "auto",
-                width: "22rem",
+                margin: "0 1rem 0 1rem  ",
                 height: "3rem",
                 fontWeight: "bold",
               }}

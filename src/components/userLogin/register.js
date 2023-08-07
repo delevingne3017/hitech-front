@@ -48,7 +48,6 @@ const Register = ({
       setEmailError("Email зөв байна.");
     } else {
       successCount++;
-      setEmailError("");
     }
     if (password.trim() === "") {
       setPasswordError("password -аа оруулна уу.");
@@ -68,7 +67,6 @@ const Register = ({
       setPhoneError("Утасны дугаараа оруулна уу.");
     } else {
       successCount++;
-      setPhoneError("");
     }
 
     return successCount;
@@ -103,13 +101,23 @@ const Register = ({
   return (
     <>
       {/* <Button onClick={handleOpen}>Бүртгүүлэх</Button> */}
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        sx={{
+          "& .MuiDialog-container": {
+            "& .MuiPaper-root": {
+              width: "100%",
+              maxWidth: "450px",
+            },
+          },
+        }}
+      >
         <Box
           sx={{
             textAlign: "center",
             marginTop: "2rem",
             justifyContent: "center",
-            width: "27rem",
           }}
         >
           <DialogTitle color="primary" fontWeight="bold">
@@ -120,44 +128,38 @@ const Register = ({
             <TextField
               label="Email"
               onChange={(e) => setEmail(e.target.value)}
+              fullWidth
               margin="normal"
               helperText={emailError}
               error={!!emailError}
-              sx={{
-                width: "22rem",
-              }}
             />
             <TextField
               label="Password"
               type="password"
+              fullWidth
               onChange={(e) => setPassword(e.target.value)}
               margin="normal"
               helperText={passwordError}
               error={!!passwordError}
-              sx={{
-                width: "22rem",
-              }}
             />
             <TextField
               label="Phone number"
               type="integer"
+              fullWidth
               onChange={(e) => setPhone(e.target.value)}
               margin="normal"
               helperText={phonedError}
               error={!!phonedError}
-              sx={{
-                width: "22rem",
-              }}
             />
           </DialogContent>
           <DialogActions>
             <Button
               variant="contained"
               color="primary"
+              fullWidth
               onClick={handleSubmit}
               sx={{
-                margin: "auto",
-                width: "22rem",
+                margin: "0 1rem 0 1rem  ",
                 height: "3rem",
                 justifyContent: "center",
                 fontWeight: "bold",
@@ -193,7 +195,7 @@ const Register = ({
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={state.openSnackBar}
-          autoHideDuration={2000}
+          autoHideDuration={6000}
           onClose={() => setState({ ...state, openSnackBar: false })}
         >
           <Alert

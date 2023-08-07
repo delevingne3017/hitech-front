@@ -83,7 +83,7 @@ export const SettingsProvider = ({ children, ...props }) => {
   useEffect(() => {
     let tmp = localStorage.getItem("settings");
     if (tmp) {
-      setSettings(JSON.parse(tmp)); // Parse the data before setting the state
+      setSettings(JSON.parse(tmp));
     } else {
       setSettings(defaultValues);
     }
@@ -93,6 +93,22 @@ export const SettingsProvider = ({ children, ...props }) => {
     localStorage.setItem("settings", JSON.stringify(settings));
   }, [settings]);
 
+  useEffect(() => {
+    const storedRecentSearches = localStorage.getItem("recentSearches");
+    if (storedRecentSearches) {
+      setSettings((prevSettings) => ({
+        ...prevSettings,
+        recentSearches: JSON.parse(storedRecentSearches),
+      }));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "recentSearches",
+      JSON.stringify(settings.recentSearches)
+    );
+  }, [settings.recentSearches]);
   return (
     <SettingsContext.Provider
       value={{

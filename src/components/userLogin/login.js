@@ -14,12 +14,9 @@ import {
   Alert,
 } from "@mui/material";
 import Register from "./register";
-import { useAuth } from "../../context/userContext";
 import { UserContext } from "../../context/userContext";
-import { useRouter } from "next/router";
 import axios from "axios";
 import ForgotPass from "./forgotPassword";
-import jwt_decode from "jwt-decode";
 
 const LoginForm = ({
   open,
@@ -37,6 +34,8 @@ const LoginForm = ({
     snackbarText: "",
     user: {},
   });
+
+  //const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
 
   const { setUserContext } = useContext(UserContext);
   const handleOpenPass = () => {
@@ -97,8 +96,6 @@ const LoginForm = ({
         user: response.data.data,
         isLogged: true,
       });
-      setUsername("");
-      setPassword("");
     } catch (error) {
       console.error(error);
     }
@@ -106,14 +103,25 @@ const LoginForm = ({
 
   return (
     <>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        sx={{
+          "& .MuiDialog-container": {
+            "& .MuiPaper-root": {
+              width: "100%",
+              maxWidth: "450px",
+            },
+          },
+        }}
+      >
         <Box
           sx={{
             textAlign: "center",
             marginTop: "2rem",
             justifyContent: "center",
-            width: "27rem",
           }}
+          marginX={{ xs: 0 }}
         >
           <DialogTitle color="primary" fontWeight="bold">
             Тавтай морил
@@ -121,24 +129,20 @@ const LoginForm = ({
           <DialogContent>
             <TextField
               label="Имэйл"
+              fullWidth
               onChange={(e) => setUsername(e.target.value)}
               helperText={username}
               error={!!username}
-              margin="normal"
-              sx={{
-                width: "22rem",
-              }}
+              margin="auto"
             />
             <TextField
               label="Нууц үг"
+              fullWidth
               type="password"
               onChange={(e) => setPassword(e.target.value)}
               helperText={password}
               error={!!password}
               margin="normal"
-              sx={{
-                width: "22rem",
-              }}
             />
           </DialogContent>
           <Button onClick={handleOpenPass}>Нууц үг сэргээх </Button>
@@ -146,12 +150,12 @@ const LoginForm = ({
             <Button
               variant="contained"
               color="primary"
+              fullWidth
               onClick={handleLogin}
               sx={{
-                margin: "auto",
-                width: "22rem",
                 height: "3rem",
                 fontWeight: "bold",
+                margin: "0 1rem 0 1rem  ",
               }}
             >
               Нэвтрэх
@@ -186,7 +190,7 @@ const LoginForm = ({
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={state.openSnackBar}
-          autoHideDuration={1500}
+          autoHideDuration={6000}
           onClose={() => setState({ ...state, openSnackBar: false })}
         >
           <Alert
