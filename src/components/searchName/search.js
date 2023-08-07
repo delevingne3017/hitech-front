@@ -5,10 +5,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import { useCallback } from "react";
 import axios from "axios";
+import useSettings from "@/hooks/useSettings";
 
 export default function SearchProdByName() {
   const [query, setQuery] = useState("");
-  console.log("q", query);
+  const { settings } = useSettings();
+
   const searchProductByName = useCallback(async () => {
     try {
       // const res = await axios.get("/api/product", {
@@ -28,12 +30,15 @@ export default function SearchProdByName() {
     } catch (error) {
       console.error("Error searching products: ", error);
     }
-  }, []);
+  }, [query]);
+
   const searchProduct = (e) => {
     if (e.key === "Enter") {
       searchProductByName(query);
     }
   };
+  //   const updatedSearches = [...settings.recentSearches, query];
+  //   settings.recentSearches = query;
 
   return (
     <Box marginRight="3rem">

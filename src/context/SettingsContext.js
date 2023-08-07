@@ -3,17 +3,42 @@ import { useState } from "react";
 
 const { createContext } = require("react");
 
-const defaultValues = {
+export const defaultValues = {
   cart: [],
   recentSearches: [],
+  save: [],
+  order: {
+    page: "personalInfo",
+    values: {},
+  },
 };
 
 const SettingsContext = createContext(defaultValues);
 
 export const SettingsProvider = ({ children, ...props }) => {
-  const [settings, setSettings] = useState({
-    cart: [],
-  });
+  const [settings, setSettings] = useState(defaultValues);
+
+  const changeOrderPage = (page) => {
+    setSettings((s) => ({
+      ...s,
+      order: {
+        ...s.order,
+        page,
+      },
+    }));
+  };
+
+  const onChangeOrderValue = (name, value) => {
+    setSettings((s) => ({
+      ...s,
+      order: {
+        ...s.order,
+        values: {
+          [name]: value,
+        },
+      },
+    }));
+  };
 
   const changeSettings = (stgs) => {
     setSettings((s) => ({
@@ -57,13 +82,33 @@ export const SettingsProvider = ({ children, ...props }) => {
 
   useEffect(() => {
     let tmp = localStorage.getItem("settings");
-    if (tmp && tmp.length > 0) {
-      setSettings(JSON.parse(tmp)); // Parse the data before setting the state
+    if (tmp) {
+      setSettings(JSON.parse(tmp));
     } else {
       setSettings(defaultValues);
     }
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("settings", JSON.stringify(settings));
+  }, [settings]);
+
+  useEffect(() => {
+    const storedRecentSearches = localStorage.getItem("recentSearches");
+    if (storedRecentSearches) {
+      setSettings((prevSettings) => ({
+        ...prevSettings,
+        recentSearches: JSON.parse(storedRecentSearches),
+      }));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "recentSearches",
+      JSON.stringify(settings.recentSearches)
+    );
+  }, [settings.recentSearches]);
   return (
     <SettingsContext.Provider
       value={{
@@ -71,6 +116,8 @@ export const SettingsProvider = ({ children, ...props }) => {
         removeItemFromCart,
         addItemToCart,
         changeSettings,
+        changeOrderPage,
+        onChangeOrderValue,
       }}
     >
       {children}

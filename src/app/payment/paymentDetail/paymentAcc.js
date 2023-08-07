@@ -33,8 +33,8 @@ const PaymentMethod = () => {
       borderRadius=".5rem"
       boxShadow="3px 3px 7px -2px rgba(0, 0, 0, 0.56)"
       margin={{
-        xs: "1rem ",
-        sm: "2rem",
+        xs: "2rem 0 0 0 ",
+        md: "1rem",
         md: "1rem 6rem 0 6rem",
         lg: "1rem 6rem 0 6rem",
       }}
@@ -50,7 +50,7 @@ const PaymentMethod = () => {
         <Box
           display="flex"
           flexDirection="row"
-          margin="1rem 0 1rem 2rem"
+          margin="1rem 0 1rem 3rem"
           alignItems="center"
           paddingBottom="1rem"
           flexWrap="wrap"
@@ -70,7 +70,7 @@ const PaymentMethod = () => {
             display="flex"
             flexDirection="column"
             marginLeft="3rem"
-            margin={{ xs: "1rem", lg: " 1rem 0 0 3rem" }}
+            margin={{ xs: "1rem" }}
           >
             <Typography>Хүлээн авагчийн нэр: {items.accName}</Typography>
             <Typography>Дансны дугаар: {items.accountNUmber}</Typography>

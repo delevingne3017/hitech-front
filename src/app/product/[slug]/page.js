@@ -101,7 +101,8 @@ const Product = ({ params }) => {
   const router = useRouter();
 
   const checkout = () => {
-    router.push("/payment/");
+    router.push("/payment");
+    changeOrderPage("personalInfo");
   };
   const handleOpenLogin = () => {
     setState({

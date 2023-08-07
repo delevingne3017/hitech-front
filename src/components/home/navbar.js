@@ -32,7 +32,7 @@ import useSettings from "@/hooks/useSettings";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import MobileMenu from "../drawer/menuDraw";
 import axios from "axios";
-
+import SearchProdByName from "../searchName/search";
 const CustomizedBox = styled(Box)(({ theme }) => ({
   display: "flex",
   padding: theme.spacing(1),
@@ -50,7 +50,6 @@ function Navbar() {
     loginOpen: false,
     right: false,
     product: {},
-    query: "",
   });
   const matches = useMediaQuery("(min-width:991px)");
   const [isScrolled, setIsScrolled] = useState(false);
@@ -59,19 +58,7 @@ function Navbar() {
     const scrollY = window.scrollY;
     setIsScrolled(scrollY > 0);
   };
-  console.log("q", state.query);
-  const searchProductByName = async () => {
-    const res = await axios.get("/api/product?query=${state.query}");
-    console.log("filet: ", res);
-  };
-  useEffect(() => {
-    searchProductByName();
-  }, []);
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      searchProductByName(state.query);
-    }
-  };
+
   const handleOpenRegister = () => {
     setState({
       ...state,
@@ -167,7 +154,7 @@ function Navbar() {
           <Typography color="primary"> Бараа</Typography>
           <Button
             disableRipple
-            sx={{ position: "fixed", right: "1rem", fontSize: "1.2rem" }}
+            sx={{ position: "fixed", right: "1rem", fontSize: "1rem" }}
             onClick={() => setState({ ...state, right: false })}
           >
             X
@@ -328,21 +315,7 @@ function Navbar() {
           {matches ? (
             <Box display="flex" alignItems="center">
               <NavbarMenu />
-              <TextField
-                sx={{ marginX: 3 }}
-                fullWidth
-                size="small"
-                placeholder="хайлт  хийх "
-                onChange={(e) => setState({ ...state, query: e.target.value })}
-                onKeyDown={handleKeyDown} // Add the onKeyDown event
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
+              <SearchProdByName />
               <Box
                 onClick={toggleDrawer("right", true)}
                 sx={{
