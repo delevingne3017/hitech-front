@@ -33,6 +33,9 @@ import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import MobileMenu from "../drawer/menuDraw";
 import axios from "axios";
 import SearchProdByName from "../searchName/search";
+import GppGoodOutlinedIcon from "@mui/icons-material/GppGoodOutlined";
+import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
+
 const CustomizedBox = styled(Box)(({ theme }) => ({
   display: "flex",
   padding: theme.spacing(1),
@@ -265,25 +268,42 @@ function Navbar() {
       {matches ? (
         <CustomizedBox style={{ display: isScrolled ? "none" : "flex" }}>
           <NavbarItem>
-            <HelpOutlineIcon sx={{ width: 20, height: 20 }} />
-            <Typography sx={{ marginLeft: 1 }} variant="caption">
-              Түгээмэл асуултууд
+            <CallIcon sx={{ width: 20, height: 20 }} />
+            <Typography
+              onClick={() => router.push("/help")}
+              sx={{ marginLeft: 1, cursor: "pointer" }}
+              variant="caption"
+            >
+              Холбоо барих
             </Typography>
           </NavbarItem>
 
-          <NavbarItem onClick={() => console.log("Contact")}>
-            <CallIcon sx={{ width: 20, height: 20, marginRight: 1 }} />
-            <Typography variant="caption">Холбоо барих</Typography>
-          </NavbarItem>
-
-          <NavbarItem>
+          <NavbarItem
+            onClick={() => router.push("/ask")}
+            sx={{ cursor: "pointer" }}
+          >
             <HelpOutlineIcon sx={{ width: 20, height: 20, marginRight: 1 }} />
             <Typography variant="caption">Түгээмэл асуултууд</Typography>
           </NavbarItem>
 
           <NavbarItem>
-            <HelpOutlineIcon sx={{ width: 20, height: 20, marginRight: 1 }} />
-            <Typography variant="caption">Түгээмэл асуултууд</Typography>
+            <CheckCircleOutlineOutlinedIcon
+              sx={{ width: 20, height: 20, marginRight: 1 }}
+            />
+            <Typography
+              onClick={() => router.push("/terms")}
+              sx={{ cursor: "pointer" }}
+              variant="caption"
+            >
+              Үйлчилгээний нөхцөл{" "}
+            </Typography>
+          </NavbarItem>
+
+          <NavbarItem>
+            <GppGoodOutlinedIcon
+              sx={{ width: 20, height: 20, marginRight: 1 }}
+            />
+            <Typography variant="caption">Комьпютер угсрах </Typography>
           </NavbarItem>
         </CustomizedBox>
       ) : null}
