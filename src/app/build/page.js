@@ -8,13 +8,13 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { useEffect } from "react";
 import FilteredProducts from "./components/productF";
+import axios from "axios";
 
 export default function Build() {
-  const data = [...Array(160).keys()].map((i) => i + 1);
+  const data = [...Array(25).keys()].map((i) => i + 1);
   const itemsPerPage = 16;
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
@@ -26,6 +26,40 @@ export default function Build() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentData = data.slice(startIndex, endIndex);
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const res = await axios.get("/api/product");
+        const allProducts = res.data.data;
+
+        const filteredProducts = allProducts.filter((product) =>
+          product.name.toLowerCase().includes(products.toLowerCase())
+        );
+        console.log("data", filteredProducts);
+        setProducts(filteredProducts);
+      } catch (error) {
+        console.error("Error fetching products: ", error);
+      }
+    }
+
+    fetchProducts();
+  }, [products]);
+  const handlechange = (index) => {
+    console.log("index", index);
+    setProducts(index);
+  };
+
+  const filterData = [
+    {
+      value: "ram",
+      name: "cpu",
+    },
+    {
+      value: "mouse",
+      name: "Motherboard",
+    },
+  ];
 
   return (
     <>
@@ -39,20 +73,32 @@ export default function Build() {
       <Grid container spacing={2}>
         {/* 8-column grid */}
         <Grid item xs={3}>
-          {Array.from(Array(6)).map((_, index) => (
+          {filterData.map((item) => (
             <Box
+              key={item.value}
               border={"dashed"}
               width={"15rem"}
               height={"5rem"}
               borderRadius={"0.6rem"}
               borderColor={"#FE5900"}
-              bgcolor={"#FFD1B8"}
+              bgcolor="#F7F7F7"
               marginLeft={"4rem"}
               marginTop={"1rem"}
+              sx={{ cursor: "pointer", ":hover": { bgcolor: "#FFD1B8" } }}
+              onClick={() => {
+                handlechange(item.value);
+              }}
             >
-              <Box sx={{ display:"flex", justifyContent:"center", margin:"auto"}}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  margin: "auto",
+                  alignItems: "center",
+                }}
+              >
                 <AddCircleOutlineIcon />
-                <Typography>CPU</Typography>
+                <Typography>{item.name}</Typography>
               </Box>
             </Box>
           ))}
@@ -61,7 +107,7 @@ export default function Build() {
         {/* 4-column grid */}
         <Grid item xs={9}>
           <Box>
-            <FilteredProducts/>
+            <FilteredProducts product={products} />
           </Box>
         </Grid>
       </Grid>

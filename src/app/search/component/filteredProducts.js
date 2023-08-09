@@ -69,6 +69,7 @@ export default function FilteredProducts() {
           Trim: "90rem",
           justifyContent: "flex-start",
           flexDirection: "row",
+          marginTop: "2rem",
         }}
       >
         <Button>
@@ -81,18 +82,11 @@ export default function FilteredProducts() {
         <Typography
           sx={{ fontsize: ".5rem", color: "gray", marginLeft: "0.5rem" }}
         >
-          Бэлэн .... бараа байна{" "}
+          Бэлэн {products.length} бараа байна{" "}
         </Typography>
       </Box>
 
-      <Grid
-        container
-        spacing={3}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        marginTop="1rem"
-      >
+      <Grid container spacing={3} display="flex" marginTop="1rem">
         {currentProducts.map((product) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={product._id}>
             <Box sx={{ display: "flex", justifyConten: "center" }}>
@@ -100,7 +94,7 @@ export default function FilteredProducts() {
                 <CardContent>
                   <Button
                     size="small"
-                    sx={{ borderRadius: "20%" }}
+                    sx={{ borderRadius: "2rem" }}
                     variant="outlined"
                   >
                     шинэ

@@ -13,7 +13,7 @@ import CardContent from "@mui/material/CardContent";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { useState } from "react";
-export default function FilteredProducts() {
+export default function FilteredProducts({ product }) {
   const [value, setValue] = useState([20, 37]);
 
   const handleChange = (event, newValue) => {
@@ -28,7 +28,7 @@ export default function FilteredProducts() {
     margin: "1rem, 0",
     color: theme.palette.text.secondary,
   }));
-  const data = [...Array(160).keys()].map((i) => i + 1);
+  const data = [...Array(25).keys()].map((i) => i + 1);
   const itemsPerPage = 16;
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
@@ -66,6 +66,7 @@ export default function FilteredProducts() {
         >
           Бэлэн .... бараа байна{" "}
         </Typography>
+        <typography>ss {product.name}</typography>
       </Box>
       <Stack
         spacing={2}
@@ -77,9 +78,9 @@ export default function FilteredProducts() {
         }}
       >
         <Pagination
-          count={totalPages} // Total number of pages
-          page={currentPage} // Current page
-          onChange={handlePageChange} // Callback function for page change
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
           variant="outlined"
           color="primary"
         />

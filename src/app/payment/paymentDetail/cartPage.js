@@ -76,14 +76,13 @@ const ChargeWallet = ({ open, handleClose, ...props }) => {
       setState({ payment: false });
     }
   };
-  const rechargeWallet = async () => {
+  const rechargeWallet = useCallback(async () => {
     try {
       const previousBalance = parseInt(user.balance);
       const rechargeAmount = parseInt(state.balance);
       const newBalance = previousBalance + rechargeAmount;
-      console.log("balcan", state.balance);
 
-      const response = await axios.put("api/user/" + userId, {
+      const response = await axios.put("/api/user/" + userId, {
         balance: newBalance,
       });
       console.log("amjillta", response.data.data);
@@ -95,7 +94,7 @@ const ChargeWallet = ({ open, handleClose, ...props }) => {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, []);
 
   return (
     <Dialog

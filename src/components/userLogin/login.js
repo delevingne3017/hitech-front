@@ -190,7 +190,7 @@ const LoginForm = ({
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={state.openSnackBar}
-          autoHideDuration={6000}
+          autoHideDuration={2000}
           onClose={() => setState({ ...state, openSnackBar: false })}
         >
           <Alert

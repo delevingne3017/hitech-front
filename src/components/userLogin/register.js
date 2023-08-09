@@ -77,21 +77,30 @@ const Register = ({
     num = validation();
     if (num === 3) {
       try {
-        const existingUser = await axios.get(`/api/user?email=${email}`);
+        const response = await axios.get(`/api/user?email=${email}`);
 
-        if (existingUser) {
+        if (response.data && response.data.length > 0) {
           setState({
             openSnackBar: true,
             snackbarText: "Email аль хэдийн бүртгэгдсэн байна.",
           });
           return;
         }
-        const response = await axios.post("/api/user", {
+
+        const createUserResponse = await axios.post("/api/user", {
           email,
           password,
           phone,
         });
-        if (response.data.success === true) handleClose();
+
+        if (createUserResponse.data.success === true) {
+          setState({
+            ...state,
+            openSnackBar: true,
+            snackbarText: "Амжилттай бүртгэгдлээ.",
+          });
+          handleClose();
+        }
       } catch (error) {
         console.error(error);
       }
@@ -195,7 +204,7 @@ const Register = ({
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={state.openSnackBar}
-          autoHideDuration={6000}
+          autoHideDuration={2000}
           onClose={() => setState({ ...state, openSnackBar: false })}
         >
           <Alert
