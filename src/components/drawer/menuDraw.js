@@ -117,22 +117,22 @@ const MobileMenu = () => {
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => router.push("/ask")}>
                 <ListItemText primary="Түгээмэл асуултууд  " />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => router.push("/help")}>
                 <ListItemText primary="Холбоо барих  " />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => router.push("/terms")}>
                 <ListItemText primary="Үйлчилгээний нөхцөл  " />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => router.push("/build")}>
                 <ListItemText primary="Компьютер угсрах " />
               </ListItemButton>
             </ListItem>

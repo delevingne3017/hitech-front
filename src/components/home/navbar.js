@@ -303,7 +303,13 @@ function Navbar() {
             <GppGoodOutlinedIcon
               sx={{ width: 20, height: 20, marginRight: 1 }}
             />
-            <Typography variant="caption">Комьпютер угсрах </Typography>
+            <Typography
+              variant="caption"
+              onClick={() => router.push("/build")}
+              sx={{ cursor: "pointer" }}
+            >
+              Комьпютер угсрах{" "}
+            </Typography>
           </NavbarItem>
         </CustomizedBox>
       ) : null}
