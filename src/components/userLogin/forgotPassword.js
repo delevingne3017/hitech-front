@@ -44,6 +44,7 @@ const ForgotPass = ({
             marginTop: "2rem",
             justifyContent: "center",
           }}
+          marginX={{ xs: 0, md: "2rem", lg: "2rem" }}
         >
           <DialogTitle color="primary" fontWeight="bold">
             Нууц үг сэргээх

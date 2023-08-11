@@ -134,7 +134,7 @@ export default function Payment() {
                   xs: "1rem  2rem 1rem 2rem",
                   sm: "1rem 4rem 0 4rem",
                   md: "2rem 5rem 0 5rem",
-                  lg: "1rem 7rem 1rem 0",
+                  lg: "2rem 7rem 1rem 0",
                 }}
               >
                 <Box display="flex" margin=".5rem">

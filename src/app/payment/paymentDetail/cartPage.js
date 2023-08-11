@@ -76,7 +76,7 @@ const ChargeWallet = ({ open, handleClose, ...props }) => {
       setState({ payment: false });
     }
   };
-  const rechargeWallet = useCallback(async () => {
+  const rechargeWallet = async () => {
     try {
       const previousBalance = parseInt(user.balance);
       const rechargeAmount = parseInt(state.balance);
@@ -85,16 +85,17 @@ const ChargeWallet = ({ open, handleClose, ...props }) => {
       const response = await axios.put("/api/user/" + userId, {
         balance: newBalance,
       });
-      console.log("amjillta", response.data.data);
+      console.log("amjillta2", response.data.data);
       setState({
         ...state,
         openSnackBar: true,
-        snackbarText: "Амжилттай цэнэглэгдлээ.",
+        snackbarText:
+          "Таны данс " + state.balance + " төгрөгөөр цэнэглэгдлээ. ",
       });
     } catch (err) {
       console.error(err);
     }
-  }, []);
+  };
 
   return (
     <Dialog
@@ -120,7 +121,9 @@ const ChargeWallet = ({ open, handleClose, ...props }) => {
         <DialogTitle color="primary" fontWeight="bold">
           Хэтэвч цэнэглэх
         </DialogTitle>
-        <Box margin="1rem">
+        <Box
+          margin={{ xs: "0 1rem 0 1rem", sm: "1rem", lg: "0 2rem 1rem 2rem" }}
+        >
           {state.payment ? (
             <Box>
               <Typography>Картын дугаар / Pan:</Typography>

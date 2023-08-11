@@ -47,7 +47,13 @@ export default function userPage() {
           >
             <nav aria-label="main mailbox folders">
               <List>
-                <ListItem disablePadding>
+                <ListItem
+                  disablePadding
+                  sx={{
+                    borderLeft:
+                      activeComponent === "order" ? "5px solid #FE5A03" : null,
+                  }}
+                >
                   <ListItemButton onClick={() => handleClick("order")}>
                     <ListItemIcon>
                       <ArchiveIcon />
@@ -55,7 +61,13 @@ export default function userPage() {
                     <ListItemText primary="Захиалга " />
                   </ListItemButton>
                 </ListItem>
-                <ListItem disablePadding>
+                <ListItem
+                  disablePadding
+                  sx={{
+                    borderLeft:
+                      activeComponent === "wallet" ? "5px solid #FE5A03" : null,
+                  }}
+                >
                   <ListItemButton onClick={() => handleClick("wallet")}>
                     <ListItemIcon>
                       <WalletIcon />
@@ -63,7 +75,15 @@ export default function userPage() {
                     <ListItemText primary="Хэтэвч  " />
                   </ListItemButton>
                 </ListItem>
-                <ListItem disablePadding>
+                <ListItem
+                  disablePadding
+                  sx={{
+                    borderLeft:
+                      activeComponent === "product"
+                        ? "5px solid #FE5A03"
+                        : null,
+                  }}
+                >
                   <ListItemButton onClick={() => handleClick("product")}>
                     <ListItemIcon>
                       <FavoriteBorderIcon />
@@ -76,7 +96,15 @@ export default function userPage() {
             <Divider />
             <nav aria-label="secondary mailbox folders">
               <List>
-                <ListItem disablePadding>
+                <ListItem
+                  disablePadding
+                  sx={{
+                    borderLeft:
+                      activeComponent === "navProfile"
+                        ? "5px solid #FE5A03"
+                        : null,
+                  }}
+                >
                   <ListItemButton onClick={() => handleClick("navProfile")}>
                     <ListItemIcon>
                       <PersonOutlineIcon />

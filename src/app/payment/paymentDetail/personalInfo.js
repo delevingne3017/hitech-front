@@ -71,9 +71,7 @@ const PersonalInfo = (props) => {
                     <Typography>Тэмдэглэл</Typography>
                     <TextField
                       name="note"
-                      onChange={(e) =>
-                        onChangOrderValue(e.target.name, e.target.value)
-                      }
+                      onChange={(e) => e.target.name}
                       variant="outlined"
                       placeholder="Оройн цагаар хүргүүлмээр байна гэх мэт..."
                     />
@@ -117,24 +115,32 @@ const PersonalInfo = (props) => {
               </Button>
             </Box>
           </Box>
-          <Button
-            fullWidth
-            color="primary"
-            variant="contained"
-            onClick={() => changeOrderPage("checkout")}
-            sx={{ marginTop: "2rem" }}
+          <Box
+            margin={{
+              xs: "2rem 1rem 0 1rem ",
+              md: "1rem",
+              sm: "3rem 6rem 1rem 6rem",
+              lg: "3rem 6rem 1rem 6rem",
+            }}
           >
-            Үргэлжлүүлэх
-          </Button>
-          <Button
-            variant="text"
-            startIcon={<KeyboardReturnIcon />}
-            disableRipple
-            onClick={() => router.back()}
-            sx={{ color: "black", marginTop: ".5rem" }}
-          >
-            Буцах
-          </Button>
+            <Button
+              fullWidth
+              color="primary"
+              variant="contained"
+              onClick={() => changeOrderPage("checkout")}
+            >
+              Үргэлжлүүлэх
+            </Button>
+            <Button
+              variant="text"
+              startIcon={<KeyboardReturnIcon />}
+              disableRipple
+              onClick={() => router.back()}
+              sx={{ color: "black", marginTop: ".5rem" }}
+            >
+              Буцах
+            </Button>
+          </Box>
         </Box>
       </Grid>
     </Grid>

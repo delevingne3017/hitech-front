@@ -151,35 +151,43 @@ const Checkout = (props) => {
         </Grid>
       </Box>
       <PaymentMethod />
-      <Button
-        fullWidth
-        color="primary"
-        variant="contained"
-        onClick={state.payment ? chargeWallet : placeOrder}
-        sx={{ marginTop: "2rem" }}
-      >
-        Худалдаж авах
-      </Button>
-      <ChargeWallet
-        open={state.opens}
-        handleOpen={chargeWallet}
-        handleClose={() => {
-          setState({
-            ...state,
-            opens: false,
-          });
+      <Box
+        margin={{
+          xs: "2rem 1rem 0 1rem ",
+          md: "1rem",
+          sm: "3rem 6rem 1rem 6rem",
+          lg: "3rem 6rem 1rem 6rem",
         }}
-      />
-      <Button
-        variant="text"
-        startIcon={<KeyboardReturnIcon />}
-        disableRipple
-        onClick={() => changeOrderPage("personalInfo")}
-        sx={{ color: "black", marginTop: ".5rem" }}
       >
-        Буцах
-      </Button>
-
+        <Button
+          fullWidth
+          color="primary"
+          variant="contained"
+          onClick={state.payment ? chargeWallet : placeOrder}
+          //sx={{ marginTop: "2rem" }}
+        >
+          Худалдаж авах
+        </Button>
+        <ChargeWallet
+          open={state.opens}
+          handleOpen={chargeWallet}
+          handleClose={() => {
+            setState({
+              ...state,
+              opens: false,
+            });
+          }}
+        />
+        <Button
+          variant="text"
+          startIcon={<KeyboardReturnIcon />}
+          disableRipple
+          onClick={() => changeOrderPage("personalInfo")}
+          sx={{ color: "black", marginTop: ".5rem" }}
+        >
+          Буцах
+        </Button>
+      </Box>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={state.openSnackBar}

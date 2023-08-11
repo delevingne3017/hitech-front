@@ -4,7 +4,6 @@ import Typography from "@mui/material/Typography";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { Box, Button, Checkbox, Grid, IconButton, Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
-
 import GridViewIcon from "@mui/icons-material/GridView";
 import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
@@ -13,43 +12,57 @@ import CardContent from "@mui/material/CardContent";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { useState } from "react";
-export default function FilteredProducts({ product }) {
-  const [value, setValue] = useState([20, 37]);
+import { useEffect } from "react";
+import axios from "axios";
+import useSettings from "@/hooks/useSettings";
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "black" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(0.2),
-    textAlign: "start",
-    width: "7rem",
-    margin: "1rem, 0",
-    color: theme.palette.text.secondary,
-  }));
-  const data = [...Array(25).keys()].map((i) => i + 1);
+export default function FilteredProducts({ fetchedProduct }) {
+  const { addItemToCart } = useSettings();
+
   const itemsPerPage = 16;
-  const totalPages = Math.ceil(data.length / itemsPerPage);
 
+  const [products, setProducts] = useState([]);
+  console.log("fetchedProduct", fetchedProduct);
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const res = await axios.get("/api/product");
+        const allProducts = res.data.data;
+
+        const filteredProducts = allProducts.filter((product) =>
+          product.name.toLowerCase().includes(fetchedProduct.toLowerCase())
+        );
+        console.log("data", filteredProducts);
+        setProducts(filteredProducts);
+      } catch (error) {
+        console.error("Error fetching products: ", error);
+      }
+    }
+
+    fetchProducts();
+  }, [fetchedProduct]);
+
+  const addToCart = (productId) => {
+    const item = { _id: productId };
+    addItemToCart(item);
+    console.log("id", item);
+  };
+  const totalPages = Math.ceil(products.length / itemsPerPage);
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
   };
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentData = data.slice(startIndex, endIndex);
+  const currentProducts = products.slice(startIndex, endIndex);
 
-  const label = { inputProps: { "aria-label": "Checkbox demo" } };
   return (
     <>
       <Box
         sx={{
-          position: "relative",
           display: "flex",
-          top: "2rem",
-          Trim: "90rem",
           justifyContent: "flex-start",
           flexDirection: "row",
         }}
@@ -64,38 +77,14 @@ export default function FilteredProducts({ product }) {
         <Typography
           sx={{ fontsize: ".5rem", color: "gray", marginLeft: "0.5rem" }}
         >
-          Бэлэн .... бараа байна{" "}
+          Бэлэн {products.length} бараа байна
         </Typography>
-        <typography>ss {product.name}</typography>
       </Box>
-      <Stack
-        spacing={2}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "2rem",
-        }}
-      >
-        <Pagination
-          count={totalPages}
-          page={currentPage}
-          onChange={handlePageChange}
-          variant="outlined"
-          color="primary"
-        />
-      </Stack>
+
       <Box>
-        <Grid
-          container
-          spacing={3}
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          marginTop={"1rem"}
-        >
-          {Array.from(Array(16)).map((_, index) => (
-            <Grid item xs={12} sm={2} md={3} lg={2.5} key={index}>
+        <Grid container spacing={3} display={"flex"} marginTop={"1rem"}>
+          {products.map((item) => (
+            <Grid item xs={12} sm={2} md={3} lg={3} key={item._id}>
               <Box sx={{ display: "flex", justifyConten: "center" }}>
                 <Card>
                   <CardContent>
@@ -113,14 +102,14 @@ export default function FilteredProducts({ product }) {
                       height={"170px"}
                     />
                     <Typography variant="body2" component="p" fontWeight="bold">
-                      MSI - MAG B760M MORTAR WIFI DDR5
+                      {item.name}
                     </Typography>
                     <Typography
                       variant="body2"
                       component="p"
                       marginTop={"0.4rem"}
                     >
-                      650,000₮
+                      {item.price}
                     </Typography>
                     <Box
                       sx={{
@@ -128,10 +117,8 @@ export default function FilteredProducts({ product }) {
                         justifyContent: "space-between",
                         marginTop: "1rem",
                       }}
-                      color={""}
                     >
-                      <Button sx={{}}>
-                        {" "}
+                      <Button onClick={() => addToCart(item._id)}>
                         <Box
                           sx={{
                             bgcolor: "#fe5900",
@@ -160,7 +147,7 @@ export default function FilteredProducts({ product }) {
                                 top: ".2rem",
                               }}
                             >
-                              сагсанд хийх
+                              сонгох
                             </Typography>
                           </Box>
                         </Box>

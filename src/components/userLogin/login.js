@@ -53,12 +53,27 @@ const LoginForm = ({
     });
   };
 
+  const [snackbarState, setSnackbarState] = useState({
+    open: false,
+    text: "",
+    severity: "error",
+  });
+
   const handleLogin = async () => {
-    const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-    if (username.trim() === "") {
-      setUsername("Email -ээ оруулна уу.");
-    } else if (password.trim() === "") {
-      setPassword("password -аа оруулна уу.");
+    if (!username.trim()) {
+      setSnackbarState({
+        open: true,
+        text: "Имэйл хаяг оруулна уу.",
+        severity: "error",
+      });
+      return;
+    } else if (!password.trim()) {
+      setSnackbarState({
+        open: true,
+        text: "Нууц үг оруулна уу.",
+        severity: "error",
+      });
+      return;
     }
 
     try {
@@ -66,39 +81,41 @@ const LoginForm = ({
         username,
         password,
       });
-      if (response.data.success === true) handleClose();
-      else {
-        setState({
-          openSnackBar: true,
-          snackbarText: "Нэвтрэх нэр эсвэл нууц үг буруу байна.",
+
+      if (response.data.success) {
+        const id = response.data.data._id;
+        const phone = response.data.data.phone;
+        const firstName = response.data.data.firstName;
+        const lastName = response.data.data.lastName;
+        const balance = response.data.data.balance;
+        localStorage.setItem("accessToken", response.data.token);
+        const payload = {
+          email: username,
+          phone: phone,
+          firstName: firstName,
+          lastName: lastName,
+          balance: balance,
+          id: id,
+          isLogged: true,
+        };
+        setUserContext(payload);
+        handleClose();
+        setUsername("");
+        setPassword("");
+      } else {
+        setSnackbarState({
+          open: true,
+          text: "Нэвтрэх нэр эсвэл нууц үг буруу байна.",
+          severity: "error",
         });
       }
-
-      const id = response.data.data._id;
-      const phone = response.data.data.phone;
-      const firstName = response.data.data.firstName;
-      const lastName = response.data.data.lastName;
-      const balance = response.data.data.balance;
-      localStorage.setItem("accessToken", response.data.token);
-      const payload = {
-        email: username,
-        phone: phone,
-        firstName: firstName,
-        lastName: lastName,
-        balance: balance,
-        id: id,
-        isLogged: true,
-      };
-      setUserContext(payload);
-
-      setState({
-        ...state,
-        user: response.data.data,
-        isLogged: true,
-      });
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbarState({ ...snackbarState, open: false });
   };
 
   return (
@@ -121,7 +138,7 @@ const LoginForm = ({
             marginTop: "2rem",
             justifyContent: "center",
           }}
-          marginX={{ xs: 0 }}
+          marginX={{ xs: 0, md: "2rem", lg: "2rem" }}
         >
           <DialogTitle color="primary" fontWeight="bold">
             Тавтай морил
@@ -130,19 +147,25 @@ const LoginForm = ({
             <TextField
               label="Имэйл"
               fullWidth
+              value={username}
               onChange={(e) => setUsername(e.target.value)}
-              helperText={username}
-              error={!!username}
-              margin="auto"
+              error={!!username && !username.trim()}
+              margin="normal"
+              helperText={
+                !!username && !username.trim() ? "Имэйл хаяг оруулна уу." : ""
+              }
             />
             <TextField
               label="Нууц үг"
               fullWidth
               type="password"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
-              helperText={password}
-              error={!!password}
+              error={!!password && !password.trim()}
               margin="normal"
+              helperText={
+                !!password && !password.trim() ? "Нууц үг оруулна уу." : ""
+              }
             />
           </DialogContent>
           <Button onClick={handleOpenPass}>Нууц үг сэргээх </Button>
@@ -161,20 +184,7 @@ const LoginForm = ({
               Нэвтрэх
             </Button>
           </DialogActions>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: ".9rem",
-              backgroundColor: "#e1eff2",
-              height: "3rem",
-            }}
-          >
-            <Typography>Шинэ хаяг нээх? </Typography>
-            <Button onClick={handleOpenRegister}>Бүртгүүлэх </Button>
-          </Box>
+
           <ForgotPass
             open={state.passOpen}
             handleOpen={handleOpenPass}
@@ -187,18 +197,32 @@ const LoginForm = ({
             }}
           />
         </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: ".9rem",
+            backgroundColor: "#e1eff2",
+            height: "3rem",
+          }}
+        >
+          <Typography>Шинэ хаяг нээх? </Typography>
+          <Button onClick={handleOpenRegister}>Бүртгүүлэх </Button>
+        </Box>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={state.openSnackBar}
+          open={snackbarState.open}
           autoHideDuration={2000}
-          onClose={() => setState({ ...state, openSnackBar: false })}
+          onClose={handleCloseSnackbar}
         >
           <Alert
-            onClose={() => setState({ ...state, openSnackBar: false })}
-            severity="error"
+            onClose={handleCloseSnackbar}
+            severity={snackbarState.severity}
             sx={{ width: "100%" }}
           >
-            {state.snackbarText}
+            {snackbarState.text}
           </Alert>
         </Snackbar>
       </Dialog>

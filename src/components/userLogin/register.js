@@ -38,18 +38,19 @@ const Register = ({
   const validation = () => {
     let successCount = 0;
 
-    // Validate email format
     const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
     const specialCharsRegex = /[!@#$%^&*()]/;
     const uppercaseRegex = /[A-Z]/;
-    if (email.trim() === "") {
+
+    if (!email) {
       setEmailError("Email -ээ оруулна уу.");
     } else if (!emailRegex.test(email)) {
-      setEmailError("Email зөв байна.");
+      setEmailError("Email буруу байна.");
     } else {
       successCount++;
+      setEmailError("");
     }
-    if (password.trim() === "") {
+    if (!password) {
       setPasswordError("password -аа оруулна уу.");
     } else if (password.length < 8) {
       setPasswordError("Password дорж хаяж 8 урттай байна.");
@@ -67,6 +68,7 @@ const Register = ({
       setPhoneError("Утасны дугаараа оруулна уу.");
     } else {
       successCount++;
+      setPhoneError("");
     }
 
     return successCount;
@@ -78,13 +80,11 @@ const Register = ({
     if (num === 3) {
       try {
         const response = await axios.get(`/api/user?email=${email}`);
-
-        if (response.data && response.data.length > 0) {
+        if (response.data.success === true) {
           setState({
             openSnackBar: true,
             snackbarText: "Email аль хэдийн бүртгэгдсэн байна.",
           });
-          return;
         }
 
         const createUserResponse = await axios.post("/api/user", {
@@ -109,7 +109,6 @@ const Register = ({
 
   return (
     <>
-      {/* <Button onClick={handleOpen}>Бүртгүүлэх</Button> */}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -128,6 +127,7 @@ const Register = ({
             marginTop: "2rem",
             justifyContent: "center",
           }}
+          marginX={{ xs: 0, md: "2rem", lg: "2rem" }}
         >
           <DialogTitle color="primary" fontWeight="bold">
             Бүртгүүлэх
@@ -186,20 +186,20 @@ const Register = ({
           >
             эсвэл
           </Divider>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: ".9rem",
-              backgroundColor: "#e1eff2",
-              height: "3rem",
-            }}
-          >
-            <Typography>Таньд хаяг бий юу? </Typography>
-            <Button onClick={handleOpenLogin}>Нэвтрэх </Button>
-          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: ".9rem",
+            backgroundColor: "#e1eff2",
+            height: "3rem",
+          }}
+        >
+          <Typography>Таньд хаяг бий юу? </Typography>
+          <Button onClick={handleOpenLogin}>Нэвтрэх </Button>
         </Box>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -209,7 +209,7 @@ const Register = ({
         >
           <Alert
             onClose={() => setState({ ...state, openSnackBar: false })}
-            severity="warning"
+            severity="error"
             sx={{ width: "100%" }}
           >
             {state.snackbarText}

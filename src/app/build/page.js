@@ -7,6 +7,7 @@ import {
   Typography,
   Card,
   CardContent,
+  Button,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -14,18 +15,6 @@ import FilteredProducts from "./components/productF";
 import axios from "axios";
 
 export default function Build() {
-  const data = [...Array(25).keys()].map((i) => i + 1);
-  const itemsPerPage = 16;
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const handlePageChange = (event, newPage) => {
-    setCurrentPage(newPage);
-  };
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentData = data.slice(startIndex, endIndex);
   const [products, setProducts] = useState([]);
   useEffect(() => {
     async function fetchProducts() {
@@ -44,7 +33,7 @@ export default function Build() {
     }
 
     fetchProducts();
-  }, [products]);
+  }, []);
   const handlechange = (index) => {
     console.log("index", index);
     setProducts(index);
@@ -52,12 +41,40 @@ export default function Build() {
 
   const filterData = [
     {
-      value: "ram",
+      value: "cpu",
       name: "cpu",
     },
     {
-      value: "mouse",
+      value: "motherboard",
       name: "Motherboard",
+    },
+    {
+      value: "ram",
+      name: "Ram",
+    },
+    {
+      value: "ssd",
+      name: "SSD",
+    },
+    {
+      value: "cooler",
+      name: "CPU Cooler",
+    },
+    {
+      value: "case",
+      name: "Case",
+    },
+    {
+      value: "gpu",
+      name: "Graphic Card",
+    },
+    {
+      value: "hdd",
+      name: "HDD",
+    },
+    {
+      value: "power supply",
+      name: "Power Supply",
     },
   ];
 
@@ -72,7 +89,7 @@ export default function Build() {
       </Box>
       <Grid container spacing={2}>
         {/* 8-column grid */}
-        <Grid item xs={3}>
+        <Grid item xs={12} lg={3}>
           {filterData.map((item) => (
             <Box
               key={item.value}
@@ -84,7 +101,13 @@ export default function Build() {
               bgcolor="#F7F7F7"
               marginLeft={"4rem"}
               marginTop={"1rem"}
-              sx={{ cursor: "pointer", ":hover": { bgcolor: "#FFD1B8" } }}
+              sx={{
+                cursor: "pointer",
+                ":hover": { bgcolor: "#FFD1B8" },
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
               onClick={() => {
                 handlechange(item.value);
               }}
@@ -102,12 +125,36 @@ export default function Build() {
               </Box>
             </Box>
           ))}
+          <Button
+            variant="contained"
+            sx={{
+              padding: "0 .1rem 0 .8rem",
+              borderRadius: "5rem",
+              height: "2.7rem",
+              boxShadow: "3px 3px 7px -2px rgba(0, 0, 0, 0.56)",
+            }}
+          >
+            сагсанд хийх
+            <Box
+              display="flex"
+              alignItems={"center"}
+              justifyContent={"center"}
+              width={"6rem"}
+              height="2.5rem"
+              marginLeft={"3rem"}
+              borderRadius={"5rem"}
+              backgroundColor={"white"}
+              color={"black"}
+            >
+              <Typography>₮</Typography>
+            </Box>
+          </Button>
         </Grid>
 
         {/* 4-column grid */}
-        <Grid item xs={9}>
+        <Grid item xs={12} lg={9}>
           <Box>
-            <FilteredProducts product={products} />
+            <FilteredProducts fetchedProduct={products} />
           </Box>
         </Grid>
       </Grid>

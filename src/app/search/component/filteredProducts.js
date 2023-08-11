@@ -44,8 +44,8 @@ export default function FilteredProducts() {
       fetchProducts();
     }
   }, [lastSearch]);
-  const addToCart = () => {
-    addItemToCart(products);
+  const addToCart = (productId) => {
+    addItemToCart(productId);
   };
 
   const totalPages = Math.ceil(products.length / itemsPerPage);
@@ -136,7 +136,7 @@ export default function FilteredProducts() {
                         <Box
                           display={"flex"}
                           flexDirection="row"
-                          onClick={() => addToCart()}
+                          onClick={() => addToCart(product._id)}
                         >
                           <ShoppingBagIcon
                             sx={{ color: "#fffcfa" }}

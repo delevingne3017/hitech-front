@@ -7,6 +7,8 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import { useEffect } from "react";
 import { UserContext } from "@/context/userContext";
+import useSettings from "@/hooks/useSettings";
+import { useRouter } from "next/navigation";
 
 const CustomizedBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -23,14 +25,17 @@ const CustomizedBox = styled(Box)(({ theme }) => ({
 }));
 export default function UserOrder() {
   const { user } = useContext(UserContext);
+  const { changeOrderPage } = useSettings();
+
   const [state, setState] = useState({
     order: [],
   });
+  const router = useRouter();
+
   const userId = user._id;
   const showOrder = useCallback(async () => {
     try {
       const response = await axios.get("/api/order?id=${userId}");
-      console.log("data2", response.data);
       setState({ order: response.data.data });
     } catch (err) {
       console.error(err);
@@ -39,6 +44,10 @@ export default function UserOrder() {
   useEffect(() => {
     showOrder();
   }, []);
+  const detailOrder = () => {
+    changeOrderPage("review");
+    router.push("/payment");
+  };
   return (
     <>
       <Box margin="2rem" width="90%" height="25%">
@@ -58,7 +67,7 @@ export default function UserOrder() {
               <Grid item xs={12} lg={6}>
                 <Box margin="2rem">
                   <Typography fontWeight={"bold"} fontSize={"1.2rem"}>
-                    Захиалгын дугаар: 8597
+                    Захиалгын дугаар: {item._id}
                   </Typography>
                   <Typography paddingTop={"2rem"} fontSize={".9rem"}>
                     Төлөв: Төлбөр төлөгдөөгүй
@@ -95,6 +104,7 @@ export default function UserOrder() {
                       marginTop={"1rem"}
                       variant="contained"
                       color="primary"
+                      onClick={() => detailOrder()}
                     >
                       Дэлгэрэнгүй
                     </Button>
