@@ -72,14 +72,15 @@ export default function Demand() {
                   <Grid
                     key={index}
                     item
-                    xs={2}
+                    xs={12}
                     sm={4}
                     md={5.5}
                     sx={{
                       borderRadius: "0.5rem",
                       bgcolor: "#ffffff",
                       marginTop: "1rem",
-                      marginRight: "2.3rem",
+                      marginRight:{xs:"2rem", lg:"2.3rem"},
+                      marginLeft:{xs:"2.8rem", lg:0},
                       cursor: "pointer",
                     }}
                     borderRadius={"2rem"}

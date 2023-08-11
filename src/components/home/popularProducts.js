@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Button } from "@mui/material";
+import { Box, Grid, Typography, Button, Card, CardContent } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
@@ -8,8 +8,32 @@ import React, { Component, useRef } from "react";
 import Slider from "react-slick";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
-
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 export default function PopularProducts() {
+  const [state, setState] = useState({
+    popularProducts: [],
+  });
+
+  const router = useRouter();
+  const handleProduct = (productId) => {
+    router.push(`/product/${productId}`);
+  };
+  const fetchPopularProducts = async () => {
+    try {
+      const response = await axios.post("/api/product/popular", {});
+      console.log("popular:", response.data.data);
+      setState({
+        ...state,
+        popularProducts: response.data.data,
+      });
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    fetchPopularProducts();
+  }, []);
   const ref = useRef();
   const next = () => {
     // const obj = new Slider();
@@ -42,93 +66,108 @@ export default function PopularProducts() {
                 spacing={2}
                 item
                 xs={12}
-                md={12}
                 justifyContent={"center"}
               >
-                {Array.from(Array(9)).map((_, index) => (
-                  <Grid
-                    item
-                    xs={12}
-                    sm={4}
-                    md={3.5}
-                    sx={{
-                      bgcolor: "#ffffff",
-                      margin: "1rem",
-                      borderRadius: "0.5rem",
-                    }}
-                    key={index}
-                  >
-                    <Box display={"flex"} justifyContent={"flex-start"}>
-                      <Box>
-                        <img
-                          src="https://api.hitech.mn/uploads/images/2022/10/11/jombogo-Recovered-Recovered-1665462625503444295-thumbnail.jpg"
-                          alt="{main image}"
-                          style={{
-                            width: "25vh",
-                            borderRadius: "0.5rem",
-                            height: "20vh",
-                            position: "absolute",
-                          }}
-                          bgcolor="white"
-                        />
-                        <Box
-                          display={"flex"}
-                          justifyContent={"flex-start"}
-                          alignItems={"center"}
-                          position={"relative"}
-                          marginTop={"5rem"}
-                        >
-                          <Box
-                            bgcolor={"white"}
-                            margin={1}
-                            borderRadius={"5rem"}
-                            padding={"0.2rem"}
-                          >
-                            <FavoriteIcon width={10} height={10} />
-                          </Box>
-                          <Box
-                            bgcolor={"white"}
-                            margin={1}
-                            borderRadius={"5rem"}
-                            padding={"0.2rem"}
-                          >
-                            <RemoveRedEyeIcon width={20} height={12} />
-                          </Box>
-                          <Box
-                            bgcolor={"white"}
-                            margin={1}
-                            borderRadius={"5rem"}
-                            padding={"0.2rem"}
-                          >
-                            <SwapHorizIcon width={20} height={12} />
-                          </Box>
-                        </Box>
-                      </Box>
-                      <Box
-                        display={"flex"}
-                        flexDirection={"column"}
-                        justifyContent={"column"}
-                        paddingBottom={"0.5rem"}
+                {state.popularProducts &&
+                  state.popularProducts[0] &&
+                  state.popularProducts.map((item, index) => {
+                    return (
+                      <Grid
+                        item
+                        xs={12}
+                        sm={3}
+                        md={3.5}
+                        sx={{
+                          margin: "1rem",
+                          borderRadius: "0.5rem",
+                          cursor: "pointer",
+                        }}
+                        key={index}
+                        onClick={() => handleProduct(item._id)}
                       >
-                        <Box marginLeft={"10rem"} marginTop={"1"} marginX={1}>
-                          <Typography marginLeft={"1.5rem"} fontSize={14}>
-                            MSI GeForce RTX™ 4060 Ti GAMING X 8G
-                          </Typography>
-                        </Box>
-                        <Box
-                          marginTop={"4rem"}
-                          display={"flex"}
-                          justifyContent={"space-between"}
-                          marginRight={"1rem"}
-                          marginLeft={"2rem"}
-                        >
-                          <Typography>1.750.000$</Typography>
-                          <ShoppingBagIcon />
-                        </Box>
-                      </Box>
-                    </Box>
-                  </Grid>
-                ))}
+                        <Card>
+                          <CardContent>
+                            <Box display={"flex"} justifyContent={"flex-start"}>
+                              <Box marginBottom={"2rem"}>
+                                <img
+                                  src="https://api.hitech.mn/uploads/images/2022/10/11/jombogo-Recovered-Recovered-1665462625503444295-thumbnail.jpg"
+                                  alt="{main image}"
+                                  style={{
+                                    width: "9rem",
+                                    borderRadius: "0.5rem",
+                                    position: "absolute",
+                                    height: { xs: "8rem", lg: "10rem" },
+                                  }}
+                                  bgcolor="white"
+                                />
+                                <Box
+                                  display={"flex"}
+                                  justifyContent={"flex-start"}
+                                  alignItems={"center"}
+                                  position={"relative"}
+                                  marginTop={"5rem"}
+                                >
+                                  <Box
+                                    bgcolor={"white"}
+                                    margin={1}
+                                    borderRadius={"5rem"}
+                                    padding={"0.2rem"}
+                                  >
+                                    <FavoriteIcon width={10} height={10} />
+                                  </Box>
+                                  <Box
+                                    bgcolor={"white"}
+                                    margin={1}
+                                    borderRadius={"5rem"}
+                                    padding={"0.2rem"}
+                                  >
+                                    <RemoveRedEyeIcon width={20} height={12} />
+                                  </Box>
+                                  <Box
+                                    bgcolor={"white"}
+                                    margin={1}
+                                    borderRadius={"5rem"}
+                                    padding={"0.2rem"}
+                                  >
+                                    <SwapHorizIcon width={20} height={12} />
+                                  </Box>
+                                </Box>
+                              </Box>
+                              <Box
+                                display={"flex"}
+                                flexDirection={"column"}
+                                justifyContent={"column"}
+                                paddingBottom={"0.5rem"}
+                              >
+                                <Box
+                                  marginLeft={"10rem"}
+                                  marginTop={"1"}
+                                  marginX={1}
+                                >
+                                  <Typography
+                                    marginLeft={"1.5rem"}
+                                    fontSize={14}
+                                  >
+                                    {item.name}
+                                  </Typography>
+                                </Box>
+                                <Box
+                                  marginTop={"4rem"}
+                                  display={"flex"}
+                                  justifyContent={"space-between"}
+                                  marginRight={"1rem"}
+                                  marginLeft={"2rem"}
+                                >
+                                  <Typography>{item.price}$</Typography>
+                                  <ShoppingBagIcon />
+                                </Box>
+                              </Box>
+                            </Box>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    );
+                  })}
               </Grid>
             </Box>
           </Box>

@@ -4,9 +4,9 @@ export default function Service() {
 
   return (
     <>
-    <Box bgcolor={"#F7F7F7"} height={"15rem"}>
+    <Box bgcolor={"#F7F7F7"} paddingBottom={{xs:"2rem", lg:"3rem"}}>
         <Grid container spacing={2}>
-          <Grid item xs={4} display={"flex"} justifyContent={"center"}>
+          <Grid item xs={12} lg={4} display={"flex"} justifyContent={"center"}>
             <Box
               display={"flex"}
               justifyContent={"flex-start"}
@@ -47,7 +47,7 @@ export default function Service() {
               </Box>
             </Box>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} lg={4}>
             <Box
               display={"flex"}
               justifyContent={"flex-start"}
@@ -96,7 +96,7 @@ export default function Service() {
               </Box>
             </Box>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} lg={4}>
             <Box
               display={"flex"}
               justifyContent={"flex-start"}
