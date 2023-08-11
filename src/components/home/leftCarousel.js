@@ -9,7 +9,7 @@ export default function LeftCarousel() {
 
   return (
     <>
-    <Box  >
+    <Box marginTop={{xs:"-18rem", lg:0}} >
       <Typography display={"flex"} justifyContent={"center"} marginBottom={"1rem"} >
         <StarIcon/> Онцгой санал
       </Typography>
