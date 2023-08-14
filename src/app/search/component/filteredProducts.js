@@ -17,6 +17,7 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { useSearchContext } from "@/context/searchContext";
 import axios from "axios";
 import useSettings from "@/hooks/useSettings";
+import { useCallback } from "react";
 
 export default function FilteredProducts() {
   const { lastSearch } = useSearchContext();
@@ -24,23 +25,22 @@ export default function FilteredProducts() {
   const { addItemToCart } = useSettings();
   const itemsPerPage = 16;
 
+  const fetchProducts = useCallback(async () => {
+    try {
+      const res = await axios.get("/api/product");
+      const allProducts = res.data.data;
+
+      const filteredProducts = allProducts.filter((product) =>
+        product.name.toLowerCase().includes(lastSearch.toLowerCase())
+      );
+
+      setProducts(filteredProducts);
+    } catch (error) {
+      console.error("Error fetching products: ", error);
+    }
+  }, [lastSearch]);
   useEffect(() => {
     if (lastSearch) {
-      async function fetchProducts() {
-        try {
-          const res = await axios.get("/api/product");
-          const allProducts = res.data.data;
-
-          const filteredProducts = allProducts.filter((product) =>
-            product.name.toLowerCase().includes(lastSearch.toLowerCase())
-          );
-
-          setProducts(filteredProducts);
-        } catch (error) {
-          console.error("Error fetching products: ", error);
-        }
-      }
-
       fetchProducts();
     }
   }, [lastSearch]);

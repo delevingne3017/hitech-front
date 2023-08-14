@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import {
   Alert,
   Box,
@@ -122,7 +122,7 @@ const NavProfile = () => {
             <Box>
               <Button
                 fullWidth
-                onClick={updateUser}
+                onClick={() => updateUser()}
                 variant="contained"
                 color="primary"
                 sx={{
