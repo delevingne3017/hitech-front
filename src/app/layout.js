@@ -1,4 +1,3 @@
-"use client";
 import { UserProvider } from "@/context/userContext";
 import { ThemeProvider } from "@mui/material";
 import "./globals.css";
