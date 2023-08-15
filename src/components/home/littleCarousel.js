@@ -10,7 +10,7 @@ export default function LittleCarousel() {
 
   const settings = {
     infinite: true,
-    slidesToShow: isMobile ? 1 : 4,
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
     speed: 1000,
