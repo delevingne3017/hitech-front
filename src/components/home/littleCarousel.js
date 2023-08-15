@@ -1,8 +1,13 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import { Box } from "@mui/material";
 
 export default function LittleCarousel() {
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
+
   const settings = {
     infinite: true,
     slidesToShow: 4,
@@ -13,7 +18,6 @@ export default function LittleCarousel() {
     cssEase: "linear",
   };
 
-  // Adjust the settings for mobile view
   const mobileSettings = {
     infinite: true,
     slidesToShow: 1,
@@ -21,12 +25,24 @@ export default function LittleCarousel() {
     autoplay: true,
     speed: 1000,
     autoplaySpeed: 3000,
-    cssEase: "linear", // Remove arrows for mobile view
+    cssEase: "linear",
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <Box marginTop={"1rem"}>
-      <Slider {...(window.innerWidth <= 600 ? mobileSettings : settings)}>
+      <Slider {...(windowWidth <= 600 ? mobileSettings : settings)}>
         {Array.from(Array(9)).map((_, index) => (
           <Box key={index}>
             <img
