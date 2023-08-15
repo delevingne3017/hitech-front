@@ -68,23 +68,24 @@ export default function SaleProduct() {
                 <Card>
                   <CardContent>
                     <Box display={"flex"} justifyContent={"flex-start"}>
-                      <Box>
+                      <Box marginBottom={"0.5rem"} position={"relative"}>
                         <img
-                          src="https://api.hitech.mn/uploads/images/2023/6/15/2-1686811807033831943-524X524.jpg"
+                          src="https://api.hitech.mn/uploads/images/2022/10/11/jombogo-Recovered-Recovered-1665462625503444295-thumbnail.jpg"
                           alt="{main image}"
                           style={{
-                            width: "25vh",
+                            width: "9rem",
                             borderRadius: "0.5rem",
-                            height: "20vh",
+                            height: { xs: "8rem", lg: "10rem" },
                           }}
                           bgcolor="white"
                         />
+
                         <Box
                           display={"flex"}
                           justifyContent={"flex-start"}
                           alignItems={"center"}
-                          position={"relative"}
-                          marginTop={"-3rem"}
+                          posititon={"absolute"}
+                          marginTop={"-4rem"}
                         >
                           <Box
                             bgcolor={"white"}
@@ -92,7 +93,11 @@ export default function SaleProduct() {
                             borderRadius={"5rem"}
                             padding={"0.2rem"}
                           >
-                            <FavoriteIcon width={10} height={10} />
+                            <FavoriteIcon
+                              sx={{ color: "#fe5900" }}
+                              width={10}
+                              height={10}
+                            />
                           </Box>
                           <Box
                             bgcolor={"white"}
@@ -100,7 +105,11 @@ export default function SaleProduct() {
                             borderRadius={"5rem"}
                             padding={"0.2rem"}
                           >
-                            <RemoveRedEyeIcon width={20} height={12} />
+                            <RemoveRedEyeIcon
+                              sx={{ color: "#fe5900" }}
+                              width={20}
+                              height={12}
+                            />
                           </Box>
                           <Box
                             bgcolor={"white"}
@@ -108,30 +117,55 @@ export default function SaleProduct() {
                             borderRadius={"5rem"}
                             padding={"0.2rem"}
                           >
-                            <SwapHorizIcon width={20} height={12} />
+                            <SwapHorizIcon
+                              sx={{ color: "#fe5900" }}
+                              width={20}
+                              height={12}
+                            />
                           </Box>
                         </Box>
                       </Box>
+
                       <Box
                         display={"flex"}
                         flexDirection={"column"}
-                        justifyContent={"column"}
+                        justifyContent={"space-between"}
                         paddingBottom={"0.5rem"}
+                        flexGrow={"2"}
                       >
-                        <Box marginLeft={"10rem"} marginTop={"1"} marginX={1}>
-                          <Typography marginLeft={"1.5rem"} fontSize={14}>
-                            {item.name}
-                          </Typography>
+                        <Box marginTop={"1"} marginX={1}>
+                          <Typography fontSize={14}>{item.name}</Typography>
                         </Box>
                         <Box
-                          marginTop={"4rem"}
-                          display={"flex"}
-                          justifyContent={"space-between"}
-                          marginRight={"1rem"}
-                          marginLeft={"2rem"}
+                          sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            marginLeft: "0.5rem",
+                          }}
                         >
-                          <Typography>{item.price+"$"}</Typography>
-                          <ShoppingBagIcon />
+                          <Typography>{item.price}T</Typography>
+                          <Box
+                            sx={{
+                              bgcolor: "#fe5900",
+                              margin: "1",
+                              borderRadius: "5rem",
+                              padding: "0.4rem",
+                            }}
+                          >
+                            <Box
+                              display={"flex"}
+                              flexDirection="row"
+                              onClick={() => addToCart(product._id)}
+                            >
+                              <ShoppingBagIcon
+                                sx={{ color: "#fffcfa" }}
+                                width="20"
+                                height="12"
+                                size="small"
+                                flexDirection="row"
+                              ></ShoppingBagIcon>
+                            </Box>
+                          </Box>
                         </Box>
                       </Box>
                     </Box>
