@@ -25,7 +25,6 @@ export default function Demand() {
   const [state, setState] = useState({
     specialProducts: [],
   });
-
   const router = useRouter();
   const handleProduct = (productId) => {
     router.push(`/product/${productId}`);
@@ -141,6 +140,7 @@ export default function Demand() {
                       marginRight: { xs: "2rem", lg: "2.3rem" },
                       marginLeft: { xs: "2.8rem", lg: 0 },
                       cursor: "pointer",
+                      marginLeft: { xs: "2.8rem" },
                     }}
                     borderRadius={"2rem"}
                     onClick={() => handleProduct(item._id)}

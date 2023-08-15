@@ -1,10 +1,9 @@
 import { Box, Grid, Typography } from "@mui/material";
 
 export default function Service() {
-
   return (
     <>
-    <Box bgcolor={"#F7F7F7"} paddingBottom={{xs:"2rem", lg:"3rem"}}>
+      <Box bgcolor={"#F7F7F7"} paddingBottom={{ xs: "2rem", lg: "3rem" }}>
         <Grid container spacing={2}>
           <Grid item xs={12} lg={4} display={"flex"} justifyContent={"center"}>
             <Box
@@ -144,6 +143,3 @@ export default function Service() {
     </>
   );
 }
-
-
-

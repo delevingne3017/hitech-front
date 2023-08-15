@@ -93,7 +93,6 @@ export default function Home() {
         <Logo />
         <Service />
       </Box>
-      <Box></Box>
       <Box>
         <img
           src="https://api.hitech.mn/uploads/images/2021/7/27/thick-banner-1619167935537878672-original-1627399206221880513-original.jpg"
