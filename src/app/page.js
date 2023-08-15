@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import { Box } from "@mui/material";
@@ -32,7 +33,8 @@ export default function LittleCarousel() {
       setWindowWidth(window.innerWidth);
     };
 
-    window.addEventListener("resize", handleResize);
+    if (typeof window !== "undefined")
+      window.addEventListener("resize", handleResize);
 
     // Clean up the event listener when the component unmounts
     return () => {
