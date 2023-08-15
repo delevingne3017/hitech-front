@@ -63,12 +63,20 @@ export default function HomePhoto() {
           right="0"
         >
           <Button onClick={previous}>
-            <Box width="4rem" borderRadius="2rem" marginBottom={{xs:"5rem", lg:"11rem"}}>
+            <Box
+              width="4rem"
+              borderRadius="2rem"
+              marginBottom={{ xs: "5rem", lg: "11rem" }}
+            >
               <KeyboardDoubleArrowLeftIcon fontSize="large" />
             </Box>
           </Button>
           <Button onClick={next}>
-            <Box width="4rem" borderRadius="2rem" marginBottom={{xs:"5rem", lg:"11rem"}}>
+            <Box
+              width="4rem"
+              borderRadius="2rem"
+              marginBottom={{ xs: "5rem", lg: "11rem" }}
+            >
               <KeyboardDoubleArrowRightIcon fontSize="large" />
             </Box>
           </Button>

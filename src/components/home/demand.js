@@ -46,7 +46,7 @@ export default function Demand() {
   }, []);
   return (
     <>
-      <Box marginY={4} marginTop={"1rem"}>
+      <Box sx={{ marginY: "4", marginTop: "1rem" }}>
         <Box marginLeft={"1rem"} marginBottom={"2rem"}>
           <Typography>
             <FiberManualRecordIcon fontSize="small" marginTop={"2"} />
@@ -214,7 +214,7 @@ export default function Demand() {
                             paddingBottom={"0.5rem"}
                             flexGrow={"2"}
                           >
-                            <Box marginTop={"1"} marginX={1}>
+                            <Box marginX={1}>
                               <Typography fontSize={14}>{item.name}</Typography>
                             </Box>
                             <Box
