@@ -24,7 +24,7 @@ export default function LeftCarousel() {
           justifyContent={"center"}
           marginBottom={"0.5rem"}
         >
-          <StarIcon /> Онцгой санал
+          <StarIcon sx={{ color: "#FE5900" }} /> Онцгой санал
         </Typography>
       </Box>
       <Box marginLeft={"1rem"}>

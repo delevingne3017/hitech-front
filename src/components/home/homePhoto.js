@@ -82,32 +82,6 @@ export default function HomePhoto() {
           </Button>
         </Box>
       </Box>
-      <Box
-        display={"flex"}
-        justifyContent={"space-between"}
-        marginTop={"-4rem"}
-      >
-        <Button onClick={previous}>
-          <Box
-            width={"4rem"}
-            borderRadius={"2rem"}
-            bottom={"12rem"}
-            position={"relative"}
-          >
-            <KeyboardDoubleArrowLeftIcon fontSize="large" />
-          </Box>
-        </Button>
-        <Button onClick={next}>
-          <Box
-            width={"4rem"}
-            borderRadius={"2rem"}
-            bottom={"12rem"}
-            position={"relative"}
-          >
-            <KeyboardDoubleArrowRightIcon fontSize="large" />
-          </Box>
-        </Button>
-      </Box>
     </>
   );
 }

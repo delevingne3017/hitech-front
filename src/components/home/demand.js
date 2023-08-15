@@ -25,6 +25,7 @@ export default function Demand() {
   const [state, setState] = useState({
     specialProducts: [],
   });
+
   const router = useRouter();
   const handleProduct = (productId) => {
     router.push(`/product/${productId}`);
@@ -45,7 +46,7 @@ export default function Demand() {
   }, []);
   return (
     <>
-      <Box marginY={4} marginTop={"1rem"}>
+      <Box sx={{ marginY: "4", marginTop: "1rem" }}>
         <Box marginLeft={"1rem"} marginBottom={"2rem"}>
           <Typography>
             <FiberManualRecordIcon fontSize="small" marginTop={"2"} />
@@ -140,7 +141,6 @@ export default function Demand() {
                       marginRight: { xs: "2rem", lg: "2.3rem" },
                       marginLeft: { xs: "2.8rem", lg: 0 },
                       cursor: "pointer",
-                      marginLeft: { xs: "2.8rem" },
                     }}
                     borderRadius={"2rem"}
                     onClick={() => handleProduct(item._id)}
@@ -214,7 +214,7 @@ export default function Demand() {
                             paddingBottom={"0.5rem"}
                             flexGrow={"2"}
                           >
-                            <Box marginTop={"1"} marginX={1}>
+                            <Box marginX={1}>
                               <Typography fontSize={14}>{item.name}</Typography>
                             </Box>
                             <Box

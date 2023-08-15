@@ -80,7 +80,7 @@ export default function NewProducts() {
       <Box marginTop={"6rem"} marginBottom={"3rem"}>
         <Box>
           <Typography display={"flex"} justifyContent={"center"}>
-            <FiberManualRecordIcon /> Шинэ бараа
+            <FiberManualRecordIcon sx={{ color: "#FE5900" }} /> Шинэ бараа
           </Typography>
         </Box>
         <Slider ref={ref} {...settings}>
@@ -91,6 +91,7 @@ export default function NewProducts() {
                 spacing={2}
                 item
                 xs={12}
+                md={12}
                 justifyContent={"center"}
               >
                 {state.newProducts &&
@@ -112,81 +113,117 @@ export default function NewProducts() {
                         }}
                         onClick={() => handleProduct(item._id)}
                       >
-                        <Box display={"flex"} justifyContent={"flex-start"}>
-                          <Box>
-                            <img
-                              src="https://api.hitech.mn/uploads/images/2022/10/11/jombogo-Recovered-Recovered-1665462625503444295-thumbnail.jpg"
-                              alt="{main image}"
-                              style={{
-                                width: "25vh",
-                                borderRadius: "0.5rem",
-                                height: "20vh",
-                                position: "absolute",
-                              }}
-                              bgcolor="white"
-                            />
+                        <Card>
+                          <CardContent>
+                            <Box display={"flex"} justifyContent={"flex-start"}>
+                              <Box
+                                marginBottom={"0.5rem"}
+                                position={"relative"}
+                              >
+                                <img
+                                  src="https://api.hitech.mn/uploads/images/2022/10/11/jombogo-Recovered-Recovered-1665462625503444295-thumbnail.jpg"
+                                  alt="{main image}"
+                                  style={{
+                                    width: "9rem",
+                                    borderRadius: "0.5rem",
+                                    height: { xs: "8rem", lg: "10rem" },
+                                  }}
+                                  bgcolor="white"
+                                />
 
-                            <Box
-                              display={"flex"}
-                              justifyContent={"flex-start"}
-                              alignItems={"center"}
-                              position={"relative"}
-                              marginTop={"5rem"}
-                            >
-                              <Box
-                                bgcolor={"white"}
-                                margin={1}
-                                borderRadius={"5rem"}
-                                padding={"0.2rem"}
-                              >
-                                <FavoriteIcon width={10} height={10} />
+                                <Box
+                                  display={"flex"}
+                                  justifyContent={"flex-start"}
+                                  alignItems={"center"}
+                                  posititon={"absolute"}
+                                  marginTop={"-4rem"}
+                                >
+                                  <Box
+                                    bgcolor={"white"}
+                                    margin={1}
+                                    borderRadius={"5rem"}
+                                    padding={"0.2rem"}
+                                  >
+                                    <FavoriteIcon
+                                      sx={{ color: "#fe5900" }}
+                                      width={10}
+                                      height={10}
+                                    />
+                                  </Box>
+                                  <Box
+                                    bgcolor={"white"}
+                                    margin={1}
+                                    borderRadius={"5rem"}
+                                    padding={"0.2rem"}
+                                  >
+                                    <RemoveRedEyeIcon
+                                      sx={{ color: "#fe5900" }}
+                                      width={20}
+                                      height={12}
+                                    />
+                                  </Box>
+                                  <Box
+                                    bgcolor={"white"}
+                                    margin={1}
+                                    borderRadius={"5rem"}
+                                    padding={"0.2rem"}
+                                  >
+                                    <SwapHorizIcon
+                                      sx={{ color: "#fe5900" }}
+                                      width={20}
+                                      height={12}
+                                    />
+                                  </Box>
+                                </Box>
                               </Box>
-                              <Box
-                                bgcolor={"white"}
-                                margin={1}
-                                borderRadius={"5rem"}
-                                padding={"0.2rem"}
-                              >
-                                <RemoveRedEyeIcon width={20} height={12} />
-                              </Box>
-                              <Box
-                                bgcolor={"white"}
-                                margin={1}
-                                borderRadius={"5rem"}
-                                padding={"0.2rem"}
-                              >
-                                <SwapHorizIcon width={20} height={12} />
-                              </Box>
-                            </Box>
-                          </Box>
 
-                          <Box
-                            display={"flex"}
-                            flexDirection={"column"}
-                            justifyContent={"column"}
-                            paddingBottom={"0.5rem"}
-                          >
-                            <Box
-                              marginLeft={"10rem"}
-                              marginTop={"1"}
-                              marginX={1}
-                            >
-                              <Typography marginLeft={"1.5rem"} fontSize={14}>
-                                {item.name}
-                              </Typography>
+                              <Box
+                                display={"flex"}
+                                flexDirection={"column"}
+                                justifyContent={"space-between"}
+                                paddingBottom={"0.5rem"}
+                                flexGrow={"2"}
+                              >
+                                <Box marginTop={"1"} marginX={1}>
+                                  <Typography fontSize={14}>
+                                    {item.name}
+                                  </Typography>
+                                </Box>
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    marginLeft: "0.5rem",
+                                  }}
+                                >
+                                  <Typography>{item.price}T</Typography>
+                                  <Box
+                                    sx={{
+                                      bgcolor: "#fe5900",
+                                      margin: "1",
+                                      borderRadius: "5rem",
+                                      padding: "0.4rem",
+                                    }}
+                                  >
+                                    <Box
+                                      display={"flex"}
+                                      flexDirection="row"
+                                      onClick={() => addToCart(product._id)}
+                                    >
+                                      <ShoppingBagIcon
+                                        sx={{ color: "#fffcfa" }}
+                                        width="20"
+                                        height="12"
+                                        size="small"
+                                        flexDirection="row"
+                                      ></ShoppingBagIcon>
+                                    </Box>
+                                  </Box>
+                                </Box>
+                              </Box>
                             </Box>
-                            <Box
-                              marginTop={"4rem"}
-                              display={"flex"}
-                              justifyContent={"space-between"}
-                              marginRight={"1rem"}
-                              marginLeft={"2rem"}
-                            >
-                              <Typography>{item.price}T</Typography>
-                              <ShoppingBagIcon />
-                            </Box>
-                          </Box>
-                        </Box>
+                          </CardContent>
+                        </Card>
                       </Grid>
                     );
                   })}
@@ -203,97 +240,144 @@ export default function NewProducts() {
                 md={12}
                 justifyContent={"center"}
               >
-                {Array.from(Array(9)).map((_, index) => (
-                  <Grid
-                    item
-                    xs={12}
-                    sm={4}
-                    md={3.5}
-                    sx={{
-                      bgcolor: "#ffffff",
-                      margin: "1rem",
-                      borderRadius: "0.5rem",
-                    }}
-                    key={index}
-                  >
-                    <Box display={"flex"} justifyContent={"flex-start"}>
-                      <Box>
-                        <img
-                          src="https://api.hitech.mn/uploads/images/2022/10/31/jombogo-Recovered-Recovered-1667193462163374986-524X524.jpg"
-                          alt="{main image}"
-                          style={{
-                            width: "25vh",
-                            borderRadius: "0.5rem",
-                            height: "20vh",
-                            position: "absolute",
-                          }}
-                          bgcolor="white"
-                        />
-                        <Box
-                          display={"flex"}
-                          justifyContent={"flex-start"}
-                          alignItems={"center"}
-                          position={"relative"}
-                          marginTop={"5rem"}
-                        >
-                          <Box
-                            bgcolor={"white"}
-                            margin={1}
-                            borderRadius={"5rem"}
-                            padding={"0.2rem"}
-                          >
-                            <FavoriteIcon width={10} height={10} />
-                          </Box>
-                          <Box
-                            bgcolor={"white"}
-                            margin={1}
-                            borderRadius={"5rem"}
-                            padding={"0.2rem"}
-                          >
-                            <RemoveRedEyeIcon width={20} height={12} />
-                          </Box>
-                          <Box
-                            bgcolor={"white"}
-                            margin={1}
-                            borderRadius={"5rem"}
-                            padding={"0.2rem"}
-                          >
-                            <SwapHorizIcon width={20} height={12} />
-                          </Box>
-                        </Box>
-                      </Box>
-                      <Box
-                        display={"flex"}
-                        flexDirection={"column"}
-                        justifyContent={"column"}
-                        paddingBottom={"0.5rem"}
+                {state.newProducts &&
+                  state.newProducts[0] &&
+                  state.newProducts.map((item, index) => {
+                    return (
+                      <Grid
+                        onMouseOver={handleMouseOver}
+                        onMouseOut={handleMouseOut}
+                        key={index}
+                        item
+                        xs={12}
+                        sm={4}
+                        md={3.5}
+                        sx={{
+                          margin: "1rem",
+                          borderRadius: "0.5rem",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleProduct(item._id)}
                       >
-                        <Box marginLeft={"10rem"} marginTop={"1"} marginX={1}>
-                          <Typography marginLeft={"1.5rem"} fontSize={14}>
-                            MSI GeForce RTX™ 4060 Ti GAMING X 8G
-                          </Typography>
-                        </Box>
-                        <Box
-                          marginTop={"4rem"}
-                          display={"flex"}
-                          justifyContent={"space-between"}
-                          marginRight={"1rem"}
-                          marginLeft={"2rem"}
-                        >
-                          <Typography>1.750.000$</Typography>
-                          <ShoppingBagIcon />
-                        </Box>
-                      </Box>
-                    </Box>
-                  </Grid>
-                ))}
+                        <Card>
+                          <CardContent>
+                            <Box display={"flex"} justifyContent={"flex-start"}>
+                              <Box
+                                marginBottom={"0.5rem"}
+                                position={"relative"}
+                              >
+                                <img
+                                  src="https://api.hitech.mn/uploads/images/2022/10/11/jombogo-Recovered-Recovered-1665462625503444295-thumbnail.jpg"
+                                  alt="{main image}"
+                                  style={{
+                                    width: "9rem",
+                                    borderRadius: "0.5rem",
+                                    height: { xs: "8rem", lg: "10rem" },
+                                  }}
+                                  bgcolor="white"
+                                />
+
+                                <Box
+                                  display={"flex"}
+                                  justifyContent={"flex-start"}
+                                  alignItems={"center"}
+                                  posititon={"absolute"}
+                                  marginTop={"-4rem"}
+                                >
+                                  <Box
+                                    bgcolor={"white"}
+                                    margin={1}
+                                    borderRadius={"5rem"}
+                                    padding={"0.2rem"}
+                                  >
+                                    <FavoriteIcon
+                                      sx={{ color: "#fe5900" }}
+                                      width={10}
+                                      height={10}
+                                    />
+                                  </Box>
+                                  <Box
+                                    bgcolor={"white"}
+                                    margin={1}
+                                    borderRadius={"5rem"}
+                                    padding={"0.2rem"}
+                                  >
+                                    <RemoveRedEyeIcon
+                                      sx={{ color: "#fe5900" }}
+                                      width={20}
+                                      height={12}
+                                    />
+                                  </Box>
+                                  <Box
+                                    bgcolor={"white"}
+                                    margin={1}
+                                    borderRadius={"5rem"}
+                                    padding={"0.2rem"}
+                                  >
+                                    <SwapHorizIcon
+                                      sx={{ color: "#fe5900" }}
+                                      width={20}
+                                      height={12}
+                                    />
+                                  </Box>
+                                </Box>
+                              </Box>
+
+                              <Box
+                                display={"flex"}
+                                flexDirection={"column"}
+                                justifyContent={"space-between"}
+                                paddingBottom={"0.5rem"}
+                                flexGrow={"2"}
+                              >
+                                <Box marginTop={"1"} marginX={1}>
+                                  <Typography fontSize={14}>
+                                    {item.name}
+                                  </Typography>
+                                </Box>
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    marginLeft: "0.5rem",
+                                  }}
+                                >
+                                  <Typography>{item.price}T</Typography>
+                                  <Box
+                                    sx={{
+                                      bgcolor: "#fe5900",
+                                      margin: "1",
+                                      borderRadius: "5rem",
+                                      padding: "0.4rem",
+                                    }}
+                                  >
+                                    <Box
+                                      display={"flex"}
+                                      flexDirection="row"
+                                      onClick={() => addToCart(product._id)}
+                                    >
+                                      <ShoppingBagIcon
+                                        sx={{ color: "#fffcfa" }}
+                                        width="20"
+                                        height="12"
+                                        size="small"
+                                        flexDirection="row"
+                                      ></ShoppingBagIcon>
+                                    </Box>
+                                  </Box>
+                                </Box>
+                              </Box>
+                            </Box>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    );
+                  })}
               </Grid>
             </Box>
           </Box>
         </Slider>
         <Box style={{ textAlign: "center" }}>
-          <Pagination count={10} page={page} onChange={handleChange} />
-          aaaaaaaa
           <Button onClick={previous}>
             <Box
               bgcolor={"#ffffff"}
