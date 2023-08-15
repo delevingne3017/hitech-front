@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material";
 import { MuiButton } from "./overrides";
-export default createTheme({
+
+const theme = createTheme({
   palette: {
     primary: {
       main: "#FE5A03",
@@ -10,3 +11,5 @@ export default createTheme({
     MuiButton,
   },
 });
+
+export default theme;

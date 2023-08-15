@@ -1,5 +1,3 @@
-"use client";
-
 import styled from "@emotion/styled";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import WalletIcon from "@mui/icons-material/Wallet";

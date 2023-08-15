@@ -59,7 +59,7 @@ export default function Home() {
     <Box sx={{ width: "100%" }} bgcolor={"#ffffff"}>
       <Box style={{ width: "100%", height: "63vh" }}>
         <HomePhoto />
-        <LittleCarousel/>
+        <LittleCarousel />
         {/* <Box marginBottom={"2rem"}></Box> */}
       </Box>
       <SpecialProduct />
