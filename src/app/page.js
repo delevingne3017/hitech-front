@@ -75,9 +75,7 @@ export default function Home() {
         </Box>
         <Box bgcolor={"F7F7F7"}>
           <NewProducts />
-          <p>asdad</p>
           <PopularProducts />
-          <p>asdasdhjasdkjaskdahsds</p>
         </Box>
         <Box>
           <img
