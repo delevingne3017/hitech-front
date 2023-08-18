@@ -4,13 +4,13 @@ import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { Box, Typography } from "@mui/material";
 
 const containerStyle = {
-  width: "950px",
-  height: "700px",
+  width: "100%",
+  minHeight: "400px",
 };
 
 const center = {
-  lat: 47.910093,
-  lng: 106.908877,
+  lat: 47.90771,
+  lng: 106.88324,
 };
 
 function MyComponent() {
