@@ -85,7 +85,6 @@ const ChargeWallet = ({ open, handleClose, ...props }) => {
       const response = await axios.put("/api/user/" + userId, {
         balance: newBalance,
       });
-      console.log("amjillta2", response.data.data);
       setState({
         ...state,
         openSnackBar: true,

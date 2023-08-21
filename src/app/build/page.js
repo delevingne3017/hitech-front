@@ -25,7 +25,6 @@ export default function Build() {
         const filteredProducts = allProducts.filter((product) =>
           product.name.toLowerCase().includes(products.toLowerCase())
         );
-        console.log("data", filteredProducts);
         setProducts(filteredProducts);
       } catch (error) {
         console.error("Error fetching products: ", error);
@@ -35,7 +34,6 @@ export default function Build() {
     fetchProducts();
   }, []);
   const handlechange = (index) => {
-    console.log("index", index);
     setProducts(index);
   };
 
@@ -98,7 +96,6 @@ export default function Build() {
               height={"5rem"}
               borderRadius={"0.6rem"}
               borderColor={"#FE5900"}
-              bgcolor="#F7F7F7"
               marginLeft={"4rem"}
               marginTop={"1rem"}
               sx={{

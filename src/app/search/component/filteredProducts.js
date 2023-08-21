@@ -22,7 +22,8 @@ import { useCallback } from "react";
 export default function FilteredProducts() {
   const { lastSearch } = useSearchContext();
   const [products, setProducts] = useState([]);
-  const { addItemToCart } = useSettings();
+  const { addItemToCart, saveProduct } = useSettings();
+
   const itemsPerPage = 16;
 
   const fetchProducts = useCallback(async () => {
@@ -47,7 +48,9 @@ export default function FilteredProducts() {
   const addToCart = (productId) => {
     addItemToCart(productId);
   };
-
+  const saveProducts = (productId) => {
+    saveProduct(products.find((product) => product._id === productId));
+  };
   const totalPages = Math.ceil(products.length / itemsPerPage);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -136,7 +139,7 @@ export default function FilteredProducts() {
                         <Box
                           display={"flex"}
                           flexDirection="row"
-                          onClick={() => addToCart(product._id)}
+                          onClick={() => saveProducts(product._id)}
                         >
                           <ShoppingBagIcon
                             sx={{ color: "#fffcfa" }}

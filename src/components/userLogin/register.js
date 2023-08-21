@@ -76,30 +76,31 @@ const Register = ({
 
   const handleSubmit = async () => {
     let num = 0;
-    num = validation();
+    num = validation(); // Assuming validation returns 3 on success
     if (num === 3) {
       try {
         const response = await axios.get(`/api/user?email=${email}`);
         if (response.data.success === true) {
+          console.log("Email аль хэдийн бүртгэгдсэн байна.");
           setState({
             openSnackBar: true,
             snackbarText: "Email аль хэдийн бүртгэгдсэн байна.",
           });
-        }
-
-        const createUserResponse = await axios.post("/api/user", {
-          email,
-          password,
-          phone,
-        });
-
-        if (createUserResponse.data.success === true) {
-          setState({
-            ...state,
-            openSnackBar: true,
-            snackbarText: "Амжилттай бүртгэгдлээ.",
+        } else {
+          const createUserResponse = await axios.post("/api/user", {
+            email,
+            password,
+            phone,
           });
-          handleClose();
+
+          if (createUserResponse.data.success === true) {
+            setState({
+              ...state,
+              openSnackBar: true,
+              snackbarText: "Амжилттай бүртгэгдлээ.",
+            });
+            handleClose();
+          }
         }
       } catch (error) {
         console.error(error);
@@ -135,7 +136,7 @@ const Register = ({
           <Typography>Шинээр бүртгэл үүсгэх </Typography>
           <DialogContent>
             <TextField
-              label="Email"
+              label="Имэйл"
               onChange={(e) => setEmail(e.target.value)}
               fullWidth
               margin="normal"
@@ -143,7 +144,7 @@ const Register = ({
               error={!!emailError}
             />
             <TextField
-              label="Password"
+              label="Нууц үг "
               type="password"
               fullWidth
               onChange={(e) => setPassword(e.target.value)}
@@ -152,7 +153,7 @@ const Register = ({
               error={!!passwordError}
             />
             <TextField
-              label="Phone number"
+              label="Утасны дугаар "
               type="integer"
               fullWidth
               onChange={(e) => setPhone(e.target.value)}

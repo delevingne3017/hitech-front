@@ -17,7 +17,7 @@ const SettingsContext = createContext(defaultValues);
 
 export const SettingsProvider = ({ children, ...props }) => {
   const [settings, setSettings] = useState(defaultValues);
-
+  /// payment pages
   const changeOrderPage = (page) => {
     setSettings((s) => ({
       ...s,
@@ -79,7 +79,18 @@ export const SettingsProvider = ({ children, ...props }) => {
       cart: s.cart.filter((e) => e._id !== itemId),
     }));
   };
-
+  //save product
+  const saveProduct = (product) => {
+    setSettings((s) => ({
+      ...s,
+      save: [...s.save, product],
+    }));
+  };
+  const removeProductFromSave = async (itemId) => {
+    setSettings((s) => ({
+      save: s.save.filter((e) => e._id !== itemId),
+    }));
+  };
   useEffect(() => {
     let tmp = localStorage.getItem("settings");
     if (tmp) {
@@ -102,6 +113,8 @@ export const SettingsProvider = ({ children, ...props }) => {
         changeSettings,
         changeOrderPage,
         onChangeOrderValue,
+        saveProduct,
+        removeProductFromSave,
       }}
     >
       {children}
