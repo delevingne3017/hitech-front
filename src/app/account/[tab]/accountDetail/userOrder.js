@@ -66,7 +66,11 @@ export default function UserOrder() {
               </Grid>
               <Grid item xs={12} lg={6}>
                 <Box margin="2rem">
-                  <Typography fontWeight={"bold"} fontSize={"1.2rem"}>
+                  <Typography
+                    fontWeight={"bold"}
+                    fontSize={"1.1rem"}
+                    color="primary"
+                  >
                     Захиалгын дугаар: {item._id}
                   </Typography>
                   <Typography paddingTop={"2rem"} fontSize={".9rem"}>

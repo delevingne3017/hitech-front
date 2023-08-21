@@ -5,6 +5,8 @@ import {
   Button,
   Card,
   CardContent,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -18,14 +20,36 @@ import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrow
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import useSettings from "@/hooks/useSettings";
+
 export default function PopularProducts() {
+  const { addItemToCart, saveProduct } = useSettings();
+  const [isHovered, setIsHovered] = useState(false);
+
   const [state, setState] = useState({
     popularProducts: [],
+    openSnackBar: false,
+    snackbarText: "",
   });
 
   const router = useRouter();
   const handleProduct = (productId) => {
     router.push(`/product/${productId}`);
+  };
+  const addToCart = (productId) => {
+    addItemToCart(
+      state.popularProducts.find((product) => product._id === productId)
+    );
+  };
+  const saveProducts = (productId) => {
+    saveProduct(
+      state.popularProducts.find((product) => product._id === productId)
+    );
+    setState({
+      ...state,
+      openSnackBar: true,
+      snackbarText: "Амжилттай хадгалагдлаа. ",
+    });
   };
   const fetchPopularProducts = async () => {
     try {
@@ -123,6 +147,7 @@ export default function PopularProducts() {
                                     margin={1}
                                     borderRadius={"5rem"}
                                     padding={"0.2rem"}
+                                    onClick={() => saveProducts(item._id)}
                                   >
                                     <FavoriteIcon
                                       sx={{ color: "#fe5900" }}
@@ -183,13 +208,12 @@ export default function PopularProducts() {
                                       margin: "1",
                                       borderRadius: "5rem",
                                       padding: "0.4rem",
+                                      ":hover": { bgcolor: "red" },
                                     }}
+                                    onClick={() => addToCart(item._id)}
+                                    onMouseover={() => setIsHovered(true)}
                                   >
-                                    <Box
-                                      display={"flex"}
-                                      flexDirection="row"
-                                      onClick={() => addToCart(product._id)}
-                                    >
+                                    <Box display={"flex"} flexDirection="row">
                                       <ShoppingBagIcon
                                         sx={{ color: "#fffcfa" }}
                                         width="20"
@@ -197,6 +221,9 @@ export default function PopularProducts() {
                                         size="small"
                                         flexDirection="row"
                                       ></ShoppingBagIcon>
+                                      {isHovered ? (
+                                        <Typography>hi</Typography>
+                                      ) : null}
                                     </Box>
                                   </Box>
                                 </Box>
@@ -331,7 +358,7 @@ export default function PopularProducts() {
                                     <Box
                                       display={"flex"}
                                       flexDirection="row"
-                                      onClick={() => addToCart(product._id)}
+                                      onClick={() => addToCart(item._id)}
                                     >
                                       <ShoppingBagIcon
                                         sx={{ color: "#fffcfa" }}
@@ -376,6 +403,20 @@ export default function PopularProducts() {
             </Box>
           </Button>
         </Box>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={state.openSnackBar}
+          autoHideDuration={1500}
+          onClose={() => setState({ ...state, openSnackBar: false })}
+        >
+          <Alert
+            onClose={() => setState({ ...state, openSnackBar: false })}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            {state.snackbarText}
+          </Alert>
+        </Snackbar>
       </Box>
     </>
   );

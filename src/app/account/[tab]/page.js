@@ -47,10 +47,11 @@ export default function userPage() {
             <nav aria-label="main mailbox folders">
               <List>
                 <ListItem
-                  disablePadding  
+                  disablePadding
                   sx={{
                     borderLeft:
                       activeComponent === "order" ? "5px solid #FE5A03" : null,
+                    color: activeComponent === "order" ? " #FE5A03" : null,
                   }}
                 >
                   <ListItemButton onClick={() => handleClick("order")}>
@@ -65,6 +66,7 @@ export default function userPage() {
                   sx={{
                     borderLeft:
                       activeComponent === "wallet" ? "5px solid #FE5A03" : null,
+                    color: activeComponent === "wallet" ? " #FE5A03" : null,
                   }}
                 >
                   <ListItemButton onClick={() => handleClick("wallet")}>
@@ -81,6 +83,7 @@ export default function userPage() {
                       activeComponent === "product"
                         ? "5px solid #FE5A03"
                         : null,
+                    color: activeComponent === "product" ? " #FE5A03" : null,
                   }}
                 >
                   <ListItemButton onClick={() => handleClick("product")}>
@@ -102,6 +105,7 @@ export default function userPage() {
                       activeComponent === "navProfile"
                         ? "5px solid #FE5A03"
                         : null,
+                    color: activeComponent === "navProfile" ? " #FE5A03" : null,
                   }}
                 >
                   <ListItemButton onClick={() => handleClick("navProfile")}>

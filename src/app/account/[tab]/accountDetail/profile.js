@@ -81,7 +81,7 @@ const NavProfile = () => {
                 label="Нэр"
                 name="firstName"
                 onChange={handleChange}
-                defaultValue={state.firstName}
+                value={state.firstName}
               />
             </FormControl>
           </Grid>
@@ -92,7 +92,7 @@ const NavProfile = () => {
                 label="Овог"
                 name="lastName"
                 onChange={handleChange}
-                defaultValue={state.lastName}
+                value={state.lastName}
               />
             </FormControl>
           </Grid>
@@ -103,7 +103,7 @@ const NavProfile = () => {
                 label="Имэйл"
                 name="email"
                 onChange={handleChange}
-                defaultValue={state.email}
+                value={state.email}
               />
             </FormControl>
           </Grid>
@@ -114,7 +114,7 @@ const NavProfile = () => {
                 label="Утасны дугаар"
                 name="phone"
                 onChange={handleChange}
-                defaultValue={state.phone}
+                value={state.phone}
               />
             </FormControl>
           </Grid>

@@ -46,7 +46,7 @@ export default function FilteredProducts() {
     }
   }, [lastSearch]);
   const addToCart = (productId) => {
-    addItemToCart(productId);
+    addItemToCart(products.find((product) => product._id === productId));
   };
   const saveProducts = (productId) => {
     saveProduct(products.find((product) => product._id === productId));
@@ -124,10 +124,8 @@ export default function FilteredProducts() {
                       justifyContent: "space-between",
                       marginTop: "1rem",
                     }}
-                    color={""}
                   >
                     <Button sx={{}}>
-                      {" "}
                       <Box
                         sx={{
                           bgcolor: "#fe5900",
@@ -139,7 +137,7 @@ export default function FilteredProducts() {
                         <Box
                           display={"flex"}
                           flexDirection="row"
-                          onClick={() => saveProducts(product._id)}
+                          onClick={() => addToCart(product._id)}
                         >
                           <ShoppingBagIcon
                             sx={{ color: "#fffcfa" }}
