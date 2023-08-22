@@ -77,11 +77,13 @@ const Register = ({
   const handleSubmit = async () => {
     let num = 0;
     num = validation(); // Assuming validation returns 3 on success
+
     if (num === 3) {
       try {
-        const response = await axios.get(`/api/user?email=${email}`);
-        if (response.data.success === true) {
-          console.log("Email аль хэдийн бүртгэгдсэн байна.");
+        const response = await axios.get("/api/user"); // Assuming this fetches all users
+        const data = response.data.data;
+        const userWithEmail = data.find((user) => user.email === email);
+        if (userWithEmail) {
           setState({
             openSnackBar: true,
             snackbarText: "Email аль хэдийн бүртгэгдсэн байна.",
@@ -154,7 +156,6 @@ const Register = ({
             />
             <TextField
               label="Утасны дугаар "
-              type="integer"
               fullWidth
               onChange={(e) => setPhone(e.target.value)}
               margin="normal"
