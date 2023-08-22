@@ -63,7 +63,7 @@ const Register = ({
       setPasswordError("");
     }
 
-    const phoneRegex = /^\d{8}$/; // Matches 8 digits
+    const phoneRegex = /^\d{8}$/;
     if (!phoneRegex.test(phone.trim())) {
       setPhoneError("Утасны дугаараа оруулна уу.");
     } else {
@@ -94,12 +94,12 @@ const Register = ({
           });
 
           if (createUserResponse.data.success === true) {
+            handleClose();
             setState({
               ...state,
               openSnackBar: true,
               snackbarText: "Амжилттай бүртгэгдлээ.",
             });
-            handleClose();
           }
         }
       } catch (error) {
