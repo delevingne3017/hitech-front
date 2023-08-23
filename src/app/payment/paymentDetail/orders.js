@@ -47,7 +47,7 @@ const OrderShow = (props) => {
           <Box margin="1rem" color="#FE5900">
             <Box display="flex" margin=".5rem">
               <Typography>Хүргэлт</Typography>
-              <Typography textAlign="right">0</Typography>
+              <Typography textAlign="right">0₮</Typography>
             </Box>
             <Divider />
             <Box display="flex" margin=".5rem" paddingBottom="1rem">

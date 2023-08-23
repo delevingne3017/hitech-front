@@ -140,18 +140,20 @@ export default function Payment() {
                 <Box display="flex" margin=".5rem">
                   <Typography>Барааны үнэ:</Typography>
                   <Typography sx={{ textAlign: "right" }}>
-                    {totalPrice}
+                    {totalPrice}₮
                   </Typography>
                 </Box>
                 <Divider />
                 <Box display="flex" margin=".5rem">
                   <Typography>Хүргэлт:</Typography>
-                  <Typography textAlign="right">0</Typography>
+                  <Typography textAlign="right">0₮</Typography>
                 </Box>
                 <Divider />
                 <Box display="flex" margin=".5rem">
                   <Typography>Нийт:</Typography>
-                  <Typography textAlign="right">{totalPrice}</Typography>
+                  <Typography sx={{ textAlign: "right" }}>
+                    {totalPrice}₮
+                  </Typography>
                 </Box>
                 <Typography>Дээрх үнэд НӨАТ ороогүй болно.</Typography>
               </Box>

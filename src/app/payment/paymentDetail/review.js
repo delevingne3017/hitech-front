@@ -1,9 +1,11 @@
 import useSettings from "@/hooks/useSettings";
 import styled from "@emotion/styled";
 import { Box, Grid, Hidden, Typography } from "@mui/material";
-import React from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import PaymentMethod from "./paymentAcc";
+import axios from "axios";
+import { UserContext } from "@/context/userContext";
 const CustomizedBox = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -19,7 +21,28 @@ const CustomizedBox = styled(Box)(({ theme }) => ({
 }));
 const ReviewOrder = (props) => {
   const { settings } = useSettings();
+  const totalPrice = settings.cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  const { user } = useContext(UserContext);
 
+  const [state, setState] = useState({
+    order: [],
+  });
+
+  const userId = user._id;
+  const showOrder = useCallback(async () => {
+    try {
+      const response = await axios.get("/api/order?id=${userId}");
+      setState({ order: response.data.data });
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+  useEffect(() => {
+    showOrder();
+  }, []);
   return (
     <Grid container>
       <Grid item xs={12} lg={12}>
@@ -39,7 +62,9 @@ const ReviewOrder = (props) => {
           <Typography fontSize="1.5rem" fontWeight="bold" marginTop="1rem">
             Таны захиалгыг хүлээн авлаа
           </Typography>
-          <Typography marginTop="2rem">ЗАХИАЛГЫН ДУГААР :</Typography>
+          <Typography marginTop="2rem">
+            ЗАХИАЛГЫН ДУГААР : {state.order.orderNumber}
+          </Typography>
           <Typography marginTop="1rem">
             Захиалгын төлөв:Төлбөр төлөгдөөгүй
           </Typography>
@@ -144,7 +169,7 @@ const ReviewOrder = (props) => {
                 <Typography fontSize=".8rem">
                   Захиалга хийгдсэнээс хойш 24 цагийн дотор та төлбөрөө төлнө
                   үү! Эс бөгөөс таны захиалга автоматаар цуцлагдах болохыг
-                  анхаарна уу! Шилжүүлэх дүн: 330,000₮ Та төлбөр хийхдээ
+                  анхаарна уу! Шилжүүлэх дүн: {totalPrice}₮ Та төлбөр хийхдээ
                   гүйлгээний утга хэсэгт дараах захиалгын дугаарыг бичнэ үү!
                 </Typography>
                 <Box

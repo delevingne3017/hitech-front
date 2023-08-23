@@ -83,6 +83,7 @@ const Checkout = (props) => {
       }
       changeOrderPage("review");
       localStorage.removeItem("cart");
+      localStorage.clear();
     }
     setState({
       ...state,

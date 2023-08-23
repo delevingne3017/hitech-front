@@ -71,7 +71,7 @@ export default function UserOrder() {
                     fontSize={"1.1rem"}
                     color="primary"
                   >
-                    Захиалгын дугаар: {item._id}
+                    Захиалгын дугаар: {item.orderNumber}
                   </Typography>
                   <Typography paddingTop={"2rem"} fontSize={".9rem"}>
                     Төлөв: Төлбөр төлөгдөөгүй
